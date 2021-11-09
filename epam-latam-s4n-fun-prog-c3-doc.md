@@ -21,12 +21,12 @@
 
 #### Evaluación
 
->>1. Las tuplas son un tipo de dato que representa una producción de tipos muy similar a las clases. La mayor diferencia entre ambos es<<
+>>1. La mayor diferencia entre las tuplas y las clases son<<
 
 ( ) A. Las tuplas no son tipos de datos, son colecciones, mientras que las clases si lo son.
 (x) B. Las tuplas son tipos sin nombres, mientras que las clases son tipos generalmente tienen nombres excepto las anónimas.
 ( ) C. Las tuplas no son recursivas, es decir que sus campos no pueden ser tuplas, mientras que las clases permiten que sus campos (o atributos) sean otras clases.
-( ) D. Las tuplas son mutables, mientras que las clases son inmutables.
+( ) D. 
 
 [explanation]
 La opción a, las tuplas son tipos de datos, es más es una forma construir un tipo de dato a través del producto cartesiano; una clase por definición es un tipo de dato. La opción b, las tuplas no se nombran dentro de los tipos de datos, mientras que las clases cuando se crean se nombran excepto las anónimas. La opción c, las tuplas pueden contener otras tuplas por lo tanto son recursivas. La opción d, por definición no se puede modificar una tupla, se debe crear una nueva.

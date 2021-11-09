@@ -1,4 +1,7 @@
+[//]: # (Definido por Juan Francisco Cardona McCormick)
+
 # Programación funcional con Scala. Tipos de datos inmutables
+
 
 ## M1. Tipos algebraicos
 
