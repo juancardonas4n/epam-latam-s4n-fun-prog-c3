@@ -18,7 +18,7 @@
 
 ##### Concretamente esperamos que aprendas a:
 
-[//]: # (Este es un comentario)
+[//]: # "Este es un comentario"
 
 * Tuplas
 * Tipos de datos algebraicos
@@ -29,7 +29,7 @@
 
 #### Ruta de aprendizaje:
 
-| ------------------------- | ------------------------------------------------------------------- |
+
 | *Objetivo de aprendizaje* | *Actividad de aprendizaje*                                          |
 |          :----:           |                             :----:                                  |
 | ------------------------- | ------------------------------------------------------------------- |
@@ -40,6 +40,7 @@
 
 --------
 
+## M1. Tipos algebraicos
 
 ### U1. Introducción a los tipos de datos inmutables: tuplas
 
@@ -68,27 +69,23 @@
 
 #### Ruta de aprendizaje:
 
-| ------------------------- | ------------------------------------------------------------------- |
-| *Objetivo de aprendizaje* | *Actividad de aprendizaje*                                          |
-|          :----:           |                             :----:                                  |
-| ------------------------- | ------------------------------------------------------------------- |
-| Introducción              | [text]                                                              |
-|                           | [activacion]                                                        |
-| :---                      | :---                                                                |
-| ------------------------- | ------------------------------------------------------------------- |
-| Crear tuplas dentro de la | **Tuplas**                                                          |
-| programación funcional    | [Video] Tuplas, un tipo de dato inmutable muchas veces olvidado     |
-| pura                      | **Acercamiento a las tuplas**                                       |
-|                           | [Notebook] Las tuplas definición y uso                              |
-| ------------------------- | ------------------------------------------------------------------- |
-| Entender la coincidencia  | **Coincidencia de patrones**                                        |
-| de patrones en las tuplas | [Video] Coincidencia de patrones en tuplas                          |
-|                           | **Uso de la coincidencia de patrones**                              |
-|                           | [Notebook] Ejemplos de tuplas y coincidencia de patrones            |
-| ------------------------- | ------------------------------------------------------------------- |
-| Manipular las tuplas      | **Manejo de tuplas**                                                |
-| dentro del programación   | [Video] Manipulación de tuplas                                      |
-| funcional pura            | [Notebook] Manejo y transformación de tuplas                        |
-| ------------------------- | ------------------------------------------------------------------- |
+|               *Objetivo de aprendizaje*               |                  *Actividad de aprendizaje*                  |
+| :---------------------------------------------------: | :----------------------------------------------------------: |
+|                     Introducción                      |                            [text]                            |
+|                                                       |                         [activacion]                         |
+| Crear tuplas dentro de la programación funcional pura |                          **Tuplas**                          |
+|                                                       | [Video] Tuplas, un tipo de dato inmutable muchas veces olvidado |
+|                                                       |                **Acercamiento a las tuplas**                 |
+|                                                       |            [Notebook] Las tuplas definición y uso            |
+|               -------------------------               | ------------------------------------------------------------------- |
+|               Entender la coincidencia                |                 **Coincidencia de patrones**                 |
+|               de patrones en las tuplas               |          [Video] Coincidencia de patrones en tuplas          |
+|                                                       |            **Uso de la coincidencia de patrones**            |
+|                                                       |   [Notebook] Ejemplos de tuplas y coincidencia de patrones   |
+|               -------------------------               | ------------------------------------------------------------------- |
+|                 Manipular las tuplas                  |                     **Manejo de tuplas**                     |
+|                dentro del programación                |                [Video] Manipulación de tuplas                |
+|                    funcional pura                     |         [Notebook] Manejo y transformación de tuplas         |
+|               -------------------------               | ------------------------------------------------------------------- |
 
 --------
