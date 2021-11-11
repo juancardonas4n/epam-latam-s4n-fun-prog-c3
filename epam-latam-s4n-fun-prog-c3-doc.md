@@ -22,18 +22,20 @@
 
 #### Evaluación
 
->>1. La mayor diferencia entre las tuplas y las clases son<<
+>>1. La diferencia entre tuplas y las clases es que<<
 
-( ) A. Las tuplas no son tipos de datos, son colecciones, mientras que las clases si lo son.
-(x) B. Las tuplas son tipos sin nombres, mientras que las clases son tipos generalmente tienen nombres excepto las anónimas.
-( ) C. Las tuplas no son recursivas, es decir que sus campos no pueden ser tuplas, mientras que las clases permiten que sus campos (o atributos) sean otras clases.
-( ) D. Las tuplas permiten que sus campos sean modificados a través de la operación de selección mientras que las clases lo hacen a través de los métodos *setters*.
+( ) A. las tuplas son colecciones, mientras que las clases son tipos de datos.
+(x) B. las tuplas son tipos sin nombres, mientras que las clases son tipos generalmente tienen nombres excepto las anónimas.
+( ) C. las tuplas no son recursivas mientras que las clases permiten que sus campos (o atributos) sean otras clases.
+( ) D. las tuplas permiten que sus campos sean modificados a través de la operación de selección mientras que las clases lo hacen a través de los métodos *setters*.
 
 [explanation]
-La opción a, las tuplas son tipos de datos, es más es una forma construir un tipo de dato a través del producto cartesiano; una clase por definición es un tipo de dato. La opción b, las tuplas no se nombran dentro de los tipos de datos, mientras que las clases cuando se crean se nombran excepto las anónimas. La opción c, las tuplas pueden contener otras tuplas por lo tanto son recursivas. La opción d, las tuplas son imutables por lo tanto estas no pueden ser modificadas, aunque es cierto que las clases puede ser modificadas si tienen métodos *setters* esta opción no es válida por la primera parte de la opción.
+La opción A, las tuplas son tipos de datos pero no son colecciones por que adolecen de iteradores, aunque permitan guardar valores de diferentes tipos y este se construya utilizando una forma normalizada del operador del operador de producto cartesiano; una clase por definición es un tipo de dato. La opción B, una tupla no nombra sus campos, mientras que las clases cuando se crean son ligadas a un identificador excepto cuando se definen clases anónimas. La opción C, las tuplas pueden contener un campo de cualquier tipo y ese tipo puede ser un tipo asociado con una tupla. La opción D, las tuplas son inmutables por lo tanto estas no pueden ser modificadas, aunque es cierto que las clases puede ser modificadas si tienen métodos *setters*.
 [explanation]
 
->>2. La firma de la siguiente función produce una tupla cuyo primer valor es el mismo de entrada ([mathjaxinline]valor[/mathjaxinline]) y el segundo es el valor inverso [mathjaxinline]valor^{-1}[/mathjaxinline]. Construya el cuerpo de la función en scala:<<
+
+
+>>2. La firma de la siguiente función produce una tupla cuyo primer valor es el mismo de entrada (\) y el segundo es el valor inverso $valor^{-1}$. Construya el cuerpo de la función en scala:<<
 
 ```{.scala}
 def obtInv(valor:Double):(Double,Double) = ???
@@ -47,37 +49,33 @@ def obtInv(valor:Double):(Double,Double) = (valor,1.0/valor)
 ```
 [explanation]
 
->>3. La firma de la siguiente función `distRango` produce una tupla binaria donde el segundo campo es otra tupla binaria. El valor del primera tupla es la distancia entre los valores de entrada y la tupla interna devuelve el rango como se puede observar en las siguiente fórmulas:<<
+>>3. La función `distRango` recibe dos valores enteros `a` y `b`, y retorna una tupla binaria donde el segundo campo es otra tupla binaria. El primer campo de tupla externa es computado con la distancia (`dist`) entre ambos valores de entrada cómo se observa en la fórmula a continuación  y  la tupla interna calcula el rango (`rango`) que toma los dos valores iniciales y establece el orden entre ambos, como se observan la función rango a continuación. Implemente `distRango` construyendo las tuplas a partir de `TupleX`.<<
 
 ```{.scala}
 def distRango(a:Int, b:Int):Tuple2[Int,Tuple2[Int,Int]] = ???
 ```
 
-[mathjax]
-dist(a,b) = \mid a - b \mid
-[/mathjax]
+$$
+dist(a,b) =\ \mid a - b \mid
+$$
 
-[mathjax]
-rango(a,b) = \begin{case}(a,b) & \text{Si} a \leq b\\
+$$
+rango(a,b) = \begin{cases}(a,b) & \text{Si}\ a \leq b\\
              (b,a) & \text{En caso contrario} \\
-             \end{case}
-[/mathjax]
-
-
+             \end{cases}
+$$
 
 [explanation]
-El siguiente segmento de código muestra como se construye el cuerpo de la función:
+El siguiente segmento de código muestra cómo se construye el cuerpo de la función:
 
 ```{.scala}
 def distRango(a:Int, b:Int):Tuple2[Int,Tuple2[Int,Int]] = new Tuple2(scala.math.abs(a - b), if (a <= b) new Tuple2(a,b) else new Tuple2(b,a)) 
 ```
 
-Se construye una tulpa de tipo `Tuple2` donde el primer campo es el rango calculado con el valor absoluto. El segundo campo se contruye
-con una expresión de condición que confirme que la condición [mathjaxinline]a \leq b[/mathjaxinline] y esto retorna la tupla conteniendo 
-el rango de `a` y `b` en caso contrario se retorna la tupla conteniendo el rango `b` y `a`.
+Se construye una tupla de tipo `Tuple2` donde el primer campo es el rango calculado con el valor absoluto. El segundo campo se construye con una expresión de condición que confirme que la condición $a \leq b$ y esto retorna la tupla conteniendo el rango de `a` y `b` en caso contrario se retorna la tupla conteniendo el rango `b` y `a`.
 [explanation]
 
->>4. Tomando la siguiente firma, cuál de la siguientes opciones obtiene retorna la tupla más interna de la tupla de u<<
+>>4. Observa la siguiente firma: cuál de la siguientes opciones obtiene retorna la tupla más interna de la tupla de u<<
 
 ```{.scala}
 def funcion(u:((Int,Int),Int,Int)) = u match {
@@ -91,14 +89,16 @@ def funcion(u:((Int,Int),Int,Int)) = u match {
 ( ) D. `case (x,y,z) => (x,z)`
 
 [explanation]
-La opción A es válida, por que la coincidencia de patrones toma el primer campo de la tupla más externa que es realidad la tupla más interna. La opción B no es válida, por que ignora el valor del primer campo de la tupla más externa y devuelve la tupla original. La opción C es válida por que se obtiene con detalle la tupla más interna y se vuelve a construir una copia de la tupla original. La opción D no es válida, por que aunque se contruye una tupla con otra tupla anidada. 
+La opción A es válida, porque la coincidencia de patrones toma el primer campo de la tupla más externa que es realidad la tupla más interna. La opción B no es válida, porque ignora el valor del primer campo de la tupla más externa y devuelve la tupla original. La opción C es válida porque se obtiene con detalle la tupla más interna y se vuelve a construir una copia de la tupla original. La opción D no es válida, porque aunque se construye una tupla con otra tupla anidada. 
 [explanation]
 
->>5. Observe la siguiente firma de la función (`funcion`) esta tiene dos parámetros que son tuplas. Implemente una función donde: si el segundo parámetro de la primera tupla y el primer parámetro de la segunda tupla son cero, sumar los dos restantes elementos restantes, si son uno restarlos y en los demás casos que coincidan multiplicarlos y el caso por omisión retorna cero<<
+>>5. Observa la siguiente firma de la función (`funcion`) <<
 
 ```{.scala}
 def funcion(u:(Int,Int),v:(Int,Int)) = ???
 ```
+
+> > ésta tiene dos parámetros que son tuplas `u`y `v`. Implemente una función (`funcion` ) que verifique si `u._2`y `v._1` cumplen las siguientes condiciones: si son iguales y este es cero (`0`) compute: `u._1 + v._2`, si ambos son uno (`1`) compute: `u._1 - v._2`, si son iguales sin importar que valor (diferente de `0`ó `1`) compute: `u._1 * v._2`, en cualquier otro caso retorne cero (`0`). **Recuerde:** que esta implementación utiliza _coincidencia de patrones_ y no los operadores de selección.<<
 
 [explanation]
 El siguiente es el cuerpo de la función esperada:
@@ -113,11 +113,13 @@ def funcion(u:(Int,Int),v:(Int,Int)) = (u,v) match {
 ```
 [explanation]
 
->> 6. Observe la siguiente expresión e indique el tipo de la expresión obtenida<<
+>> 6. Observa la siguiente expresión:<<
 
 ```{.scala}
 val tupla = new Tuple1(1)
 ```
+
+> > De acuerdo con la información anterior, el tipo de la expresión obtenida es<<
 
 ( ) A. `val tupla: Int = 1`
 ( ) B. `val tupla: (,Int) = (,1)`
@@ -125,11 +127,10 @@ val tupla = new Tuple1(1)
 (x) D. `val tupla:(Int,) = (1,)`
 
 [explanation]
-El rango de una tupla (El número de elementos que ellas puede contener) es desde un único elemento (o *singlenton*) hasta 22 elementos, todos
-ellos de diferentes tipos. El caso particular es la creación de una tupla *singlenton* de tipo entero, por definición del lenguaje el tipo creado es `(Int,)`. La opción A establece que la tupla es de tipo entero. La opción B no es permitida por el lenguaje. La opción C el tipo `(Int)`no existe dentro de Scala. La opción D es la correcta como se explicó previamente.
+El rango de una tupla (El número de elementos que ellas puede contener) es desde un único elemento (o *singlenton*) hasta 22 elementos, todos ellos de diferentes tipos.  El objetivo del ejercicio es mostrar cuál es el tipo creado por una tupla *singlenton* de tipo entero cuya  representación en Scala se obtiene de la siguiente forma: `(Int,)`. La opción A establece que la tupla es de tipo entero. La opción B no está permitida por el lenguaje. La opción C el tipo `(Int)`no existe dentro de Scala. La opción D es la correcta como se explicó previamente.
 [explanation]
 
->>7. Implemente la función (`funcion`) del ejercicio 5. sin utilizar conincidencia de patrones únicamente a través de las operaciones de selección<<
+>>7. Implementa la función (`funcion`) del ejercicio 5 sin utilizar coincidencia de patrones sobre los parámetros sino utilizando únicamente operaciones de selección sobre tuplas.<<
 
 [explanation]
 El siguiente es el código que se implementa
