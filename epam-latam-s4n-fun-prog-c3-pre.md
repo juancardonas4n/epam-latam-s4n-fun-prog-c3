@@ -18,8 +18,6 @@
 
 ##### Concretamente esperamos que aprendas a:
 
-[//]: # "Este es un comentario"
-
 * Tuplas
 * Tipos de datos algebraicos
 
