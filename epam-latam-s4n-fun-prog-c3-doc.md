@@ -24,39 +24,39 @@
 
 Los lenguajes de programación tienen muchas formas de guardar información asociada: como *registers* (registros), *class* (clases) y similares. En esta unidad estudiarás un tipo de dato básico llamados las tuplas, que nos permite guardar información asociada con algunos cambios muy interesantes: *no tienen nombres asociados a cada campo* lo que nos permite utilizarlos de manera dinámica y son *inmutables*, esta última característica es la que revisaremos con más detalle en este curso en particular y observaremos las consecuencias directas de utilizarlo a través de *métodos de selección* o *coincidencia de patrones*, la forma de crearlo a partir del soporte que da el lenguaje o los objetos que nos permite otras formas de creación. **¡Comencemos!**
 
-#### Guía curso
+##### Guía curso
 
 ![](./images/Map_Beta_Scala_03_U0.gif)
 
-#### Vídeo - Introducción a los tipos de datos inmutables
+##### Vídeo - Introducción a los tipos de datos inmutables
 
 Veremos la importancia de los tipos de datos inmutables en general, ampliaremos los conceptos vistos previamente y mostraremos los beneficios de utilizar dichos tipos de datos, introduciendo los tipos que datos que veremos en este curso, que son las tuplas y *tipos de datos algebraicos*.
 
 [Vídeo pendiente de grabación](videos/els4n-fp-scala-c3-m1-u1-01.mp4)
 
-#### Objetivos módulo
+##### Objetivos módulo
 
-##### Lograrás:
+###### Lograrás:
 
 * Aplicar las tuplas en tus programas.
 * Utilizar las tuplas en tus programas.
 
-##### Lo que debes saber:
+###### Lo que debes saber:
 
 * Entender y aplicar el concepto de funciones puras en Scala.
 * Entender y aplicar el concepto de tipos de datos inmutables.
 
-##### Esperamos que aprendas a:
+###### Esperamos que aprendas a:
 
 * Los beneficios de usar tuplas en tus programas.
 * Acceder a los elementos de las tuplas.
 * Construir nuevas tuplas a partir de tuplas existentes.
 
-##### Ruta de aprendizaje:
+###### Ruta de aprendizaje:
 
 * 4 Vídeos.
 * 3 Jupyters Notebooks
-* S4N Insights + Trest
+* S4N Insights + Test
 
 **Tiempo estimado:** 2h 15 min
 
@@ -67,23 +67,57 @@ Veremos la importancia de los tipos de datos inmutables en general, ampliaremos 
 
 ---------
 
-#### Vídeo - La tupla un tipo de dato inmutable muchas veces olvidado
+#### Tuplas
+
+##### Vídeo - La tupla un tipo de dato inmutable muchas veces olvidado
 
 Este vídeo nos mostrará la tupla como un tipo de dato inmutable que permite ser creado dinámicamente según la necesidad del programador permitiendo crear un tipo nuevo sin necesidad de definirlo o declararlo específicamente como se hacen por ejemplo con las clases. Veamos las cosas que se pueden lograr con la tupla y como utilizar su inmutablidad. 
 
-[Video - pendiente de grabacion](videos/els4n-fp-scala-c3-m1-u1-01.mp4)
+[Vídeo pendiente de grabación](videos/els4n-fp-scala-c3-m1-u1-02.mp4)
 
-#### Jupyter Notebook - Tuplas definición y uso
+<!-- 2021/11/17 - 17:37 @Lina En cada una de estas secciones no se debería incluir preguntas especificas cómo se han hecho en secciones anteriores [Estado: Sin resolver]-->
+
+##### Jupyter Notebook - Tuplas definición y uso
 
 Este **Notebook** nos permitirá interactuar con la forma de crear tuplas directamente a través del constructor del lenguaje y a través de los objetos `TupleX` (donde `X` es le indicador de aridad.)
 
 [Jupyter Notebook - pendiente de escribir](notebooks/els4n-c3-m1-u1-nb-01.ipynb)
 
-### U2. Coincidencia de patrones
+<!-- 2021/11/17 - 17:38 @Lina Los notebooks debería tener soluciones en cada uno de sus ejercicios. Entonces, ¿deberíamos tener preguntas extras? [Estado: Sin resolver]-->
 
-#### Vídeo - Coincidencia de patrones en tuplas
+----
 
-Este vídeo te mostrará el uso de la coincidencia de patrones bajo las tuplas
+#### Coincidencia de patrones
+
+##### Vídeo - Coincidencia de patrones en tuplas
+
+Este vídeo te mostrará el uso de la coincidencia de patrones bajo las tuplas, como se utiliza a través del constructor `match` de Scala y como puede ser utilizado en conjunto con la coincidencia de patrones para otros tipos en conjunto con los de tuplas.
+
+[Vídeo pendiente de grabación](videos/els4n-fp-scala-c3-m1-u1-03.mp4)
+
+<!-- 2021/11/17 - 18:23 @Lina En cada una de estas secciones no se debería incluir preguntas especificas cómo se han hecho en secciones anteriores [Estado: Sin resolver]-->
+
+##### Jupyter Notebook - Ejemplos de tuplas y coincidencia de patrones
+
+Este *Notebook* te ayudará a cimentar los conceptos vistos en el vídeo anterior y ponerlos en práctica para aprender a utilizarla en diferentes situaciones que se presenten con estos tipos de datos.
+
+[Jupyter Notebook - pendiente de escribir](notebooks/els4n-c3-m1-u1-nb-02.ipynb)
+
+<!-- 2021/11/17 - 17:38 @Lina Los notebooks debería tener soluciones en cada uno de sus ejercicios. Entonces, ¿deberíamos tener preguntas extras? [Estado: Sin resolver]-->
+
+----
+
+#### Manejo de tuplas
+
+##### Vídeo - Coincidencia de patrones en tuplas
+
+Observarás como se puede manipular las tuplas, en particular al ser tipos de datos inmutables podrás "actualizarlos" creando nuevos a partir de los existentes. 
+
+[Vídeo pendiente de grabación](videos/els4n-fp-scala-c3-m1-u1-04.mp4)
+
+##### Jupyter Notebook - Manejo y transformación de tuplas
+
+Pondrás en práctica todo lo visto en esta unidad a través del manejo de tuplas y la creación de otras tuplas. De esta forma tendrás los conocimientos y el contexto para aprender a manejar otros tipos de datos inmutables. 
 
 ----
 
