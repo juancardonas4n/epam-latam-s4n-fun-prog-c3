@@ -38,6 +38,8 @@ Veremos la importancia de los tipos de datos inmutables en general, ampliaremos 
 
 ###### Lograrás:
 
+<!--Hacer más específicio los objetivos-->
+
 * Aplicar las tuplas en tus programas.
 * Utilizar las tuplas en tus programas.
 
@@ -53,6 +55,8 @@ Veremos la importancia de los tipos de datos inmutables en general, ampliaremos 
 * Construir nuevas tuplas a partir de tuplas existentes.
 
 ###### Ruta de aprendizaje:
+
+<!--La ruta de aprendizaje: a que va atenerse en la unidad. La ruta. No es la cantidad.-->
 
 * 4 Vídeos.
 * 3 Jupyters Notebooks
@@ -75,15 +79,15 @@ Este vídeo nos mostrará la tupla como un tipo de dato inmutable que permite se
 
 [Vídeo pendiente de grabación](videos/els4n-fp-scala-c3-m1-u1-02.mp4)
 
-<!-- 2021/11/17 - 17:37 @Lina En cada una de estas secciones no se debería incluir preguntas especificas cómo se han hecho en secciones anteriores [Estado: Sin resolver]-->
+<!-- 2021/11/17 - 17:37 @Lina En cada una de estas secciones no se debería incluir preguntas especificas cómo se han hecho en secciones anteriores [Estado: Resuelto. Si se van hacer pregunta.]-->
 
 ##### Jupyter Notebook - Tuplas definición y uso
 
-Este **Notebook** nos permitirá interactuar con la forma de crear tuplas directamente a través del constructor del lenguaje y a través de los objetos `TupleX` (donde `X` es le indicador de aridad.)
+Este **Notebook** nos permitirá interactuar con la forma de crear tuplas directamente a través del constructor del lenguaje y a través de los objetos `TupleX` (donde `X` es el indicador de aridad.)
 
 [Jupyter Notebook - pendiente de escribir](notebooks/els4n-c3-m1-u1-nb-01.ipynb)
 
-<!-- 2021/11/17 - 17:38 @Lina Los notebooks debería tener soluciones en cada uno de sus ejercicios. Entonces, ¿deberíamos tener preguntas extras? [Estado: Sin resolver]-->
+<!-- 2021/11/17 - 17:38 @Lina Los notebooks debería tener soluciones en cada uno de sus ejercicios. Entonces, ¿deberíamos tener preguntas extras? [Estado: Resuelto.]-->
 
 ----
 
