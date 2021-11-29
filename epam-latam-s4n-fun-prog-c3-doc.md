@@ -114,7 +114,7 @@ Este *Notebook* te ayudará a cimentar los conceptos vistos en el vídeo anterio
 
 #### Manejo de tuplas
 
-##### Vídeo - Coincidencia de patrones en tuplas
+##### Vídeo - Manipulación de tuplas
 
 Observarás como se puede manipular las tuplas, en particular al ser tipos de datos inmutables podrás "actualizarlos" creando nuevos a partir de los existentes. 
 
