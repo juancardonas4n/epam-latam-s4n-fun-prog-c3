@@ -86,7 +86,7 @@ Este vídeo nos mostrará la tupla como un tipo de dato inmutable que permite se
 
 Este **Notebook** nos permitirá interactuar con la forma de crear tuplas directamente a través del constructor del lenguaje y a través de los objetos `TupleX` (donde `X` es el indicador de aridad.)
 
-[Jupyter Notebook - primera versión escrita](notebooks/els4n-c3-m1-u1-nb-01.ipynb)
+[Jupyter Notebook - Tuplas definición y uso](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u1-nb-01.ipynb)
 
 <!-- 2021/11/17 - 17:38 @Lina Los notebooks debería tener soluciones en cada uno de sus ejercicios. Entonces, ¿deberíamos tener preguntas extras? [Estado: Resuelto.]-->
 
