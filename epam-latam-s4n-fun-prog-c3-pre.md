@@ -32,8 +32,6 @@
 |          :----:           |                             :----:                                  |
 | ------------------------- | ------------------------------------------------------------------- |
 | Bienvenida                | [Texto] Antes de iniciar                                            |
-|                           |                                                                     |
-| :---                      | :---                                                                |
 | ------------------------- | ------------------------------------------------------------------- |
 
 --------
@@ -67,23 +65,73 @@
 
 #### Ruta de aprendizaje:
 
-|               *Objetivo de aprendizaje*               |                  *Actividad de aprendizaje*                  |
-| :---------------------------------------------------: | :----------------------------------------------------------: |
-|                     Introducción                      |                            [text]                            |
-|                                                       |                         [activacion]                         |
-| Crear tuplas dentro de la programación funcional pura |                          **Tuplas**                          |
-|                                                       | [Video] Tuplas, un tipo de dato inmutable muchas veces olvidado |
-|                                                       |                **Acercamiento a las tuplas**                 |
-|                                                       |            [Notebook] Las tuplas definición y uso            |
-|               -------------------------               | ------------------------------------------------------------------- |
-|               Entender la coincidencia                |                 **Coincidencia de patrones**                 |
-|               de patrones en las tuplas               |          [Video] Coincidencia de patrones en tuplas          |
-|                                                       |            **Uso de la coincidencia de patrones**            |
-|                                                       |   [Notebook] Ejemplos de tuplas y coincidencia de patrones   |
-|               -------------------------               | ------------------------------------------------------------------- |
-|                 Manipular las tuplas                  |                     **Manejo de tuplas**                     |
-|                dentro del programación                |                [Video] Manipulación de tuplas                |
-|                    funcional pura                     |         [Notebook] Manejo y transformación de tuplas         |
-|               -------------------------               | ------------------------------------------------------------------- |
+|                   *Objetivo de aprendizaje*                 |                         *Actividad de aprendizaje*                  |
+| :---------------------------------------------------------: | :-----------------------------------------------------------------: |
+|                        Introducción                         |                                   [text]                            |
+|                                                             |                                [activacion]                         |
+|    Crear tuplas dentro de la programación funcional pura    |                                 **Tuplas**                          |
+|                                                             |   [Video] Tuplas, un tipo de dato inmutable muchas veces olvidado   |
+|                                                             |                  **Acercamiento a las tuplas**                      |
+|                                                             |              [Notebook] Las tuplas definición y uso                 |
+|                   -------------------------                 | ------------------------------------------------------------------- |
+|    Entender la coincidencia de patrones en las tuplas       |                        **Coincidencia de patrones**                 |
+|                                                             |                 [Video] Coincidencia de patrones en tuplas          |
+|                                                             |                   **Uso de la coincidencia de patrones**            |
+|                                                             |          [Notebook] Ejemplos de tuplas y coincidencia de patrones   |
+|                   -------------------------                 | ------------------------------------------------------------------- |
+| Manipular las tuplas dentro del programación funcional pura |                            **Manejo de tuplas**                     |
+|                                                             |                       [Video] Manipulación de tuplas                |
+|                                                             |                [Notebook] Manejo y transformación de tuplas         |
+|                     -------------------------               | ------------------------------------------------------------------- |
 
---------
+---
+
+### U2. Tipos de datos algebraicos
+
+#### Objetivos
+
+##### Lograrás:
+
+* Entender y utilizar los tipos de datos algebraicos (*Algebraic Data Types*), su estructura y su uso.
+
+##### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Definición de tuplas.
+* Definición de inmutabilidad de datos.
+
+##### Concretamente esperamos que aprendas a:
+
+* Definir tus tipos de datos algebraicos y relacionarlas con tuplas.
+* Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas.
+* Generalizar los tipos de datos algebraicos.
+
+#### Tiempo estimado:
+
+1 3/4 de hora
+
+#### Ruta de aprendizaje:
+
+|                  *Objetivo de aprendizaje*                   |                  *Actividad de aprendizaje*                  |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        *Introducción*                        |                            [text]                            |
+|                                                              |                         [activacion]                         |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+| Definir tus tipos de datos algebraicos y a relacionarlas con tuplas |                  **Construcción de tipos**                   |
+|                                                              | [Infograma] Tipos de datos: productos, coproductos, uniones, constructores de tipos y constructores de valores [Texto] Explicación corta. |
+|                                                              |           **Tipos de datos algebraicos y tuplas**            |
+|                                                              |        [Video] Definiendo tipos de datos algebraicos         |
+| Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |         **Aplicación de tipos de datos algebraicos**         |
+|                                                              | [Video] Definición y aplicación de tipos de datos algebraicos Haskell |
+|                                                              | [Video] Definición y aplicación de tipos de datos algebraicos Scala. |
+|                                                              |      **Uso y aplicación de tipos de datos algebraicos**      |
+|                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
+|                                                              |         [Video] Jerarquía de tipos y generalización          |
+|                                                              |     [Video] Jerarquía de tipos y generalización en Scala     |
+|                                                              |         [Notebook] Uso de la generalización de tipos         |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+
