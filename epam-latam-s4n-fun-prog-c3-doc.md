@@ -126,7 +126,7 @@ Cada operación que modifique el estado del computador, como memoria, entrada y 
 
 [x]. Tuplas
 
-[x]. Tipos de datos inmutables
+[x]. Tipos de datos algebraicos
 
 [ ]. Arreglos
 
@@ -134,7 +134,7 @@ Cada operación que modifique el estado del computador, como memoria, entrada y 
 
 [explanation]
 
-Las tuplas y los tipos de datos algebraicos son inmutables
+Por definición de lenguaje de programación, las tuplas y los tipos de datos algebraicos son inmutables, es decir, no tienen operaciones de modificación.
 
 [explanation]
 
@@ -292,7 +292,9 @@ Observarás como se puede manipular las tuplas, en particular al ser tipos de da
 val tpl @ (_,b,3) = (1,2,3)
 tpl._2 * b - tpl._3
 ```
+
 >>Cuál es el resultado de la expresión evaluada en la última línea<<
+
 ( ) A. 6
 ( ) B. 4
 ( ) C. 2
@@ -315,7 +317,7 @@ tpl2 match {
 }
 ```
 
-> > Cuál es el valor retornado por la expresión<<
+>> Cuál es el valor retornado por la expresión<<
 
 ( ) A. 1
 (x) B. 2
