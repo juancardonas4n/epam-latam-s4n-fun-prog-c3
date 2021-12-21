@@ -315,6 +315,8 @@ tpl2 match {
 }
 ```
 
+> > Cuál es el valor retornado por la expresión<<
+
 ( ) A. 1
 (x) B. 2
 ( ) C. 3
@@ -336,9 +338,11 @@ Pondrás en práctica todo lo visto en esta unidad a través del manejo de tupla
 ###### Pregunta Jupyter Notebook - Manejo y transformación de tuplas
 
 1.
->>Cuáles de los siguientes códigos invierte el tipo del parámetro de entrada<<
+
+>>Cuáles de los siguientes códigos invierte el tipo del parámetro de entrada y su valor<<
 
 [x] A.
+
 ```scala
 def invertir(tpl:(Int,Double,Bool)) = (tpl._3,tpl._2,tpl._1)
 ```
