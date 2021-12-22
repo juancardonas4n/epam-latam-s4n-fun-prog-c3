@@ -46,7 +46,7 @@ Observarás la importancia de los tipos de datos inmutables en general, también
 
 [Vídeo pendiente de edición](videos/els4n-fp-scala-c3-m1-u1-01.mp4)
 
-##### Objetivos módulo
+##### Objetivos de la unidad
 
 ###### Lograrás:
 
@@ -532,4 +532,59 @@ Estas y otras más características nos muestran la importancia las tuplas, y de
 
 #### Introducción
 
-El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo trabajas preferentemente con clases, registros, estructuras, objetos, etc. En esta unidad ampliaremos el espectro de como se crean los tipos de datos y explicaremos dos técnicas de construcción de tipos de datos que son los productos (ya observados cuando estudiamos tuplas) y los 
+El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo trabajas preferentemente con clases, registros, estructuras, objetos, etc. En esta unidad, volveremos rápidamente sobre un tema teórico que es la construcción de tipos de datos y explicaremos dos técnicas de construcción de tipos de datos que son los productos (ya observados cuando estudiamos tuplas) y la suma; te mostraremos que los tipos de datos algebraicos requiere de dos mecanismos, un constructor de tipo y un constructor de valores.
+
+En la primera, vamos ampliar el sistema de tipos de nuestro lenguaje de programación y para ello definiremos 
+
+##### Guía del curso
+
+![](./images/Map_Beta_Scala_03_U0.gif)
+
+##### Objetivos de la unidad
+
+###### Lograrás:
+
+* Entender y utilizar los tipos de datos algebraicos (*Algebraic Data Types*), su estructura y su uso.
+
+###### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Definición de tuplas.
+* Definición de inmutabilidad de datos.
+
+###### Esperamos que aprendas a:
+
+* Definir tus tipos de datos algebraicos y relacionarlas con tuplas.
+* Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas.
+* Generalizar los tipos de datos algebraicos.
+
+###### Ruta de aprendizaje:
+
+* Fundamentos
+  * Construcción de tipos de datos por suma y productos
+  * Definición de tipos de datos algebracios
+  * Constructores de tipos y de valores de tipos
+  * Coincidencia de patrones en tipos de datos algebraicos
+  * Manipulación de tipos de datos algebraicos
+  * Generalización de tipos de datos algebraicos
+* Práctica
+  * Construcción y creación de tipos de datos algebraicos
+  * Ejemplos de tuplas y coincidencia de patrones
+  * Generalización de  tipos de datos algebraicos
+* Evaluación
+* Cierre
+
+**Tiempo estimado:** 1h 45 min
+
+
+![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/TitularCastor_comencemos.png)
+
+---
+
+#### Construcción de tipos
+
+![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/Infograma-TiposDeDatos-I-1.png)
+
+Puedes observar que el primer figura te mostramos algo que ya conoces cómo es la asociación entre los tipos de dato y conjuntos. Básicamente un tipo de dato es un conjunto, el nombre el tipo son los valores
