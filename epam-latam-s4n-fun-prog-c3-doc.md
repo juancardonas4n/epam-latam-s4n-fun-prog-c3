@@ -81,7 +81,7 @@ Observarás la importancia de los tipos de datos inmutables en general, también
 **Tiempo estimado:** 2h 15 min
 
 
-![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/TitularCastor_comencemos.png)
+![](./images/TitularCastor_comencemos.png)
 
 ---------
 
@@ -579,13 +579,13 @@ En la primera, vamos ampliar el sistema de tipos de nuestro lenguaje de programa
 **Tiempo estimado:** 1h 45 min
 
 
-![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/TitularCastor_comencemos.png)
+![](./images/TitularCastor_comencemos.png)
 
 ---
 
 #### Construcción de tipos
 
-![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/Infograma-TiposDeDatos-I-1.png)
+![](./images/Infograma-TiposDeDatos-I.png)
 
 Puedes observar que el primer figura te mostramos algo que ya conoces cómo es la asociación entre los tipos de datos y conjuntos. Básicamente un tipo de dato es un conjunto y sus elementos son sus valores. Puedes observar que hay dos elementos: *el constructor de tipo* que es básicamente el nombre que utilizar ese nuevo tipo en nuestro *sistema de tipos* y los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*. 
 
@@ -593,7 +593,7 @@ Observemos ahora la parte referente a la tupla, esta es un tipo de dato *compues
 
 Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* y *producto*, no de forma exclusiva, se pueden utilizar ambas. Y aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, problamente utilizaremos un tipo parecido: $Double \times Double \times Double$. ¿Qué podríamos hacer para diferenciar ambos tipos? Muy  probablemente menciones que podríamos utilizar el alias y que lo podríamos indicar de esta forma para cada tipo: `type Coord3D = (Double, Double, Double)`  y `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distitos para un mismo tipo, pero no podemos restrigir su entrada a funciones que trabajen distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal`, podríamos la misma tupla de 3 valores a las dos funciones, sin distinguir de que tipo realmente estamos trabajando. 
 
-![](/home/juancardona/Workbench/epam-latam-s4n-fun-prog-c3/images/Infograma-TiposDeDatos-II-1.png)
+![](./images/Infograma-TiposDeDatos-II.png)
 
 Es por ello que los tipos de datos algebraicos cambian la  forma de obtener el nuevo tipo (*constructor de tipo*) y de manipular los valores, se obtiene para ello *constructores de valor*. En gráfica anterior se observa esto en particular para construir dos tipos de datos nuevos: `Coordenada`y `RGB`. El primer tipo, `Coordenada` muestra la forma en Scala 2.0 como se construye el tipo en particular, utilizando para ello los **`traits`** que son interfaces, que contienen un nombre (que representará el nuevo tipo) y los constructores de valores, que en esta caso tenemos uno solo `Punto`. El constructor de valor `Punto`identificar cuáles serán sus funciones de acceso: `.x` y `.y`, pero como sucede con las tuplas los tipos de datos algebraicos son también **inmutables**.
 
