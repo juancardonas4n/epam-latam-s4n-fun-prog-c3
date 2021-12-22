@@ -124,13 +124,13 @@
 |                                                              |           **Tipos de datos algebraicos y tuplas**            |
 |                                                              |        [Video] Definiendo tipos de datos algebraicos         |
 | Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |         **Aplicación de tipos de datos algebraicos**         |
-|                                                              | [Video] Definición y aplicación de tipos de datos algebraicos Haskell |
+|                                                              | [Infograma] Definición y aplicación de tipos de datos algebraicos Haskell [Texto] Explicación corta |
 |                                                              | [Video] Definición y aplicación de tipos de datos algebraicos Scala. |
 |                                                              |      **Uso y aplicación de tipos de datos algebraicos**      |
 |                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
-|                                                              |         [Video] Jerarquía de tipos y generalización          |
+|                                                              | [Infograma] Jerarquía de tipos y generalización [Texto] Explicación corta |
 |                                                              |     [Video] Jerarquía de tipos y generalización en Scala     |
 |                                                              |         [Notebook] Uso de la generalización de tipos         |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |

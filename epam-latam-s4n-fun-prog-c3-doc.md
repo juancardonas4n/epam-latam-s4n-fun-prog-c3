@@ -532,5 +532,4 @@ Estas y otras más características nos muestran la importancia las tuplas, y de
 
 #### Introducción
 
-El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo trabajas preferentemente con clases, registros, estructuras, objetos, etc. En esta unidad te presentaremos los tipos de datos algebraicos y al final de la misma te parecerán que son una consecuencia justa
-
+El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo trabajas preferentemente con clases, registros, estructuras, objetos, etc. En esta unidad ampliaremos el espectro de como se crean los tipos de datos y explicaremos dos técnicas de construcción de tipos de datos que son los productos (ya observados cuando estudiamos tuplas) y los 
