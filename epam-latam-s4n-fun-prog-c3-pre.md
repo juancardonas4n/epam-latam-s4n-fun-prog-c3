@@ -104,7 +104,7 @@
 
 ##### Concretamente esperamos que aprendas a:
 
-* Definir tus tipos de datos algebraicos y relacionarlas con tuplas.
+* Definir tus tipos de datos algebraicos.
 * Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas.
 * Generalizar los tipos de datos algebraicos.
 
@@ -121,17 +121,17 @@
 |                  -------------------------                   | ------------------------------------------------------------------- |
 | Definir tus tipos de datos algebraicos y a relacionarlas con tuplas |                  **Construcción de tipos**                   |
 |                                                              | [Infograma] Tipos de datos: productos, coproductos, uniones, constructores de tipos y constructores de valores [Texto] Explicación corta. |
-|                                                              |           **Tipos de datos algebraicos y tuplas**            |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|                                                              |                **Tipos de datos algebraicos**                |
 |                                                              |        [Video] Definiendo tipos de datos algebraicos         |
-| Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |         **Aplicación de tipos de datos algebraicos**         |
-|                                                              | [Infograma] Definición y aplicación de tipos de datos algebraicos Haskell [Texto] Explicación corta |
-|                                                              | [Video] Definición y aplicación de tipos de datos algebraicos Scala. |
-|                                                              |      **Uso y aplicación de tipos de datos algebraicos**      |
+| Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |     **Aplicación  y uso de tipos de datos algebraicos**      |
+|                                                              | [Infograma] Aplicación y uso de tipos de datos algebraicos Haskell [Texto] Explicación corta |
+|                                                              | [Video] Aplicación y uso de tipos de datos algebraicos Scala 2.0 |
+|                                                              | **Práctica de aplicación y uso de tipos de datos algebraicos** |
 |                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
 |                                                              | [Infograma] Jerarquía de tipos y generalización [Texto] Explicación corta |
-|                                                              |     [Video] Jerarquía de tipos y generalización en Scala     |
-|                                                              |         [Notebook] Uso de la generalización de tipos         |
+|                                                              | [Notebook] Uso de la generalización de tipos <--! Adicionar evaluación y test --> |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 

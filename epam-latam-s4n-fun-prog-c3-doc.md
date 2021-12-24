@@ -179,6 +179,14 @@ val res0: Int =
 
    [explanation]
 
+###### Cierre Jupyter Notebook
+
+![](./images/VEA.jpg)
+
+Las **tuplas** te permitirán en tus programas definir contenedores de datos relacionados, que no requieren un **nombre de tipo específico** y mucho menos **definiciones** de dichos tipos, tienen un mecanismo sencillo de acceso a través de su funciones de **accedencia**, numeradas por cada posición. Y también te permitirá mantener tus **funciones puras** de forma que cuando requieres retornar más de un valor dentro de la función lo puedes hacer fácilmente utilizando una **tupla** que contiene los valores necesarios.
+
+> ¡Continuemos con un vídeo! >> 
+
 ----
 
 #### Coincidencia de patrones
@@ -274,6 +282,14 @@ def obtNotaEst(est:Est):Double =
 La primera opción no es válida, por que no se puede multiplicar dos tuplas completas. La segunda opción no es válida por que las funciones de acceso de cada elemento comienza en ._1 y por cada elemento tiene su correspondiente en su elemento. La tercera opción es válida por que accede a cada elemento de la tupla interna y la multiplica con su correspondiente valor ponderado. La cuarta es incorrecta por que la expresión multiplica las ponderaciones y luego se las suma a las notas.
 
 [explanation]
+
+###### Cierre Jupyter Notebook
+
+![](./images/VEA.jpg)
+
+Como has observado, las **tuplas** tienen funciones de **accedencia** que permiten acceder ordenamente  a los elementos de la misma. Pero, en muchas ocasiones, cuando una tupla tiene tuplas **anidadas**, no es fácil acceder a los elementos más profundos, por esto nos exige precisión sobre la función de accedencia más externa y luego visualizar correctamente la función de accedencia más interna. Es aquí, cuando la **coincidencia de patrones** nos ayuda a manejar este y otros aspectos con mayor fácilidad, por que nos permite veríficar si una tupla sigue una estructura de anidamiento específica, nos permite preguntar directamente sobre su contenido, al hacer coincidencia sobre valores *literales*, asignar el contenido de una posición de una tupla a una variable, realizar comparaciones a través de **guardas** (`if`), he ignorar elementos a través de **comodines**. Con una característica que a veces nos pasa de largo y es que una coincidencia de patrones es una **expresión** que produce un valor lo que permite ser parte de una expresión más grande.
+
+> ¡Continuemos con un vídeo! >> 
 
 ----
 
@@ -375,11 +391,20 @@ La primera opción es valida, por que utilizando funciones de acceso, crear una 
 
 [explanation]
 
+###### Cierre Jupyter Notebook
+
+![](./images/VEA.jpg)
+
+Para muchos de nosotros la inmutabilidad de las tuplas, puede ser aparentemente un problema, puesto que estamos enseñados a cambiar el estado de un objeto a través sus métodos. Pero una de las ventajas de las tuplas es que no tenemos que preocuparnos de *quien* pueda cambiarla, puesto que la inmutabilidad lo impide, la tupla una vez creada permencerá sin cambio durante toda la ejecución del programa. Si requerimos nueva información, **simplemente la creamos, no la modificamos** (principio de la inmutabilidad). En el caso de la  tuplas, esto puede ser un poco tedioso, puesto que si queremos obtener una tupla nueva a partir de una tupla anterior, debemos copiar uno a uno los elemento de la nueva tupla basados en la anterior, utilizando para ello, las funciones de accedencia o la coincidencia de patrones. El lenguaje nos ayuda a través del **operador de copia**, que se encarga de crear una nueva tupla con los valores anteriores y a través de las **funciones de proyección** podamos cambiar aquellas cosas que deben cambiar para la nueva tupla, sin tener que copiar los cada uno de los valores de manera individual.
+
+> ¡Ahora pasemos a evaluar lo aprendido! >> 
+
 ----
 
-## Evaluación
+#### Evaluación
 
 1.
+
 >>La diferencia entre tuplas y las clases es que<<
 
 ( ) A. las tuplas son colecciones, mientras que las clases son tipos de datos.
@@ -506,7 +531,7 @@ def funcion(u:(Int,Int),v:(Int,Int)) = if (u._2 == v._1)
 
 ---
 
-## Cierre
+#### Cierre
 
 La mayoría de programadores optamos por utilizar tipos de datos como registros o clases y evitamos utilizar las tuplas, debido a que estas no se equiparan en la flexibilidad que tiene las clases. Pero las tuplas, como lo hemos visto tienen características muy interesantes que las hacen muy útiles, la primera de ellas es la capacidad de *retornar varios valores dentro de una tupla*, esto está en la línea directa con una de las características de las funciones puras, como la de una función pura debe retornar un único valor, y en este caso las tuplas ayudan para retornar es único valor.
 
@@ -516,7 +541,7 @@ Una tercera característica es la flexibilidad que tienen para crear colecciones
 
 Estas y otras más características nos muestran la importancia las tuplas, y de la inmutabilidad, que más adelante nos facilitará crear aplicaciones que consuman gran cantidad de datos. 
 
-### ¿Quieres saber más?
+##### ¿Quieres saber más?
 
 * [¿Qué son las tuplas? (Inglés)](https://whatis.techtarget.com/definition/tuple)
 * [Tuplas definición de Wikipedia](https://es.wikipedia.org/wiki/Tupla)
@@ -524,7 +549,7 @@ Estas y otras más características nos muestran la importancia las tuplas, y de
 * [Tuplas en Scala (Inglés)](https://www.geeksforgeeks.org/scala-tuple/)
 * [Tuplas en Scala comandos (Inglés)](https://www.tutorialspoint.com/scala/scala_tuples.htm)
 
-### EPAM Insights
+##### EPAM Insights
 
 ---
 
@@ -598,6 +623,16 @@ Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que 
 Es por ello que los tipos de datos algebraicos cambian la  forma de obtener el nuevo tipo (*constructor de tipo*) y de manipular los valores, se obtiene para ello *constructores de valor*. En gráfica anterior se observa esto en particular para construir dos tipos de datos nuevos: `Coordenada`y `RGB`. El primer tipo, `Coordenada` muestra la forma en Scala 2.0 como se construye el tipo en particular, utilizando para ello los **`traits`** que son interfaces, que contienen un nombre (que representará el nuevo tipo) y los constructores de valores, que en esta caso tenemos uno solo `Punto`. El constructor de valor `Punto`identificar cuáles serán sus funciones de acceso: `.x` y `.y`, pero como sucede con las tuplas los tipos de datos algebraicos son también **inmutables**.
 
 El tipo de dato `RGB` utiliza también de un **`trait`** (`RGB`) para definir el constructor de tipo, pero en este caso realiza la definición de diferentes valores que tiene el tipo en particular, en este caso utiliza un `case object`para indicar que cada uno de ellos: `Red`, `Green`y `Blue` son valores, pero adicionalmente cada uno de los tres esta utilizando el operador suma, por que cada definición añade un valor nuevo al tipo `RGB`.
+
+#### Tipos de datos algebraicos y tuplas
+
+##### Video - Definiendo tipos de datos algebraicos
+
+En este vídeo mostraremos con más detalle la creación de tipos de datos algebraicos en varios lenguajes: Haskell, Scala (2.0 y 3.0). También observaremos, el uso de los métodos de acceso que nos permite acceder al contenido.
+
+[Por grabar](./videos/edited/)
+
+##### Aplicación de tipos de datos algebraicos
 
 
 
