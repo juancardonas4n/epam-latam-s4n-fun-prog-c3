@@ -15,7 +15,6 @@
 * Estamos en versión Beta. Nos interesa probar los contenidos y las actividades.
 * Esperamos feedback de tu parte. Los comentarios podrás agregarlos en este [Sheets](https://docs.google.com/spreadsheets/d/1bU9sgtsiyLLlSSp8jrS84ZZMJ5IihNNDnbuURxk3hLk/edit?usp=sharing).
 
-
 ## M1. Tipos algebraicos
 
 ### U1. Introducción a los tipos de datos inmutables: tuplas
@@ -624,16 +623,129 @@ Es por ello que los tipos de datos algebraicos cambian la  forma de obtener el n
 
 El tipo de dato `RGB` utiliza también de un **`trait`** (`RGB`) para definir el constructor de tipo, pero en este caso realiza la definición de diferentes valores que tiene el tipo en particular, en este caso utiliza un `case object`para indicar que cada uno de ellos: `Red`, `Green`y `Blue` son valores, pero adicionalmente cada uno de los tres esta utilizando el operador suma, por que cada definición añade un valor nuevo al tipo `RGB`.
 
-#### Tipos de datos algebraicos y tuplas
+#### Tipos de datos algebraicos
 
 ##### Video - Definiendo tipos de datos algebraicos
 
-En este vídeo mostraremos con más detalle la creación de tipos de datos algebraicos en varios lenguajes: Haskell, Scala (2.0 y 3.0). También observaremos, el uso de los métodos de acceso que nos permite acceder al contenido.
+En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
 [Por grabar](./videos/edited/)
 
-##### Aplicación de tipos de datos algebraicos
+###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
 
+<!-- TODO: Definir las 2 preguntas del vídeo de tipos de datos algebraicos -->
 
+#### Aplicación y uso de tipos de datos algebraicos
 
- 
+##### Infograma - Aplicación y uso de tipos de datos algebraicos
+
+<!-- TODO: Definir el infograma -->
+
+##### Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
+
+En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
+
+[Por grabar](./videos/edited/)
+
+###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
+
+<!-- TODO: Definir las 2 preguntas del vídeo definición de tipos de datos algebraicos -->
+
+#### Práctica de aplicación y uso de tipos de datos algebraicos
+
+##### Jupyter Notebook - Tipos de datos algebraicos en Scala
+
+En este *notebook* pondrás en práctica todo lo visto en esta unidad a través de varios ejercicios que te permitan construir tipos de datos algebraicos por medio del producto, suma y ambos. También utilizarás lo aprendido en el vídeo anterior de cómo crear nuevos tipos de datos algebraicos a partir del contenido de los anteriores y a recordar como utilizar la composición de funciones.
+
+[Jupyter Notebook - Aplicación de tipos de datos algebraicos - Local](notebook/els4n-fp-c3-m1-u2-nb-01.ipynb)
+
+###### Pregunta Jupyter Notebook - Aplicación de tipos de datos algebraicos
+
+1. Se tiene definido un tipo de algebraico de la siguiente forma:
+
+   ```scala
+   sealed trait UnTDA
+   final case class  CValor1(a:Int,b:Double,c:Boolean) extends UnTDA
+   final case class  CValor2(d:Double,e:Int) extends UnTDA
+   final case class  CValor3(f:Int) extends UnTDA
+   final case object CValor4 extends UnTDA
+   ```
+
+>>Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
+
+[ ] A.
+
+```scala
+def a(unTDA:UnTDA):Int = unTDA.productArity
+```
+[ ] B.
+
+```scala
+def b(unTDA:UnTDA):Int = unTDA match {
+   case (a,b,c)  => 3
+   case (d,e)    => 2
+   case (f)      => 1
+   case _        => 0
+}
+```
+[x]. C.
+
+```scala
+def c(unTDA:UnTDA):Int = unTDA match {
+    case CValor1(_,_,_) => 3
+    case CValor2(_,_)   => 2
+    case CValor3(_)     => 1
+    case CValor4        => 0
+}
+```
+
+[x]. D.
+
+```scala
+def d(unTDA:UnTDA):Int = unTDA match {
+    case s @ CValor1(a,b,c) => 3
+    case t @ CValor2(d,e)   => 2
+    case u @ CValor3(f)     => 1
+    case _                  => 0
+}
+```
+
+[explanation]
+
+La primera opción funciona si el tipo de dato es una tupla, pero en este caso no es válido, por que trabajamos con tipos de datos algebraicos. La segunda opción indica que trabaja en la estructura de producto de cada uno de los constructores, pero nuevamente funcionaría si fuera una tupla. La tercera opción es correcta, puesto que en cada caso mira la forma de los constructores de valores del tipo `UnTDA` y  no le importa el contenido, por que esta utilizando el comodín, pero examina la estructura y dependiendo de esta retorna el número de elementos que forman el producto, por lo tanto es válida. La cuarta, aunque en los tres primeros casos esta utilizando la etiqueta, pero en cada uno de ellos examina la estructura del producto de cada constructor, y aunque asigna valores para cada uno de los elementos del producto, el valor a retornar es la aridad del producto, por lo tanto es también correcta.
+
+[explanation]
+
+###### Cierre Jupyter Notebook
+
+![](./images/VEA.jpg)
+
+Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de datos algebraicos** son también **tipos de datos inmutables**, que permite ser creados utilizando dos operaciones traídas de la teoría de conjuntos: el **producto** (*producto cartesiano*) y la **suma** (*unión*); a diferencia de la tupla que sólo utiliza el primero. Pero, adicionalmente la forma de construir los tipos de datos algebraicos, nos permiten **nombrar cada constructor de valor** (`case class` ó `case object`), esto te permitirá específicar con mayor claridad la información relacionada con el valor a construir y en cuando la utilices en la coincidencia de patrones, te permitirá idéntificar sin equivocos el constructor de valor. Con las tuplas y los tipos de datos algebraicos, tienes dos herramientas que te facilitarán la construcción de funciones pura y como las visto en el último ejercicio del actual notebook, te permite realizar fácilmente composición de funciones, en próximos cursos te mostremos como sacar un mayor provecho de esta combiación de técnicas.
+
+#### Generalizar tipos de datos algebraicos
+
+##### Infograma - Jerarquía de tipos y generalización
+
+<!-- TODO: Hacer este infograma -->
+
+<!-- TODO: Añadir el texto explicativo -->
+
+##### Notebook - Uso de la generalización de tipos
+
+<!-- TODO: Hacer el notebook -->
+
+###### Pregunta - Notebook - Uso de la generalización de tipos
+
+<!-- TODO: Hacer pregunta -->
+
+###### Cierre - Notebook - Uso de la generalización de tipos
+
+<!-- TODO: Hacer cierre -->
+
+#### Evaluación
+
+<!-- TODO: Por hacer -->
+
+#### Cierre
+
+<!-- TODO: Por hacer -->

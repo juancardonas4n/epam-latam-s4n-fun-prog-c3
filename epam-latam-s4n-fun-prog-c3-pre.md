@@ -21,11 +21,11 @@
 * Tuplas
 * Tipos de datos algebraicos
 
-#### Tiempo estimado:
+##### Tiempo estimado:
 
 3/4 de hora
 
-#### Ruta de aprendizaje:
+##### Ruta de aprendizaje:
 
 
 | *Objetivo de aprendizaje* | *Actividad de aprendizaje*                                          |
@@ -126,12 +126,15 @@
 |                                                              |        [Video] Definiendo tipos de datos algebraicos         |
 | Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |     **Aplicación  y uso de tipos de datos algebraicos**      |
 |                                                              | [Infograma] Aplicación y uso de tipos de datos algebraicos Haskell [Texto] Explicación corta |
-|                                                              | [Video] Aplicación y uso de tipos de datos algebraicos Scala 2.0 |
+|                                                              | [Video] Aplicación y uso de tipos de datos algebraicos en Scala |
 |                                                              | **Práctica de aplicación y uso de tipos de datos algebraicos** |
 |                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
 |                                                              | [Infograma] Jerarquía de tipos y generalización [Texto] Explicación corta |
-|                                                              | [Notebook] Uso de la generalización de tipos <--! Adicionar evaluación y test --> |
+|                                                              |         [Notebook] Uso de la generalización de tipos         |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                                                              |                        **Evaluación**                        |
+|                                                              |                          **Cierre**                          |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 
