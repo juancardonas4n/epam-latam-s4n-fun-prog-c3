@@ -1,0 +1,28 @@
+\documentclass[12pt]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+\usepackage{pgflibraryshapes}
+\usetikzlibrary{automata,snakes,backgrounds,trees}
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{center}
+  \shorthandoff{<>}
+  \begin{tikzpicture}[node distance=3cm,transform shape, scale=2.0, auto,initial text=$AFND 1$]
+    \tikzstyle{accepting}=[accepting by arrow]
+      \node[state,initial]   (0)              {$0$};
+      \node[state,accepting] (1) [right of=0] {$1$};
+      \path[->] (0) edge [loop above] node {$\text{true}\mid\text{false}$} ()
+                (0) edge [bend right] node [above] {$\epsilon$} (1)
+                (1) edge [loop below] node {$\text{true}\mid\text{false}$} ()
+                (1) edge [bend right] node [below] {$\epsilon$} (0);
+  \end{tikzpicture}
+\end{center}
+\end{document}
