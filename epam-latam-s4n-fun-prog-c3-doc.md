@@ -629,6 +629,8 @@ El tipo de dato `RGB` utiliza también de un **`trait`** (`RGB`) para definir el
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
+<!-- TODO: Grabar vídeo 1 -->
+
 [Por grabar](./videos/edited/)
 
 ###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
@@ -639,11 +641,29 @@ En este vídeo te mostraremos con más detalle la creación de tipos de datos al
 
 ##### Infograma - Aplicación y uso de tipos de datos algebraicos
 
-<!-- TODO: Definir el infograma -->
+Con la definición que ya has visto de los tipos, ahora podemos mirar como se usan y se aplican, en particular dentro del lenguaje de programación [Haskell](https://www.haskell.org). Comencemos, con la definición de un tipo de dato enumeración llamado `DiaSemana`. En ella se observa, la construcción del tipo que es `DiaSemana` y los diferentes constructores de valores: `Lunes`, `Martes`,  $\ldots$ , y `Domingo`.  Es importante observar que cada constructor de valor no sólo es un valor del tipo de dato `DiaSemana` sino también es una función. *La funciones no solo representa cómputos, también representan tipos de datos*.  
+
+
+
+![](./images/TDA-Enumeracion.png)
+
+Los tipos de datos algebraicos se definen elementos a través de la operación de unión. Observa el tipo de dato `Símbolo`,  sus valores pueden provenir de dos tipos: `Char` y  `Int`.  Como dicho valor proviene de esos dos tipos, se tiene un constructor de valor para cada tipo, por ejemplo el primer constructor  `SimC` toma un valor de `Char` y lo hace parte el tipo `Símbolo`. Igualmente en para el constructor de valor  `SimI`que lo hace con un valor de tipo `Int`. 
+
+![](./images/TDA-Union.png)
+
+Los tipos algebraicos se pueden construir utilizando el producto cartesiano, similar a lo que se se hizo con las tuplas. En este caso estamos utilizando para representar un número complejo que esta formado por dos partes $r + i$ donde $i$ es la representación del valor imaginario $\sqrt{-1}$. Por lo tanto el constructor `CPar`construye un valor complejo con dos valores del tipo `Double`, cómo puede observar esta es una función que recibe dos parámetros de tipo `Double` y produce un valor de tipo`Complejo`. El primer valor `Double` representa la parte real, el segundo valor `Double`representa la parte imaginaria. 
+
+![](./images/TDA-Producto.png)
+
+En la anterior imagen hay otra forma de implementar el tipo de dato `Complejo` y es utilizando registros. Esto luce muy similar los campos de una clase, pero su mayor diferencia, es que esto cada uno de nombre declarados en el registro indican una función de acceso al tipo de dato `Complejo`, que también sirve cuando se quiere crear una nueva copia del tipo original, con uno o varios "campos" del registro modificado.
+
+Como has observado, bien todavía nos falta por explicar un elemento en la definición de cada uno de los tipos de datos anteriores y es elemento `deriving`. Este nos sirve para adicionar un comportamiento extra al tipo de dato algebraico, que ya explicaremos dentro de esta únidad.
 
 ##### Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
+
+<!-- TODO: Grabar vídeo 2 -->
 
 [Por grabar](./videos/edited/)
 
@@ -728,7 +748,17 @@ Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de
 
 <!-- TODO: Hacer este infograma -->
 
-<!-- TODO: Añadir el texto explicativo -->
+Hemos dado una definición de tipo asociada a la teoría de conjuntos donde un tipo de dato son los valores agrupados por un conjunto determinado con un nombre. Ampliaremos dicha definición, indicando que un tipo se encuentra completamente definido cuando no solamente indicamos los valores sino que también hablamos de las funciones que los utilizan. En la siguiente imagen tenemos la representación de dos tipos de datos: `Int` y `Double`, con sus respectivas funciones. Por ejemplo, el tipo de dato `Int` tiene las conocidas operadores (*funciones*): `+`, `-`, `*`, `==`, `!=` entre otros (No aparece la definición de la división por algunos propiedades que no examinaremos en esta unidad, pero más adelante exploraremos.). Si observas `Double`también tiene una serie de operadores (*funciones*)
+
+![](./images/Tipo-de-dato-definicion-1.png)
+
+Imagen:
+
+![](./images/Tipo-de-dato-definicion-2.png)
+
+Imagen:
+
+![](./images/Tipo-de-dato-jerarquia-de-clases.png)
 
 ##### Notebook - Uso de la generalización de tipos
 
