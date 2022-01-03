@@ -629,13 +629,67 @@ El tipo de dato `RGB` utiliza también de un **`trait`** (`RGB`) para definir el
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
-<!-- TODO: Grabar vídeo 1 -->
-
-[Por grabar](./videos/edited/)
+[En etapa de edición](./videos/edited/)
 
 ###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
 
-<!-- TODO: Definir las 2 preguntas del vídeo de tipos de datos algebraicos -->
+1. Según el siguiente guión (*script*) de Scala
+
+```scala
+sealed trait Monedas
+final case object COLPesos  extends Monedas
+final case object USDolares extends Monedas
+final case object EUEuros   extends Monedas
+final case object JAPYenes  extends Monedas
+```
+
+>>La anterior es la definición de un tipo de dato algebraico por Producto<<
+
+( ) verdadero
+(x) falso
+
+[explanation]
+
+La estructura es una estructura de definición basado en suma (Unión), donde cada `case object`crea un valor para el tipo `Monedas`. Por lo tanto la respuesta es **falso**.
+
+[explanation]
+
+2. Según el siguiente guión (*script*) de Scala
+
+```scala
+sealed trait Cuentas
+final case class CuentaCorriente(id:String, saldo:Double) extends Cuentas
+```
+
+>> De las siguiente funciones cuál obtiene el saldo actual<<
+
+( ) A.
+```scala
+def funcionA(cuenta:Cuentas) = cuenta.saldo
+```
+(x) B.
+```scala
+def funcionB(cuenta:CuentaCorriente) = cuenta.saldo
+```
+( ) C.
+```scala
+def funcionC(cuenta:Cuenta) = cuenta._2
+```
+( ) D.
+```scala
+def funcionC(cuenta:CuentaCorriente) = cuenta._2
+```
+
+[explanation]
+La opción A. Aunque la variable `cuenta`es de tipo `Cuentas`el compilador no sabe sobre cual es el subtipo de cuenta, aunque sea único. Por lo tanto, esta opción es incorrecta.
+
+La opción B. La variable `cuenta`es efectivamente del tipo `CuentaCorriente`, por lo tanto el compilador sabe que la función de acceso pertenece a este tipo de dato. Por lo tanto, esta opción es correcta.
+
+La opción C. La expresión está tratando a la variable `cuenta` de tipo `Cuenta` como si fuera una tupla, que en  este caso no lo es, es otro tipo de dato algebraico. Por lo tanto, esta opción es incorrecta.
+
+La opción D. La expresión está tratando a la variable `cuenta` de tipo `CuentaCorriente` como si fuera una tupla, que en  este caso no lo es, es otro tipo de dato algebraico. Por lo tanto, esta opción es incorrecta.
+
+[explanation]
 
 #### Aplicación y uso de tipos de datos algebraicos
 
@@ -663,13 +717,92 @@ Como has observado, bien todavía nos falta por explicar un elemento en la defin
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
-<!-- TODO: Grabar vídeo 2 -->
+[En etapa de edición](./videos/edited/)
 
-[Por grabar](./videos/edited/)
+###### Preguntas - Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
 
-###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
+1. Según el siguiente guión (*script*) de Scala nos describe un tipo de dato `Config` que este caso permite dos valores posibles: `Remote` y `Local`. 
 
-<!-- TODO: Definir las 2 preguntas del vídeo definición de tipos de datos algebraicos -->
+```scala
+sealed trait Config
+final case class Remote(host:String) extends Config
+final case object Local              extends Config
+```
+
+>>De las siguiente definiciones de funciones, produce una función que muestra que la conexión es remota *para cualquier valor del tipo `Config`*<<
+
+[ ] A.
+```scala
+def funcionA(remote:Remote):Boolean = true
+```
+[ ] B.
+```scala
+def funcionB(cfg:Config):Boolean = if (cfg == Remote) true else false
+```
+[x] C.
+```scala
+def funcionC(cfg:Config):Boolean = cfg match {
+   case Remote(_) => true
+   case Local     => false
+}
+```
+[x] D.
+```scala
+def funcionD(cfg:Config):Boolean = cfg match {
+   case Local => false
+   case _     => true
+}
+```
+[explanation]
+La opción A, funciona si el tipo que se pasa solamente es `Remote` pero si le pasan un valor de tipo `Local` el compilador lo rechaza por lo tanto no es válido.
+La opción B, aunque se puede hacer una comparación entre tipos algebraicos la comparación no funcion por que en primer lugar `Remote` deber tener una valor asignado (`host`) y segundo la comparación se debe hacer entre valores del mismo tipo. Por lo tanto, esta opción no es válida.
+La opción C, utiliza coincidencia de patrones y verifica a través de la coincidencia la variable `cfg` de tipo `Config` y en este caso la coincidencia verifica en el primer `case` que sea de subtipo `Remote` sin importar el valor interno y retorna que es verdadero (`true`); en el segundo `case`, lo constrasta con `Local` en cuyo caso es `falso`. Por lo tanto, cumple con lo solicitado en la pregunta, es válido.
+La opción D, también utiliza coincidencia de patrones sobre la variable `cfg`. En el primer `case`verifica que es de tipo `Local` por lo que retorna `false`; y el segundo `case` retorna en cualquier caso (que siempre será del subtipo `Remote`) `true`. Por lo tanto, cumple con lo solicitado en la pregunta, es válido
+[explanation]
+
+2. Según el siguiente guión (*script*) de Scala
+
+```scala
+sealed trait Cuentas
+final case class CuentaCorriente(id:String, saldo:Double) extends Cuentas
+````
+
+>> De las siguiente funciones cuál obtiene el saldo actual<<
+
+( ) A.
+
+```scala
+def funcionA(cuenta:Cuentas) = cuenta.saldo
+```
+
+(x) B.
+
+```scala
+def funcionB(cuenta:CuentaCorriente) = cuenta.saldo
+```
+
+( ) C.
+
+```scala
+def funcionC(cuenta:Cuenta) = cuenta._2
+```
+
+( ) D.
+
+```scala
+def funcionC(cuenta:CuentaCorriente) = cuenta._2
+```
+
+[explanation]
+La opción A. Aunque la variable `cuenta`es de tipo `Cuentas`el compilador no sabe sobre cual es el subtipo de cuenta, aunque sea único. Por lo tanto, esta opción es incorrecta.
+
+La opción B. La variable `cuenta`es efectivamente del tipo `CuentaCorriente`, por lo tanto el compilador sabe que la función de acceso pertenece a este tipo de dato. Por lo tanto, esta opción es correcta.
+
+La opción C. La expresión está tratando a la variable `cuenta` de tipo `Cuenta` como si fuera una tupla, que en  este caso no lo es, es otro tipo de dato algebraico. Por lo tanto, esta opción es incorrecta.
+
+La opción D. La expresión está tratando a la variable `cuenta` de tipo `CuentaCorriente` como si fuera una tupla, que en  este caso no lo es, es otro tipo de dato algebraico. Por lo tanto, esta opción es incorrecta.
+
+[explanation]
 
 #### Práctica de aplicación y uso de tipos de datos algebraicos
 
@@ -764,20 +897,24 @@ Esta clasificación nos permite tener una jerarquía de clasificaciones, donde p
 
 ##### Notebook - Uso de la generalización de tipos
 
-<!-- TODO: Hacer el notebook -->
+<!-- TODO: Notebook - Uso de la generalización de tipos -->
 
 ###### Pregunta - Notebook - Uso de la generalización de tipos
 
-<!-- TODO: Hacer pregunta -->
+<!-- TODO:  Pregunta - Notebook - Uso de la generalizació de tipos -->
 
 ###### Cierre - Notebook - Uso de la generalización de tipos
 
-<!-- TODO: Hacer cierre -->
+<!-- TODO: Cierre - Notebook - Uso de la generalización -->
 
 #### Evaluación
 
-<!-- TODO: Por hacer -->
+<!-- TODO: Evaluación - Hacer preguntas 7 ó 8 -->
 
 #### Cierre
 
-<!-- TODO: Por hacer -->
+<!-- TODO: Cierre - Documento -->
+
+<!-- TODO: Cierre - ¿Quieres saber más? -->
+
+<!-- TODO: Cierre - S4N insights (¿EPAM-SA4N-Latam?) -->

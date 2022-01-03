@@ -1,4 +1,6 @@
 
-sealed trait Coord
+sealed trait State
 
-final case class Punto2D(x:Double, y:Double) extends Coord
+final case object On extends State
+final case object Off extends State
+
