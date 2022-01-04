@@ -935,7 +935,7 @@ La primera opción funciona si el tipo de dato es una tupla, pero en este caso n
 
 ![](./images/VEA.jpg)
 
-Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de datos algebraicos** son también **tipos de datos inmutables**, que permite ser creados utilizando dos operaciones traídas de la teoría de conjuntos: el **producto** (*producto cartesiano*) y la **suma** (*unión*); a diferencia de la tupla que sólo utiliza el primero. Pero, adicionalmente la forma de construir los tipos de datos algebraicos, nos permiten **nombrar cada constructor de valor** (`case class` ó `case object`), esto te permitirá específicar con mayor claridad la información relacionada con el valor a construir y en cuando la utilices en la coincidencia de patrones, te permitirá idéntificar sin equivocos el constructor de valor. Con las tuplas y los tipos de datos algebraicos, tienes dos herramientas que te facilitarán la construcción de funciones pura y como las visto en el último ejercicio del actual notebook, te permite realizar fácilmente composición de funciones, en próximos cursos te mostremos como sacar un mayor provecho de esta combiación de técnicas.
+Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de datos algebraicos** son también **tipos de datos inmutables**, que permite ser creados utilizando dos operaciones traídas de la teoría de conjuntos: el **producto** (*producto cartesiano*) y la **suma** (*unión*); a diferencia de la tupla que sólo utiliza el primero. Pero, adicionalmente la forma de construir los tipos de datos algebraicos, nos permiten **nombrar cada constructor de valor** (`case class` ó `case object`), esto te permitirá específicar con mayor claridad la información relacionada con el valor a construir y en cuando la utilices en la coincidencia de patrones, te permitirá idéntificar sin equivocos el constructor de valor. Con las tuplas y los tipos de datos algebraicos, tienes dos herramientas que te facilitarán la construcción de funciones pura y como las visto en el último ejercicio del actual notebook, te permite realizar fácilmente composición de funciones, en próximos cursos te mostremos como sacar un mayor provecho de esta combinación de técnicas.
 
 #### Generalizar tipos de datos algebraicos
 
@@ -963,15 +963,121 @@ Esta clasificación nos permite tener una jerarquía de clasificaciones, donde p
 
 ###### Pregunta - Notebook - Uso de la generalización de tipos
 
-<!-- TODO:  Pregunta - Notebook - Uso de la generalizació de tipos -->
+1. Se tiene definido un tipo de algebraico de la siguiente forma:
+
+   ```scala
+   sealed trait UnTDAG[+A]
+   final case class  VTDG1[+A](a:A) extends UnTDAG[A]
+   final case class  VTDG2[+A](a:A,b:A) extends UnTDAG[A]
+   final case class  VTDG3[+A](a:A,b:A,c:A) extends UnTDAG[A]
+   final case object VTDG0 extends UnTDA[Nothing]
+   ```
+
+>>Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
+
+[x] A.
+
+```scala
+def funcionA[A](unTDAG:UnTDAG[A]):Int = unTDAG match {
+    case VTDG1(_)     => 1
+    case VTDG2(_,_)   => 2
+    case VTDG3(_,_,_) => 3
+    case VTDG0        => 0
+} 
+```
+
+[x] B.
+
+```scala
+def funcionB[B](unTDAG:UnTDAG[B]):Int = unTDAG match {
+   case VTDG1(_)     => 3
+   case VTDG2(_,_)   => 2
+   case VTDG3(_,_,_) => 1
+   case VDTG0        => 0
+}
+```
+
+[x]. C.
+
+```scala
+def funcionC[A](unTDAG:UnTDAG[B]):Int = unTDAG match {
+    case VDTG1(a)     => 3
+    case VDTG2(a,b)   => 2
+    case VDTG3(a,b,c) => 1
+    case VDTG0        => 0
+}
+```
+
+[ ]. D.
+
+```scala
+def funcionD[A](unTDAG:UnTDAG[A]):Int = unTDA match {
+    case VDTG1 => 3
+    case VDTG2 => 2
+    case VDTG3 => 1
+    case VDTG0 => 0
+}
+```
+
+[explanation]
+
+La opción A, trabaja sobre un tipo genérico `A` y a través de la coincidencida de patrones verifica que todos los valores con sus correspondientes comodines en las posiciones específicas que están definidas para el tipo de dato `UnTDAG`, por lo tanto es correcta.
+
+La opción B, trabaja sobre un tipo genérico `B` y a través de la coincidencida de patrones verifica que todos los valores con sus correspondientes comodines en las posiciones específicas que están definidas para el tipo de dato `UnTDAG`, por lo tanto es correcta.
+
+La opción C, trabaja sobre un tipo genérico `A` y a través de la coincidencida de patrones verifica que todos los valores con sus correspondientes variables diferentes en las posiciones específicas que están definidas para el tipo de dato `UnTDAG`, por lo tanto es correcta. 
+
+La opción D, trabaja sobre un tipo genérico `A`en la coincidencia de patrones falla al dar la estructura de cada uno de los tipos de valores construidos para este tipo en particular (`UnTDAG`), excepto para último que no tiene otros valores asociados.
+
+[explanation]
 
 ###### Cierre - Notebook - Uso de la generalización de tipos
 
-<!-- TODO: Cierre - Notebook - Uso de la generalización -->
+![](./images/VEA.jpg)
+
+La generalización de los tipos de datos algebraicos, te ayudará a que tus tipos de datos y tus funciones tenga un comportamiento independiente de los tipos de datos y te puedas enfocar mucho más en **las partes comunes de muchos algoritmos** que enfocarte en las partes diferentes, lo que hará finalmente que tus programas sean **menos complejos** y sean **más fáciles de mantener**. Pero esto no es trivial, antes de poder generalizar, tienes que tener un gran sentido de observación y ver las partes comunes de tu programas, es decir que primero programarás sin generalización y a medida que esos patrones comunes surgan irás replazando esas partes comunes por código genérico. Más adelante, observarás que la combinación de tipos de datos algebraicos con funciones puras te facilitarán la ocurrencia de dicho patrones y encontrás las formas que la programación funcional te puede ayudar para simplificar tu código.
 
 #### Evaluación
 
-<!-- TODO: Evaluación - Hacer preguntas 7 ó 8 -->
+1.
+
+>>A partir de cero o más conjunto de datos, estas operaciones nos sirve para definir tipos de datos algebraicos<<
+
+( ) A. Producto cartesiano y cardialidad de conjuntos.
+(x) B. La unión y el producto.
+( ) C. Suma e idempotencia de conjuntos.
+( ) D. Producto cartesiano y constructores de valores.
+[explanation]
+La opción A, con el producto cartesiano construimos TDA, pero con la cardinalidad sabemos del número de elementos.
+
+La opción B, la unión y el producto nos permite construir tipos de datos algebraicos, esto es por definición de los tipos de datos algebraicos.
+
+La opción C, la *suma* es otra forma de unión y nos permite contruir TDA, pero la idempotencia de conjuntos es la propiedad de funciones con la construcción del conjunto de Kleene que permite tener todos las frases de un conjunto.
+
+La opción D, el *producto cartesiano* nos permite construir un TDA, pero los constructures de valores es un término muy genérico y puede incluir los literales enteros que sirven para construir el conjunto de los enteros que no es un TDA.
+
+[explanation]
+
+<!-- TODO: Hacer el resto de la preguntas-->
+
+2. La firma de la siguiente función produce una tupla cuyo primer valor es el mismo de entrada (\) y el segundo es el valor inverso $valor^{-1}$.
+
+>>Construya el cuerpo de la función en scala:<<
+
+```{.scala}
+def obtInv(valor:Double):(Double,Double) = ???
+```
+
+[explanation]
+La idea es construir una tupla a partir de los valores de entrada `valor` y su correspondiente valor inverso.
+
+```{.scala}
+def obtInv(valor:Double):(Double,Double) = (valor,1.0/valor)
+```
+
+[explanation]
+
+3. 
 
 #### Cierre
 
