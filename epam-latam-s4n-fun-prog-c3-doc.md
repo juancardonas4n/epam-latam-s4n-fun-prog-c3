@@ -667,7 +667,7 @@ Es por ello que los tipos de datos algebraicos cambian la  forma de obtener
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
-[En etapa de edición](./videos/edited/)
+[Vídeo - Definiendo tipos de datos algebraicos](https://www.youtube.com/watch?v=xHpVQ2ZqUe4&list=PLZdie3lPm9fTvcUsCTgZb1pg7Ufrj1NwB&index=6)
 
 ###### Preguntas - Vídeo - Definición de tipos de datos algebraicos
 
@@ -779,7 +779,7 @@ Con la definición que ya has visto de los tipos, ahora podemos mirar como se us
 
 En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
 
-[En etapa de edición](./videos/edited/)
+[Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala](https://www.youtube.com/watch?v=XHHwmfJsec8&list=PLZdie3lPm9fTvcUsCTgZb1pg7Ufrj1NwB&index=7)
 
 ###### Preguntas - Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
 
@@ -1058,31 +1058,183 @@ La opción D, el *producto cartesiano* nos permite construir un TDA, pero los co
 
 [explanation]
 
-<!-- TODO: Hacer el resto de la preguntas-->
+2. 
 
-2. La firma de la siguiente función produce una tupla cuyo primer valor es el mismo de entrada (\) y el segundo es el valor inverso $valor^{-1}$.
+>>Son las tuplas un tipo de dato algebraico<<
 
->>Construya el cuerpo de la función en scala:<<
+(x) verdadero.
 
-```{.scala}
-def obtInv(valor:Double):(Double,Double) = ???
-```
+( ) falso.
 
 [explanation]
-La idea es construir una tupla a partir de los valores de entrada `valor` y su correspondiente valor inverso.
-
-```{.scala}
-def obtInv(valor:Double):(Double,Double) = (valor,1.0/valor)
-```
+Las tuplas son construidas utilizando la operación de producto entre tipos, como los tipos de datos algebraicos que son definidos por *sumas* y *productos*. Por lo tanto es verdadero.
 
 [explanation]
 
-3. 
+3. Observe el siguiente código:
+```scala
+sealed trait Bool
+final case object False extends Bool
+final case object True extends Bool
+```
+>>Cuál de las siguiente funciones convierte un valor de tipo `Boolean` al tipo `Bool`<<
+
+[X] A.
+```scala
+def funcionA(b:Boolean):Bool = if (b) True else False
+```
+[X] B.
+```scala
+def funcionB(b:Boolean):Bool = b match {
+   case true => True
+   case _    => False
+}
+```
+[ ] C.
+```scala
+def funcionC(b:Boolean):Bool = b match {
+   case _    => False
+   case true => True
+}
+```
+[X] D.
+```scala
+def funcionD(b:Boolean):Bool = b match {
+   case c if c => True
+   case _      => False
+}
+```
+[explanation]
+La opción A, verifica que el valor de la variable `b` que es de tipo `Bool` en la expresión `if` y por lo tanto convierte cada valor de la variable `b` en el correspondiente valor del tipo esperado. Es válida.
+La opción B, utiliza la coincidencia de patrones sobre la variable `b` de forma que cada uno de sus valores literales es convertido al valor del tipo esperado. Es válida.
+La opción C, utiliza la coincidencia de patrones sobre la variable `b`, pero esta vez los `case`s en vez de ir del más específico al más genérico, van del más genérico al más específico, por lo que el comodín `_` producirá `False` en cualquier caso. No es válida.
+La opción D, utiliza coincidencia de patrones pero esta vez utiliza las guardas que puede tener un constructor `case` lo que hace que que válida que el valor de c contiene un valor de verdad, este produce el valor `True`, en el caso por omisión produce el valor de `False`,  por lo tanto produce los valores del tipo esperado. Es válida.
+[explanation]
+4. Observe el siguiente código:
+```scala
+sealed trait Transacciones
+final case class TransCant(seq:Int,cantidad:Double,valor:Double) extends Transacciones
+final case class TransDesc(seq:Int,valor:Double,descuento:Double) extends Transacciones
+final case object NoTrans extends Transacciones
+```
+>>Cuál de las siguiente funciones obtiene el valor final de la transacción<<
+
+( ) A.
+```scala
+def funcionA(trans:Transacciones):Double =
+  if (trans.cantidad == 0)
+     if (trans.descuento == 0) 0.0
+     else trans.valor * trans.descuento
+  else
+     trans.cantidad * trans.valor
+```
+( ) B.
+```scala
+def funcionB(trans:Transacciones):Double = b match {
+   case TransCant(_,c,v) => c + v
+   case TransDesc(_,v,d) => v - d
+}
+```
+( ) C.
+```scala
+def funcionC(trans:Transacciones):Double = b match {
+   case _ => 0.0
+   case TransCant(_,c,v) => c * v
+   case TransDesc(_,v,d) => v - d
+}
+```
+(x) D.
+```scala
+def funcionD(trans:Transacciones):Double = b match {
+   case NoTrans          => 0.0
+   case TransCant(s,c,v) => c * v
+   case TransDesc(s,v,d) => v - d
+}
+```
+[explanation]
+La opción A, no se puede tener acceso a los métodos de acceso sin especificar el tipo sobre el que se va actuar. No es válida.
+La opción B, no cubre todos los casos de los valores de tipo `Transacciones`y adicionalemente la operación en valor `TransCant` no es la correcta. No es válida.
+La opción C, el primer `case` es más genérico que los demás y por lo tanto siempre calcula el valor de `0.0`. No es válida.
+La opción D, para cada valor calcula el resultado específico, si el valor es `NoTrans` el resultado es `0.0`. Cuando es `TransCant` múltiplica la cantidad por el valor y cuando es `TransDesc` toma el valor menos el descuento. Es válida.
+[explanation]
+5. Observe el siguiente código:
+```scala
+sealed trait Tipo
+final case class  SubTipoA(a:Int,b:Boolean) extends Tipo 
+final case class  SubTipoB(d:Double,c:Char) extends Tipo
+final case object SubTipoC extends Tipo
+```
+>>Cuál es la función del constructor `sealed` en el trait<<
+
+( ) A. Un `sealed trait` es una forma para distinguir los tipos de datos algebraicos (TDA).
+( ) B. Un `sealed trait` es un constructor al inicio del archivo para declarar al compilador que lo que sigue con `final` pertenecen al mismo tipo.
+(x) C. Un `sealed trait` indica que el `Tipo` y todos sus subtipos deben estar definidos dentro del mismo archivo.
+() D. Un `sealed trait` es un constructor que indica que la siguiente es una clase de orden y solo se especifica una vez dentro de un archivo. 
+[explanation]
+El constructor `sealed` se antepone ante un `trait` que todos sus subtipos deben definirse dentro del mismo archivo para que el compilador reconozca todos los posible valores de los tipos de datos algebraicos. La opción C, es válida.
+[explanation]
+6. Observe el siguiente código:
+```scala
+sealed trait Marcados[+A]
+final case class  Marca[A](sec:Int,unA:A) extends Marcados[A] 
+final case object SinMarca extends Marcados[Nothing]
+```
+>>Cuál de las siguiente funciones implementa una función que incrementa la secuencia de la marca, si se encuentra `SinMarca` se deja igual.<<
+
+[x] A.
+```scala
+def funcionA[A](mrc:Marcados[A]):Marcados[A] = mrc match {
+   case m @ Marca(s,_) => m.copy(sec = s + 1)
+   case j              => j
+}
+```
+[ ] B. 
+```scala
+def funcionB[B](mrc:Marcados[B]):Marcados[B] = mrc match {
+   case m @ Marca(s,_) => Marca(s + 1, m.unA)
+   case _              => _
+}
+```
+[ ] C. 
+```scala
+def funcionC[C](mrc:Marcados[C]):Marcados[C] = mrc match {
+   case m @ Marca(_,_) => m.copy(sec += 1)
+   case _              => SinMarca
+}
+```
+[x] D. 
+```scala
+def funcionD[D](mrc:Marcados[D]):Marcados[D] = mrc match {
+   case Marca(s,u) => Marca(s + 1, u)
+   case _          => SinMarca
+}
+```
+[explanation]
+La opción A, realiza coincidencia de patrones desde el particular al más general, si encuentra un marca a través de la etiqueta `m` crea una copia del valor e inicializa el campo de `sec` con el valor actual más uno. El segundo devuelve el mismo valor. Es válido.
+La opción B, realiza la coincidencia de patrones desde el particular al más general, el primer caso crea una `Marca` nueva incrementando la secuencia, y copiando el valor genérico original en la copia. El problema se presenta en la segundo `case` puesto que éste reconce los demás con el comodín, pero no puede pasar de nuevo el mismo comodín. Es no válido.
+La opción C, realiza la coincidencia de patrones desde el particular al más general, el problema está en la construcción del resultado, la función `sec` es una función de acceso, y como el tipo es inmutable no se puede ser modificado.
+La opción D, realiza la coincidencia de patrones desde el particular al más general, en el primer `case` se encarga de crear una copia construyendo un nuevo valor y en la segundo `case` el tipo esperado es un `SinMarca` por lo tanto lo returna nuevamente dicho valor. Es válido.
+[explanation]
+
 
 #### Cierre
 
-<!-- TODO: Cierre - Documento -->
+En esta unidad te has encontrado con los tipos de datos algebraicos (TDA), construyéndolos a través de la operaciones de conjuntos: *suma* (*unión*) y *producto* (*producto cartesiano*).  En ellos has encontrado que las operaciones de próducto cartesiando puedes acceder los valores por su posición también los puedes acceder utilizando las funciones de acceso por ellos definidos en su declaración. La suma te permite combinar diferentes constructores de valores y puedes definir tus propios valores literales, esto te permite una flexibilidad infinita en la definición de tipos de datos.
 
-<!-- TODO: Cierre - ¿Quieres saber más? -->
+Lo que has obtenido con los TDA es definir tipos de también llamados tipos de datos símbolicos, por que, permiten ser almacenados, consultados y creados cómo se leen y se escriben, a diferencia que las estructuras de datos como: registros y clases que en general su forma de almacenar es críptica para el usuario.
 
-<!-- TODO: Cierre - S4N insights (¿EPAM-SA4N-Latam?) -->
+La flexibilidad de utilizar la teoría de conjuntos directamente en la definición de conjuntos, te permitirá generalizarlos, es decir de poder observar que su contenido puede pertenecer a cualquier tipo y que simplemente no tienes que crear un número infinito de tipos con nombres diferentes, cuando con su simple nombre y una o más variables de tipos puedas dinámicamente crear infinitos tipos.
+
+Pero, es solo el principio, en la siguiente unidad observaremos como crear tipos de datos algebraicos utilizando una herramienta ya conocida como lo es la recursividad y más adelante, combinaremos esta recursividad de tipos con la de funciones y observarás que la programación funcional encontrá nuevos patrones que te permirán simplificar tu programación. 
+
+##### ¿Quieres saber más?
+
+* [Everthing Your Ever Wanted to Know about Sealed Traits in Scala](https://underscore.io/blog/posts/2015/06/02/everything-about-sealed.html)
+* [Algebraic Data Types - Sums and Products  -Scala](https://nrinaudo.github.io/scala-best-practices/definitions/adt.html#:~:text=Algebraic%20Data%20Types%20%28ADTs%20for%20short%29%20are%20a,represent.%20There%20are%20two%20basic%20categories%20of%20ADTs%3A)
+* [Algebraic Data Types - Haskell](https://wiki.haskell.org/Algebraic_data_type)
+* [Variances - Scala](https://docs.scala-lang.org/tour/variances.html#:~:text=Scala%20supports%20variance%20annotations%20of%20type%20parameters%20of,can%20restrict%20the%20reuse%20of%20a%20class%20abstraction.)
+* [Scala `case class` - `case object` - Part 1](https://www.journaldev.com/9733/scala-caseclass-caseobject-part1)
+* [Scala `case class` - `case object` - Part 2](https://www.journaldev.com/12122/scala-caseclass-caseobject-part2)
+
+##### EPAM Insights
+
