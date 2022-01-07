@@ -138,3 +138,56 @@
 |                                                              |                          **Cierre**                          |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 
+---
+
+### U3. Tipos de datos algebraicos recursivos
+
+#### Objetivos
+
+##### Lograrás:
+
+* Harás uso de los tipos de datos algebraicos (*Algebraic Data Types*) y apliarás tus conceptos y uso para incluir los tipos de datos algebraicos recursivos.
+
+##### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Recursividad.
+* Definición de inmutabilidad de datos.
+* Tipos de datos inmutables y sus formas de definición (*suma*  y *producto*).
+
+##### Concretamente esperamos que aprendas a:
+
+* Definir estructuras de datos algebraicas recursivas.
+* Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programa.
+
+#### Tiempo estimado:
+
+1 3/4 de hora
+
+#### Ruta de aprendizaje:
+
+|                  *Objetivo de aprendizaje*                   |                  *Actividad de aprendizaje*                  |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        *Introducción*                        |                            [text]                            |
+|                                                              |                         [activacion]                         |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|     Definir estructuras de datos algebraicas recursivas      |                  **Construcción de tipos**                   |
+|                                                              | [Infograma] Tipos de datos recursivos. [Texto] Explicación corta. |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|                                                              |                **Tipos de datos algebraicos**                |
+|                                                              |        [Video] Definiendo tipos de datos algebraicos         |
+| Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |     **Aplicación  y uso de tipos de datos algebraicos**      |
+|                                                              | [Infograma] Aplicación y uso de tipos de datos algebraicos Haskell [Texto] Explicación corta |
+|                                                              | [Video] Aplicación y uso de tipos de datos algebraicos en Scala |
+|                                                              | **Práctica de aplicación y uso de tipos de datos algebraicos** |
+|                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
+|                                                              | [Infograma] Jerarquía de tipos y generalización [Texto] Explicación corta |
+|                                                              |         [Notebook] Uso de la generalización de tipos         |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                                                              |                        **Evaluación**                        |
+|                                                              |                          **Cierre**                          |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |

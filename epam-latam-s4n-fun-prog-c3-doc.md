@@ -3,6 +3,7 @@ title: "Programación funcional Curso 3"
 subtitle: "Scala_03"
 author: "Juan Francisco Cardona McCormick"
 date: "04/01/2022"
+revisión: 
 ---
 # Programación Funcional Curso 3. Scala_03
 
@@ -615,7 +616,13 @@ En la primera, vamos ampliar el sistema de tipos de nuestro lenguaje de programa
 
 #### Infograma - Construcción de tipos
 
-![](./images/Infograma-TiposDeDatos-I.png)
+![](./images/U2-TDA_Los_tipos_basicos.jpg)
+
+![](./images/U2-TDA_Los_tipos_basicos_coordenadas.jpg)
+
+![](./images/U2-TDA_Las_tuplas.jpg)
+
+![](./images/U2-TDA_Las_tuplas_coordenadas.jpg)
 
 Puedes observar que el primer figura te mostramos algo que ya conoces cómo es la asociación entre los tipos de datos y conjuntos.
 
@@ -631,15 +638,23 @@ Puedes observar que el primer figura te mostramos algo que ya conoces cómo es l
 
 **6)** `(Int, Double)`, es decir este es un tipo de dato nuevo que se agregará al *sistema de tipos*, pero se tiene un nuevo constructor de valores que utiliza el operador paréntesis normalizado para indicar los elementos (valores) que pertenencen a la nueva tupla como por ejemplo:
 
- **7)** `(3,6.1)`. Entonces, siempre que queramos construir un valor del tipo de la tupla determinado necesitaremos el operador paréntisis normalizado.
-
-**8)** Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* y 
-
-**9)** *producto*, no de forma exclusiva, se pueden utilizar ambas. 
+ **7)** `(3,6.1)`. Entonces, siempre que queramos construir un valor del tipo de la tupla determinado necesitaremos el operador paréntisis normalizado. Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* y *producto*, no de forma exclusiva, se pueden utilizar ambas. 
 
 **Aparte** Y aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, problamente utilizaremos un tipo parecido: $Double \times Double \times Double$. ¿Qué podríamos hacer para diferenciar ambos tipos? Muy  probablemente menciones que podríamos utilizar el alias y que lo podríamos indicar de esta forma para cada tipo: `type Coord3D = (Double, Double, Double)`  y `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distitos para un mismo tipo, pero no podemos restrigir su entrada a funciones que trabajen distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal`, podríamos la misma tupla de 3 valores a las dos funciones, sin distinguir de que tipo realmente estamos trabajando. 
 
-![](./images/Infograma-TiposDeDatos-II.png)
+![](./images/U2-TDA_Producto.jpg)
+
+![](./images/U2-TDA_Producto_coordenadas.jpg)
+
+
+
+![](./images/U2-TDA_Suma.jpg)
+
+
+
+
+
+![](./images/U2-TDA_Suma_coordenadas.jpg)	
 
 Es por ello que los tipos de datos algebraicos cambian la  forma de obtener 
 
@@ -745,7 +760,9 @@ Con la definición que ya has visto de los tipos, ahora podemos mirar como se us
 
 
 
-![](./images/TDA-Enumeracion.png)
+![](./images/diaSemana.png)
+
+![1: (295,771, 2:(606,753), 3:(930,812), 4:(276,1127)](./images/diaSemanaGuia.png)
 
 [En la siguiente figura]
 
@@ -757,7 +774,9 @@ Con la definición que ya has visto de los tipos, ahora podemos mirar como se us
 
 **4)** Igualmente en para el constructor de valor  `SimI`que lo hace con un valor de tipo `Int`. 
 
-![](./images/TDA-Union.png)
+![](./images/simbolo.png)
+
+![1: (376,621), 2: (569,739), 3: (1067,768), 4: (1044,848)](./images/simboloGuia.png)
 
 [En la siguiente figura]
 
@@ -765,15 +784,17 @@ Con la definición que ya has visto de los tipos, ahora podemos mirar como se us
 
 **2)** En este caso estamos utilizando para representar un número `Complejo` que esta formado por dos partes $r + i$ donde $i$ es la representación del valor imaginario $\sqrt{-1}$. 
 
-**3)** Por lo tanto el constructor `CPar`construye un valor complejo con dos valores del tipo `Double`, cómo puede observar esta es una función que recibe dos parámetros de tipo `Double` y produce un valor de tipo`Complejo`. El primer valor `Double` representa la parte real, el segundo valor `Double`representa la parte imaginaria. 
+**3)** Por lo tanto el constructor `Cplj`construye un valor complejo con dos valores del tipo `Double`, cómo puede observar esta es una función que recibe dos parámetros de tipo `Double` y produce un valor de tipo`Complejo`. El primer valor `Double` representa la parte real, el segundo valor `Double`representa la parte imaginaria. 
 
-![](./images/TDA-Producto.png)
+![](./images/complejo.png)
+
+![1: (383,618), 2:(294,769), 3:(901,731), 4:(948,1259), 5:(1213,1455), 6:(335,1634)](./images/complejoGuia.png)
 
 **4)** En la anterior imagen hay otra forma de implementar el tipo de dato `Complejo` y es utilizando registros. Esto luce muy similar los campos de una clase, pero su mayor diferencia, es que esto cada uno de nombre declarados en el registro indican una función de acceso al tipo de dato `Complejo`, que también sirve cuando se quiere crear una nueva copia del tipo original, con uno o varios "campos" del registro modificado.
 
 **5**) Como has observado, bien todavía nos falta por explicar un elemento en la definición de cada uno de los tipos de datos anteriores y es elemento `deriving`. Este nos sirve para adicionar un comportamiento extra al tipo de dato algebraico, que ya explicaremos dentro de esta únidad.
 
-**6**) Tanto `CPar` como `real` son funciones.
+**6**) Tanto `Cplj` como `real` son funciones.
 
 ##### Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
 
@@ -947,7 +968,9 @@ Hemos dado una definición de tipo asociada a la teoría de conjuntos donde un t
 
 Una corta reflexión nos indica que es muy compliado y confuso que el lenguaje ofrecezca al programador dos operaciones de suma, en realidad se ofrece una única operación de suma, y no solo para estos dos tipos sino para otros tipos que requieran esta operación. Esa única operación de suma que se ofrece se encuentra sobrecargada y sirve para cualquiera de los tipos que la requieran. Esto se logra por que las operaciones de los tipos se pueden agrupar en clases. **¡Clases!** como en la programación orientada a objeto. **¡No!**, este tipo de clases parte de una definición que se encarga de *clasificar* a los tipos de datos por comportamientos similares. En este caso como se observa en la imagen siguiente, creamos una clasificación específica llamada **1)** `Eq` que indica como se comporta las funciónes de comparación por igual **2)** (`==`) y por diferente **3)** (`!=`), que por ejemplo para el primero recibe dos valores de tipo `a` y los compara y devuelve un valor de tipo `Bool` (*boolean*) indicando si son iguales o diferentes. La clase `Eq` es una clasificación que indica que un tipo para pertenecer a esta clasificiación debe implementar esos dos métodos.  
 
-![](./images/Tipo-de-dato-definicion-2.png)
+![](./images/eq.png)
+
+![	](./images/eqGuia.png)
 
 En al parte inferior de la imagen, esta lo que debe hacer cualquier tipo de dato para pertenecer a una clasificación especifica, es decir tiene que indicar que es una instancia (*la definición de instancia no es la misma de POO, aquí significa que es un ejemplar de dicha clasificación.*). Esta instanciación se hace indicando como el tipo específico implementa las funciones necesarias, en este caso cada una de las dos instanciaciones **4)** `Int` y **5)** `Double` implementa ambas funciones (en muchos casos no es necesario, con la comparación se puede obtener la negación.). Cada tipo de dato que quiera pertenecer a una clasificación debe escribir la instanciación específica. Pero esto no es necesario y es aquí donde la teoría de tipos nos ayuda. Por ejemplo, los valores de un tipo algebraico formado por *enumeración* como es el caso de `DiaSemana` encontramos que cada constructor de valor hace que sean diferentes, si los constructores son diferentes, el resultado de la comparación es diferente, si son el mismo, obviamente serán iguales. Ahora, para un producto, simple se compara uno a uno los elementos y se puede de esar forma saber si son iguales  o no. 
 
