@@ -146,7 +146,7 @@
 
 ##### Lograrás:
 
-* Harás uso de los tipos de datos algebraicos (*Algebraic Data Types*) y apliarás tus conceptos y uso para incluir los tipos de datos algebraicos recursivos.
+* Utilizar y beneficiarte de la recursividad en la definición de tipos de datos recursivos e utilizar el patrón de recursividad estructural para definir tus programas.
 
 ##### Lo que debes saber:
 
@@ -154,17 +154,19 @@
 * Definición de funciones puras.
 * Funciones como valores.
 * Recursividad.
+* Recursividad de cola
 * Definición de inmutabilidad de datos.
 * Tipos de datos inmutables y sus formas de definición (*suma*  y *producto*).
 
 ##### Concretamente esperamos que aprendas a:
 
-* Definir estructuras de datos algebraicas recursivas.
-* Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programa.
+* Entender la recursión estructural.
+* Usar la recursión estructural.
+* Definir, entender y usar los tipos de datos algebraicos recursivos
 
 #### Tiempo estimado:
 
-1 3/4 de hora
+2 1/2 de hora
 
 #### Ruta de aprendizaje:
 
@@ -173,20 +175,18 @@
 |                        *Introducción*                        |                            [text]                            |
 |                                                              |                         [activacion]                         |
 |                  -------------------------                   | ------------------------------------------------------------------- |
-|     Definir estructuras de datos algebraicas recursivas      |                  **Construcción de tipos**                   |
-|                                                              | [Infograma] Tipos de datos recursivos. [Texto] Explicación corta. |
+|              Entender la recursión estructural               |                  **Recursión estructural**                   |
+|                                                              | [Infograma] ¿Qué es al recursión estructural? [Texto] Explicación corta. |
 |                  -------------------------                   | ------------------------------------------------------------------- |
-|                                                              |                **Tipos de datos algebraicos**                |
-|                                                              |        [Video] Definiendo tipos de datos algebraicos         |
-| Instanciar, acceder y manipular tipos de datos algebraicos dentro de tus programas |     **Aplicación  y uso de tipos de datos algebraicos**      |
-|                                                              | [Infograma] Aplicación y uso de tipos de datos algebraicos Haskell [Texto] Explicación corta |
-|                                                              | [Video] Aplicación y uso de tipos de datos algebraicos en Scala |
-|                                                              | **Práctica de aplicación y uso de tipos de datos algebraicos** |
-|                                                              |       [Notebook]  Tipos de datos algebraicos en Scala        |
+|                Usar la recursión estructural                 |                  **Recursión estructural**                   |
+|                                                              |            [Video] Usar la recursión estructural             |
+|                                                              |         **Aplicación  de la recursión estructural**          |
+|                                                              |   [Notebook] Uso y aplicación de la recursión estructural    |
 |                  -------------------------                   | ------------------------------------------------------------------- |
-|          Generalizar los tipos de datos algebraicos          |          **Generalizar tipos de datos algebraicos**          |
-|                                                              | [Infograma] Jerarquía de tipos y generalización [Texto] Explicación corta |
-|                                                              |         [Notebook] Uso de la generalización de tipos         |
+| Definir, entender y usar los tipos de datos algebraicos recursivos |          **Tipos de algebraicos datos recursivos**           |
+|                                                              | [Infograma] ¿Qué es un tipo de dato recursivo? [Texto] Explicación corta |
+|                                                              |       [Vídeo] Definición de tipos de datos recursivos        |
+|                                                              |      [Notebook] Definición de tipos de datos recursivos      |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |
