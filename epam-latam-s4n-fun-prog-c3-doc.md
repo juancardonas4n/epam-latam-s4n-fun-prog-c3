@@ -573,7 +573,7 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 ###### Lograrás:
 
-* Entender y utilizar los tipos de datos algebraicos (*Algebraic Data Types*), su estructura y su uso.
+* Interpretar, emplear, desarrollar y manipular tipos de datos algebraicos (Algebraic data types) en tus programas.
 
 ###### Lo que debes saber:
 
@@ -585,7 +585,7 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 ###### Esperamos que aprendas a:
 
-* Definir tus tipos de datos algebraicos y relacionarlas con tuplas.
+* Definir tus tipos de datos algebraicos y relacionarlos con tuplas.
 * Ejemplificar (*instanciar*), acceder y manipular tipos de datos algebraicos dentro de tus programas.
 * Generalizar los tipos de datos algebraicos.
 
@@ -626,13 +626,13 @@ Puedes observar que la primera figura que te mostramos algo que ya conoces cómo
 
 **1)** Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Puedes observar que hay dos elementos: 
 
-**2)** *el constructor de tipo* que es básicamente el nombre que utilizar ese nuevo tipo en nuestro *sistema de tipos* y, 
+**2)** El primer elemento es *el constructor de tipo* que es el nombre que utilizar ese nuevo tipo en nuestro *sistema de tipos* y, 
 
-**3)** los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*. 
+**3)** El segundo elemento son 	los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*. 
 
 En la segunda figura:
 
-**4)** Observemos ahora la parte referente a la tupla, esta es un tipo de dato *compuesto* es decir que se puede formar de dos o más tipos utilizando el *producto cartesiano*.
+**4)** La tupla es un tipo de dato *compuesto*, es decir, que se puede formar de dos o más tipos utilizando el *producto cartesiano*.
 
 **5)** Nuevamente, tenemos un constructor de tipo que la declaración de la tupla con los tipos de datos que agrupan $Int \times Double$ que dependiendo del lenguaje que implemente las tuplas se verá por ejemplo en Scala: 
 
@@ -895,7 +895,7 @@ La opción D. La expresión está tratando a la variable `cuenta` de tipo `Cuent
 
 En este *notebook* pondrás en práctica todo lo visto en esta unidad a través de varios ejercicios que te permitan construir tipos de datos algebraicos por medio del producto, suma y ambos. También utilizarás lo aprendido en el vídeo anterior de cómo crear nuevos tipos de datos algebraicos a partir del contenido de los anteriores y a recordar como utilizar la composición de funciones.
 
-[Jupyter Notebook - Aplicación de tipos de datos algebraicos - Local](notebook/els4n-fp-c3-m1-u2-nb-01.ipynb)
+[Jupyter Notebook - Aplicación de tipos de datos algebraicos - Remoto](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-01.ipynb)
 
 ###### Pregunta Jupyter Notebook - Aplicación de tipos de datos algebraicos
 
@@ -996,7 +996,7 @@ Esta clasificación nos permite tener una jerarquía de clasificaciones, donde p
 
 ##### Notebook - Uso de la generalización de tipos
 
-[Jupyter Notebook - Uso de la generalización de tipos - Local](notebook/els4n-fp-c3-m1-u2-nb-02.ipynb)
+[Jupyter Notebook - Uso de la generalización de tipos - Remoto](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-02.ipynb)
 
 ###### Pregunta - Notebook - Uso de la generalización de tipos
 
@@ -1275,3 +1275,143 @@ Pero, es solo el principio, en la siguiente unidad observaremos como crear tipos
 
 ##### EPAM Insights
 
+### U3. Tipos de datos algebraicos recursivos
+
+#### Introducción
+
+En este momento conoces como se construyen los tipos de datos algebraicos a través de las operaciones de *suma* (*unión*) y *producto* (*producto cartesiano*), utilizando para ello conjuntos preestablecidos (`Int`, `Double`, `Boolean`, `Float`, etc.) y tipos definidos (`Coordenada`, `Punto`, etc.). En esta unidad observaremos dos cosas: que podemos utilizar dentro de la definición del tipos de datos algebraicos, la definición del tipo propio ateniendonos para ello del que se conoce como la recursión estructural, en la que establece que para definir dicho tipo se debe tener un caso *base* y un caso *recursivo*, como se hace con las funciones se puede hacer también con los tipos de datos, lo que nos permite reconocer que dentro de la programación funcional la barrera entre datos y programa se pierde.
+
+En esta unidad te mostraremos los diferentes acercamientos a la *recursión estructural*, a la definición de tipos de *datos algebricos recursivos* haciendo uso de la *recursión estructural* y del uso de la misma para definir funciones que procesen tipos de *datos algebraicos recursivos*.
+
+##### Guía del curso
+
+![](./images/Map_Beta_Scala_03_U0.gif)
+
+##### Objetivos de la unidad
+
+###### Lograrás:
+
+* Utilizar y beneficiarte de la recursividad en la definición de tipos de datos recursivos e utilizar el patrón de recursión estructural para definir tus programas.
+
+###### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Recursividad.
+* Recursividad de cola.
+* Definición de tuplas.
+* Definición de inmutabilidad de datos.
+
+###### Esperamos que aprendas a:
+
+* Entender la recursión estructural.
+* Usar la recursión estructural.
+* Definir, entender y usar los tipos de datos algebraicos recursivos.
+
+###### Ruta de aprendizaje:
+
+* Fundamentos
+  * Qué es la recursión estructural
+  * Qué son los tipos de datos recursivos
+  * Tipos de datos algebraicos recursivos
+* Prácticas
+  * Uso y aplicación de la recursión estructural.
+  * Definición de los tipos de datos algebraicos recursivos
+* Evaluación
+* Cierre
+
+**Tiempo estimado:** 2h 15 min
+
+
+![](./images/TitularCastor_comencemos.png)
+
+#### Recursión estructural
+
+##### Infograma - ¿Qué es la recursión estructural?
+
+Has aprendido qué son los tipos de datos algebraicos, y sabes que estos pueden ser construidos utilizandos dos operaciones sobre conjuntos: *suma* ($\cup$) ó *unión*, y *producto* ($\times$) ó *producto cartesiano*. Si observas bien, estos dos mecanismos realizan la composición de un nuevo tipo a partir de otros tipos. Pero que pasa cuando requieres interactúar con dicho tipo, cuya información es inmutable, decidas realizar la operación inversa, es decir descomponer un tipo de dato algebraico, es aquí la *recursión estructural* es utilizada cómo un patrón inverso de descomposición. Pero miremos qué es y en que consiste:
+
+> *La recursión estructural* es el proceso de descomposición de un tipo de dato algebraico en sus partes constituyente, teniendo en cuenta la estructura del tipo de dato algebraico.
+
+Cómo Scala es un lenguaje múltiple paradigma asociado al paradigma orientado a objetos y al funcional, existen dos formas de *recursión estructural*:
+
+1. Objetual, a través del polimorfismo.
+2. Funcional, a través de la coincidencia de patrones.
+
+Cada una de ellas a al vez basada en la estructura de construción: *suma* ó *producto*.
+
+###### Polimorfismo a través de la sobrecarga de métodos (o operadores) en la POO
+
+En primer lugar, repasaremos el manejo de polimorfismo, por sobrecarga de métodos en la programación orientada objeto y luego lo observarás en como se aplica en los tipos de datos algebraicos dicha recursión estructural. 
+
+En la siguiente figura puedes observar un ejemplo del polimorfismo:
+
+![](./images/U3-IF1-D01-Integrar.png)
+
+* Implementación. Se observa el modelo del polimorfismo donde las clases `B`y `C` son subclases de la clase `A`. Donde cada subclase implementa de forma directa el método `d`de forma distinta.
+* Ejecución. No se puede crear instancias directamente  de un `trait` ó `interface`, porque son abstractas, pero si podemos crear instancias de las subclases (`B`´ ó `C`) y hacerlas instancias de la superclase `A`. Esto se observa en la ejecución del código donde se crea un ejemplar de `B` (ó `C`) como un valor de tipo `A`llamado `unA` y al invocar el método `d` puedes observar que se invoca en cada uno de los dos casos con el código definido para el método de la subclase.
+
+En la siguiente figura, observas una implementación un poco diferente, porque en este caso la clase abstracta `A`deja una implementación por omisión del método `d` así que las subclases si quiere hacer debe sobre-escribir dicho código si así lo quieren.
+
+![](./images/U3-IF1-D02-Integrar.png)
+
+* Implementación. En este caso la clase `A` tiene implementado un método `d`, lo que permite que sus subclases puedan sobre-escribirlo. En este caso ambas subclases : `B` y `C`, lo harán anteponiendo el constructor `override` para indicar que dicho método sobre-escribirá. En caso contrario, se tomará siempre el método de la super-clase (`A`), cuando se realice una ejecución polimórfica, como se muestra a continuación.
+* Ejecutar.  Cómo ya es de tu conocimiento, no puedes crear instancias directamente  de un `trait` ó `interface`. Igual, que lo hiciste anteriormente, puedes crear instancias de las subclases (`B` ó `C`) y hacerlas instancias de la super-clase `A` cómo lo puedes al observar el código de la ejecución en la imagen, donde se crean diferentes instancias de `A` llamada `unA`, pero de diferentes sub-clases, y al invocar el método `d` se invoca el correspondiente método implementado.
+
+###### Polimorfismo en tipos de datos algebraicos
+Hablemos ahora como utilizar la recursión estructural a partir de los tipos de datos algebraicos utilizando el concepto de polimorfismo. En la siguiente figura se observa una definición de un tipo de dato algebraico `A` con su correspondientes constructor de valor `B`. El `trait` `A`tiene un método *abstracto* `e` que retorna un valor de tipo `F`. Por lo tanto, `B` debe implementarlo de forma que el resultado que produzca debe ser tipo `F`. 
+![](images/U3-IF2-D01-Integrar.png)
+`B` utiliza producto en los valores de tipo `C` y `D`, por lo tanto el método `e` debe utilizar los métodos de los tipos `C` y `D` para obtener un valor de tipo `F`, en la figura se sugiere utilizar del parámetro `c` de tipo `C` un método que obtenga un valor de tipo `F` ($c.toF$), de forma idéntica se sugiere con el parámetro `d` de tipo `D` ($d.ToF$) y ahora esos valores puede ser combinados a través de un operador $\oplus_F$ del tipo `F`.
+
+Te preguntarás: Si el tipo de dato algebraico es construido por medio de la operación de *suma*, ¿cómo aplicar el polimorfismo en dicho caso?
+
+Bien, para ello observa la siguiente imagen, en ella observarás como se construye el tipo `A`, que tiene definido un método abstracto `f` y se tiene dos valores (`B` y `C`) construidos por medio de la operación *suma* y que también debe implementar (*sobrecargar*) dicho método.
+
+![](./images/U3-IF2-D02-Integrar.png)
+
+La implementación de cada método dependerá de la estructura interna del tipo. Por ejemplo, para el tipo `B` este tomará una función que recorra la estructura y la transforme en un valor de tipo `F`: $\uparrow()_B$, lo mismo pasa en la implementación para el tipo `C`:  $\uparrow()_C$. En cada uno de los caso en función del programador realizar dicha transformación.
+
+#### Uso de la recursión estructural
+
+##### Vídeo - La recursión estructural en tipos de datos algebraicos
+
+Hemos visto hasta ahora utilizar la recursión estructural a través de polimorfimos en la POO y en los tipos de datos algebraicos. En este vídeo, iniciaremos mostrando una definición más formal de recursión estructural y luego la aplicaremos esta definición para definir los tipos de datos algebraicos recursivos, en particular un ejemplo llamado los [números de Peano](https://es.wikipedia.org/wiki/Axiomas_de_Peano#:~:text=Los%20axiomas%20de%20Peano%20o,para%20definir%20los%20n%C3%BAmeros%20naturales.), y a partir de ellos aplicaremos la recursión estructural a partir de la coincidencia de patrones.
+
+[Vídeo - La recursión estructural en tipos de datos algebraicos - Por grabar](./videos/raw_videos/EPAM-LATAM-2022-01-03-11-22-14-Consola.mp4)
+
+###### Preguntas - Vídeo - La recursión estructural en tipos de datos algebraicos
+
+1. 
+
+#### Aplicación de la recursión estructural
+
+##### Notebook - Uso y aplicación de la recursión estructural
+
+###### Pregunta - Notebook - Uso y aplicación de la recursión estructural
+
+###### Cierre - Notebook - Uso y aplicación de la recursión estructural
+
+#### Tipos de datos algebraicos recursivos 
+
+##### Infograma - ¿Qué es un tipo de dato recursivo?
+
+###### Vídeo - Definición de tipos de datos algebraicos recursivos
+
+###### Preguntas - Vídeo - Definición de tipos de datos algebraicos recursivos
+
+##### Notebook - Uso y definición de tipos de datos algebraicos recursivos
+
+###### Pregunta - Notebook - Uso y definición de tipos de datos algebraicos recursivos
+
+###### Cierre - Notebook - Uso y definición de tipos de datos algebraicos recursivos
+
+#### Evaluación 
+
+#### Cierre
+
+##### ¿Quieres saber más?
+
+##### EPAM - Insights
+
+ 

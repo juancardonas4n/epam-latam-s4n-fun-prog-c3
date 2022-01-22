@@ -146,7 +146,7 @@
 
 ##### Lograrás:
 
-* Utilizar y beneficiarte de la recursividad en la definición de tipos de datos recursivos e utilizar el patrón de recursividad estructural para definir tus programas.
+* Utilizar y beneficiarte de la recursividad en la definición de tipos de datos recursivos e utilizar el patrón de recursión estructural para definir tus programas.
 
 ##### Lo que debes saber:
 
@@ -154,7 +154,7 @@
 * Definición de funciones puras.
 * Funciones como valores.
 * Recursividad.
-* Recursividad de cola
+* Recursividad de cola.
 * Definición de inmutabilidad de datos.
 * Tipos de datos inmutables y sus formas de definición (*suma*  y *producto*).
 
@@ -162,7 +162,7 @@
 
 * Entender la recursión estructural.
 * Usar la recursión estructural.
-* Definir, entender y usar los tipos de datos algebraicos recursivos
+* Definir, entender y usar los tipos de datos algebraicos recursivos.
 
 #### Tiempo estimado:
 
@@ -178,15 +178,15 @@
 |              Entender la recursión estructural               |                  **Recursión estructural**                   |
 |                                                              | [Infograma] ¿Qué es al recursión estructural? [Texto] Explicación corta. |
 |                  -------------------------                   | ------------------------------------------------------------------- |
-|                Usar la recursión estructural                 |                  **Recursión estructural**                   |
-|                                                              |            [Video] Usar la recursión estructural             |
+|                Usar la recursión estructural                 |             **Uso de la recursión estructural**              |
+|                                                              | [Video] La recursión estructural en tipos de datos algebraicos |
 |                                                              |         **Aplicación  de la recursión estructural**          |
 |                                                              |   [Notebook] Uso y aplicación de la recursión estructural    |
 |                  -------------------------                   | ------------------------------------------------------------------- |
-| Definir, entender y usar los tipos de datos algebraicos recursivos |          **Tipos de algebraicos datos recursivos**           |
+| Definir, entender y usar los tipos de datos algebraicos recursivos |          **Tipos de datos algebraicos recursivos**           |
 |                                                              | [Infograma] ¿Qué es un tipo de dato recursivo? [Texto] Explicación corta |
-|                                                              |       [Vídeo] Definición de tipos de datos recursivos        |
-|                                                              |      [Notebook] Definición de tipos de datos recursivos      |
+|                                                              | [Vídeo] Definición de tipos de datos algebraicos recursivos  |
+|                                                              | [Notebook] Uso y definición  de tipos de datos algebraicos recursivos |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |

@@ -1,4 +1,4 @@
-[//]: # (Definido por Juan Francisco Cardona McCormick)
+[//]: # "Definido por Juan Francisco Cardona McCormick"
 
 # Programación funcional con Scala. Tipos de datos inmutables
 
@@ -17,7 +17,16 @@
 #### Notebook 3. Manejo y transformación de tuplas
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u1-nb-03.ipynb)
+
 ### U2. Tipos de datos algebraicos
+
+#### Notebook 1. Tipos de datos algebraicos en Scala
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-01.ipynb)
+
+#### Notebook 2. Uso de la generalización de tipos
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-02.ipynb)
 
 ### U3. Tipos de datos algebraicos recursivos
 
