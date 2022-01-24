@@ -624,59 +624,58 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 Puedes observar que la primera figura que te mostramos algo que ya conoces cómo es la asociación entre los tipos de datos y conjuntos.
 
-**1)** Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Puedes observar que hay dos elementos: 
+**1)** Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Observarás que hay dos tipos de elementos.
 
-**2)** El primer elemento es *el constructor de tipo* que es el nombre que utilizar ese nuevo tipo en nuestro *sistema de tipos* y, 
+**2)** El primer elemento observado, es *el constructor de tipo* que nos sirve añadir un tipo nuevo al *sistema de tipos*. 
 
-**3)** El segundo elemento son 	los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*. 
+**3)** Y el segundo elemento observado se observa en los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*, que permite indicar que estamos trabajando con un valor. 
 
 En la segunda figura:
 
 **4)** La tupla es un tipo de dato *compuesto*, es decir, que se puede formar de dos o más tipos utilizando el *producto cartesiano*.
 
-**5)** Nuevamente, tenemos un constructor de tipo que la declaración de la tupla con los tipos de datos que agrupan $Int \times Double$ que dependiendo del lenguaje que implemente las tuplas se verá por ejemplo en Scala: 
+**5)** Nuevamente, tenemos un *constructor de tipo* en la declaración de la tupla con los tipos de datos que agrupan $Int \times Double$, que dependiendo del lenguaje que implemente las tuplas se verá diferente.  
 
-**6)** `(Int, Double)`, es decir este es un tipo de dato nuevo que se agregará al *sistema de tipos*, pero se tiene un nuevo constructor de valores que utiliza el operador paréntesis normalizado para indicar los elementos (valores) que pertenencen a la nueva tupla como por ejemplo:
+**6)** En Scala el *constructor de tipo* se observa así: `(Int, Double)`. Es decir, este es un tipo de dato nuevo que se agregará al *sistema de tipos*, pero se tiene un nuevo constructor de valores que utiliza el operador paréntesis normalizado para indicar los elementos (valores) que pertenecen este tipo.
 
- **7)** `(3,6.1)`. Entonces, siempre que queramos construir un valor del tipo de la tupla determinado necesitaremos el operador paréntisis normalizado. 
+ **7)** Esto `(3,6.1)`  nos indica *un constructor de valor* para la tupla de tipo $Int \times Double$  a través del operador paréntesis normalizado. 
 
 Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* y *producto*, no de forma exclusiva, se pueden utilizar ambas. 
 
-**Aparte** Y aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, problamente utilizaremos un tipo parecido: $Double \times Double \times Double$. ¿Qué podríamos hacer para diferenciar ambos tipos? Muy  probablemente menciones que podríamos utilizar el alias y que lo podríamos indicar de esta forma para cada tipo: `type Coord3D = (Double, Double, Double)`  y `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distitos para un mismo tipo, pero no podemos restrigir su entrada a funciones que trabajen distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal`, podríamos la misma tupla de 3 valores a las dos funciones, sin distinguir de que tipo realmente estamos trabajando. 
+**Aparte** Aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, probablemente utilizaremos un tipo parecido. ¿Qué podríamos hacer para diferenciar ambos tipos? Una primera idea que se nos podría ocurrir es utilizar los *alias de tipos*, para ello definiríamos un alias para cada caso: `type Coord3D = (Double, Double, Double)`  y  `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distintos para un mismo tipo, pero no podemos restringir su uso como parámetros a funciones que esperan trabajar con tipos distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal` (obtener la nota final), en ambos casos, podemos tener un valor del tipo $Double \times Double \times Double$ y utilizarlo como parámetro para las dos funciones, sin distinguir si trabajamos con coordenadas o con notas.
+
+Esa diferenciación entre los tipos con un mismo cuerpo se puede lograr a través de los tipos de datos algebraicos y la siguiente imagen nos muestra como se puede hacer para crear un tipo `Coordenada` .
 
 ![](./images/U2-TDA_Producto.jpg)
 
 ![](./images/U2-TDA_Producto_coordenadas.jpg)
 
 
+**1)**  Este *constructor de tipo* define el tipo `Coordenada`. 
+
+**2)** Este *constructor de valor* define el mecanismo para poblar de valores al tipo `Coordenada`.
+
+**3)** Es un ejemplo para crear la variable `coord` de tipo `Coordenada` y asignarle el valor correspondiente (*Note que no hay que hacer uso de operador `new`*).
+
+**4)**  La definición **`sealed trait Coordenada`**  le indica al sistema de tipos de vamos a definir un nuevo tipo `Coordenada`, indicándole el nombre y que esta interface (`trait`) estará sellada, es decir que todos su valores deben estar definidos dentro del mismo "archivo".  Un `trait`  indicar valores y métodos abstractos, pero trataremos de evitarlos en el caso de TDA.
+
+**5)** El constructor de valor `Punto`, indica como construir un valor e identificar cuáles serán las funciones de acceso: `.x` y `.y`. Recuerde que este tipo es inmutable.
+
+La gráfica anterior mostró como definir un tipo de dato algebraico a través de la función producto. En la siguiente, vamos a mostrar como producir un tipo de dato algebraico utilizando la operación de *suma* (*unión).
 
 ![](./images/U2-TDA_Suma.jpg)
 
+![](./images/U2-TDA_Suma_coordenadas.jpg)	 
 
+**6**) El tipo de dato `RGB` está definido por el *constructor de tipo*  **`sealed trait RBG`** (`RGB`) inicia la definifición, de forma que todas los alternativas de los valores estén incluidos dentro del "archivo". Y se procede a definir sus valores
 
+**7)** El constructor de valor utiliza un `case object` para establecer que este valor es único, semejante a una constante que define el valor `Red`.  
 
+**8)** Este constructor de valor define el valor de `RGB`: `Green`. 
 
-![](./images/U2-TDA_Suma_coordenadas.jpg)	
+**9)** Este constructor de valor define el valor de `RGB`: `Blue`.
 
-Es por ello que los tipos de datos algebraicos cambian la  forma de obtener 
-
-**1)** el nuevo tipo (*constructor de tipo*) y de manipular los valores, se obtiene para ello 
-
-**2)** *constructores de valor*. En gráfica anterior se observa esto en particular para construir dos tipos de datos nuevos: `Coordenada`y `RGB`. 
-
-**3)** El primer tipo, `Coordenada` muestra la forma en Scala 2.0 como se construye el tipo en particular, utilizando para ello los 
-
-**4)** **`traits`** que son interfaces, que contienen un nombre (que representará el nuevo tipo) y los constructores de valores, que en esta caso tenemos uno solo `Punto`. 
-
-**5)** El constructor de valor `Punto`identificar cuáles serán sus funciones de acceso: `.x` y `.y`, pero como sucede con las tuplas los tipos de datos algebraicos son también **inmutables**.
-
-**6**) El tipo de dato `RGB` utiliza también de un **`trait`** (`RGB`) para definir el constructor de tipo, pero en este caso realiza la definición de diferentes valores que tiene el tipo en particular, en este caso utiliza un `case object`para indicar que cada uno de ellos:
-
-**7)** `Red`, 
-
-**8)** `Green`y 
-
-**9)**`Blue` son valores, pero adicionalmente cada uno de los tres esta utilizando el operador suma, por que cada definición añade un valor nuevo al tipo `RGB`.
+Cada *constructor de valor* es un conjunto con un valor único, y a través de la operación de *suma* (*unión*) se forma los valores del conjunto de dato `RGB`.
 
 #### Tipos de datos algebraicos
 
@@ -964,7 +963,14 @@ Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de
 
 ##### Infograma - Jerarquía de tipos y generalización
 
-Hemos dado una definición de tipo asociada a la teoría de conjuntos donde un tipo de dato son los valores agrupados por un conjunto determinado con un nombre. Ampliaremos dicha definición, indicando que un tipo se encuentra completamente definido cuando no solamente indicamos los valores sino que también hablamos de las funciones que los utilizan. En la siguiente imagen tenemos la representación de dos tipos de datos: **1)** `Int` y **2)** `Double`, con sus respectivas funciones. Por ejemplo, el tipo de dato `Int` tiene las conocidas operadores **3)** (*funcione*): `+`, `-`, `*`, `==`, `!=` entre otros (No aparece la definición de la división por algunos propiedades que no examinaremos en esta unidad, pero más adelante exploraremos.). Si observas el tipo  `Double`también tiene una serie de operadores **4)** (*funciones*), muy similares, por que podríamos concluir rápidamente que existen dos operadores de sumas: una para enteros y otra para valores dobles. 
+Hemos dado una definición de tipo asociada a la teoría de conjuntos, donde un tipo de dato son los valores agrupados por un conjunto determinado por un nombre. Ampliaremos dicha definición, indicando que un tipo se encuentra completamente definido cuando no solamente indicamos los valores sino que también un conjunto de funciones asociadas al tipo. 
+
+En la siguientes imágenes tenemos la representación de dos tipos de datos: 
+
+1. Este es el tipo de dato `Int` con sus operadores (aritméticos y otros).
+2. Este es el tipo de dato `Double`, con sus operadores (aritméticos y otros). 
+3. Los operadores `+`, `-`, `*`, `==`, `!=` entre otros, para el tipo de dato `Int` (La división no aparece definida por algunas propiedades, que no hablaremos ahora).
+4. Los operadores `+`, `-`, `*`, `==`, `!=` entre otros, para el tipo de dato `Double` (La división si aparece por que cumple ciertas propiedades, que no hablaremos ahora).
 
 ![](./images/U2-TDA_Tipo_dato_Int.jpg)
 
@@ -974,25 +980,41 @@ Hemos dado una definición de tipo asociada a la teoría de conjuntos donde un t
 
 ![](./images/U2-TDA_Tipo_dato_Double_Coordenadas.jpg)
 
+ 
 
+Si comparamos los tipos del operador de `+` definido para enteros y para flotantes, estos son distintos, lo que en principio nos haría pensar que el lenguaje de programación ofrece dos operaciones de suma. Pero todos sabemos que en realidad se ofrece una única operación de suma, y no solo para estos dos tipos sino para otros tipos que requieran esta operación. Esa única operación de suma que se ofrece, se encuentra *sobrecargada* y sirve para cualquiera de los tipos que la requieran.
 
-Una corta reflexión nos indica que es muy compliado y confuso que el lenguaje ofrecezca al programador dos operaciones de suma, en realidad se ofrece una única operación de suma, y no solo para estos dos tipos sino para otros tipos que requieran esta operación. Esa única operación de suma que se ofrece se encuentra sobrecargada y sirve para cualquiera de los tipos que la requieran. Esto se logra por que las operaciones de los tipos se pueden agrupar en clases. **¡Clases!** como en la programación orientada a objeto. **¡No!**, este tipo de clases parte de una definición que se encarga de *clasificar* a los tipos de datos por comportamientos similares. En este caso como se observa en la imagen siguiente, creamos una clasificación específica llamada **1)** `Eq` que indica como se comporta las funciónes de comparación por igual **2)** (`==`) y por diferente **3)** (`!=`), que por ejemplo para el primero recibe dos valores de tipo `a` y los compara y devuelve un valor de tipo `Bool` (*boolean*) indicando si son iguales o diferentes. La clase `Eq` es una clasificación que indica que un tipo para pertenecer a esta clasificiación debe implementar esos dos métodos.  
+Esto se logra por que las operaciones de los tipos se pueden agrupar en clases. **¡Clases!** ¿Cómo en la programación orientada a objetos? **¡No!**, Este tipo de *clases* parte de una definición que se encarga de *clasificar* a los tipos de datos por comportamientos similares, ofrecidos por los operadores y las funciones, que en la realidad son la misma cosa. 
+
+Si observas la siguiente imagen vamos a establecer una clasificación específica.
 
 ![](./images/eq.png)
 
 ![	](./images/eqGuia.png)
 
-En al parte inferior de la imagen, esta lo que debe hacer cualquier tipo de dato para pertenecer a una clasificación especifica, es decir tiene que indicar que es una instancia (*la definición de instancia no es la misma de POO, aquí significa que es un ejemplar de dicha clasificación.*). Esta instanciación se hace indicando como el tipo específico implementa las funciones necesarias, en este caso cada una de las dos instanciaciones **4)** `Int` y **5)** `Double` implementa ambas funciones (en muchos casos no es necesario, con la comparación se puede obtener la negación.). Cada tipo de dato que quiera pertenecer a una clasificación debe escribir la instanciación específica. Pero esto no es necesario y es aquí donde la teoría de tipos nos ayuda. Por ejemplo, los valores de un tipo algebraico formado por *enumeración* como es el caso de `DiaSemana` encontramos que cada constructor de valor hace que sean diferentes, si los constructores son diferentes, el resultado de la comparación es diferente, si son el mismo, obviamente serán iguales. Ahora, para un producto, simple se compara uno a uno los elementos y se puede de esar forma saber si son iguales  o no. 
+1. La clase `Eq` que indica un comportamiento común de igualdad o diferencia. 
 
+2.  La clase  `Eq` define un comportamiento por igualdad (`==`), que recibe dos valores de un mismo tipo `a` e indica si son iguales o no.
 
+3. La clase `Eq` define un comportamiento por diferencia (`!=`), que recibe dos valores de un mismo tipo `a` e indica si son diferentes o no. 
 
-Esta clasificación nos permite tener una jerarquía de clasificaciones, donde por ejemplo, para tener elementos de la clase **1)** `Ord`(Orden), primer los tipos debe pertenecer a **2)** `Eq` y luego implementar los métodos de ordenamiento como: `<`, `>` y así. En la figura se muestra una figura de clasificación. Es esto donde el operador `deriving` nos ayuda en un lenguaje como Haskell a que el compilador realice este tipo de tareas y en la figura a continuación se muestra dichar jerarquía. 
+La clase `Eq` es una clasificación que indica que si un tipo quiere pertenecer a dicha implementación debe definir ambas funciones (en realidad se puede definir únicamente la igualdad, ya  que la negación se hace *negando* la igualdad.). Para que un tipo clasifique a una *clase* particular esta obligado a implementar las funciones que una clase establece, es decir que realiza una *instanciación* (No en la definición de **POO** sino que un tipo implemente los métodos de una clase, no crea una instancia.). 
+
+4. Muestra la *instanciación* del tipo `Int` como miembro de la clase `Eq`.
+5. Muestra la *instanciación* del tipo `Double` como miembro de la clase `Eq`. 
+
+Cada tipo de dato que quiera pertenecer a una clasificación debe escribir la instanciación específica. Pero esto no es necesario y es aquí donde la teoría de tipos nos ayuda. Por ejemplo, los valores de un tipo algebraico formado por *enumeración* como es el caso de `DiaSemana` encontramos que cada constructor de valor hace que sean diferentes, si los constructores son diferentes, el resultado de la comparación es diferente, si son el mismo, obviamente serán iguales. Ahora, para un producto, simple se compara uno a uno los elementos y se puede de esar forma saber si son iguales  o no. 
+
+Esta clasificación nos permite tener una jerarquía de clasificaciones como vemos en la siguiente figura.
 
 ![](./images/U2-TDA_jerarquia.jpg)
 
 ![](./images/U2-TDA_jerarquia_Coordenadas.jpg)
 
+1. La clase `Eq` una de las clases base de la jerarquía.
+2. Para que una tipo sea *instancia* de la clase `Ord` (Orden) esta debe pertenecer a la clase `Eq`
 
+Lo que nos dice la jerarquía es si un tipo pertence a un tipo determinado debe tener el comportamiento de las clases de las que depende de la parte alta de la jerarquía. Este mecanismo, permite la sobercarga de operadores y que cuando pertenece a una clase particular, la instanciación permite la invocación del método correspondiente.
 
 ##### Notebook - Uso de la generalización de tipos
 
