@@ -30,6 +30,14 @@
 
 ### U3. Tipos de datos algebraicos recursivos
 
+#### Notebook 1. Uso y aplicación de la recursión estructural
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/dev?labpath=notebooks%2Fels4n-fp-c3-m1-u3-nb-01.ipynb)
+
+#### Notebook 2. Uso y definición  de tipos de datos algebraicos recursivos
+
+
+
 ## M2. Uso de tipos de datos algebraicos
 
 ### U4. Objetos de compañia
