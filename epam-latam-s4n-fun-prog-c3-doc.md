@@ -1410,6 +1410,8 @@ Hemos visto hasta ahora utilizar la recursión estructural a través de polimorf
 
 ##### Notebook - Uso y aplicación de la recursión estructural
 
+[Jupyter Notebook - Uso y aplicación de la recursión estructural - Remoto]([![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/dev?labpath=notebooks%2Fels4n-fp-c3-m1-u3-nb-01.ipynb))
+
 ###### Pregunta - Notebook - Uso y aplicación de la recursión estructural
 
 ###### Cierre - Notebook - Uso y aplicación de la recursión estructural
