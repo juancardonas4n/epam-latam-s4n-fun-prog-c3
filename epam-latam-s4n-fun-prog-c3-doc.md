@@ -612,37 +612,34 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 ---
 
-#### Infograma - Construcción de tipos
+#### Infografía - Construcción de tipos
+
+Hemos hablado sobre *tipos de datos* en diferentes escenarios, pero ahora te hablaremos de manera informal de donde provienen los tipos de datos y las técnicas para crearlos.
 
 ![](./images/U2-TDA_Los_tipos_basicos.jpg)
 
 ![](./images/U2-TDA_Los_tipos_basicos_coordenadas.jpg)
+En la anterior figura puedes observar algo que ya conoces cómo es la asociación entre los tipos de datos con los conjuntos matemáticos.
+
+1. Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Observarás que hay dos tipos de elementos.
+2. El primer elemento observado, es *el constructor de tipo* que nos sirve añadir un tipo nuevo al *sistema de tipos* y nombrarlo dentro del mismo.
+3. Y el segundo elemento observado lo identificas en los literales enteros que representan los valores del tipo de dato, estos literales son también conocidos como *constructores de valores*. 
 
 ![](./images/U2-TDA_Las_tuplas.jpg)
 
 ![](./images/U2-TDA_Las_tuplas_coordenadas.jpg)
 
-Puedes observar que la primera figura que te mostramos algo que ya conoces cómo es la asociación entre los tipos de datos y conjuntos.
 
-**1)** Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Observarás que hay dos tipos de elementos.
+En la figura anterior observas como se construye un tipo de dato, también llamadado *tipo de dato compuesto* o *tipo de dato definido por usuario*.
 
-**2)** El primer elemento observado, es *el constructor de tipo* que nos sirve añadir un tipo nuevo al *sistema de tipos*. 
+4. La tupla es un tipo de dato *compuesto*, es decir, que se puede formar de dos o más tipos utilizando el *producto cartesiano*.
+5. De nuevo tenemos un *constructor de tipo* en la declaración de la tupla con los tipos de datos que agrupan $Int \times Double$, que dependiendo del lenguaje que implemente las tuplas se verá diferente.  
+6. En Scala el *constructor de tipo* se observa así: `(Int, Double)`. Es decir, este es un tipo de dato nuevo que se agregará al *sistema de tipos*, pero se tiene un nuevo constructor de valores que utiliza el operador paréntesis normalizado para indicar los elementos (valores) que pertenecen este tipo.
+7. Este nos indica *un constructor de valor* para la tupla de tipo $Int \times Double$  a través del operador paréntesis normalizado. 
 
-**3)** Y el segundo elemento observado se observa en los literales enteros que representan los valores del tipos de dato, estos literales son también conocidos como *constructores de valores*, que permite indicar que estamos trabajando con un valor. 
+Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* (*unión* entre conjuntos) y *producto* (*producto cartesiano* ya visto en el ejemplo de la tupla). Puedes utilizar una o la otra o ambas.
 
-En la segunda figura:
-
-**4)** La tupla es un tipo de dato *compuesto*, es decir, que se puede formar de dos o más tipos utilizando el *producto cartesiano*.
-
-**5)** Nuevamente, tenemos un *constructor de tipo* en la declaración de la tupla con los tipos de datos que agrupan $Int \times Double$, que dependiendo del lenguaje que implemente las tuplas se verá diferente.  
-
-**6)** En Scala el *constructor de tipo* se observa así: `(Int, Double)`. Es decir, este es un tipo de dato nuevo que se agregará al *sistema de tipos*, pero se tiene un nuevo constructor de valores que utiliza el operador paréntesis normalizado para indicar los elementos (valores) que pertenecen este tipo.
-
- **7)** Esto `(3,6.1)`  nos indica *un constructor de valor* para la tupla de tipo $Int \times Double$  a través del operador paréntesis normalizado. 
-
-Ahora, hablemos que son los **tipos de datos algebraicos**: estos son tipos que se construyen utilizando las operaciones de *suma* y *producto*, no de forma exclusiva, se pueden utilizar ambas. 
-
-**Aparte** Aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, probablemente utilizaremos un tipo parecido. ¿Qué podríamos hacer para diferenciar ambos tipos? Una primera idea que se nos podría ocurrir es utilizar los *alias de tipos*, para ello definiríamos un alias para cada caso: `type Coord3D = (Double, Double, Double)`  y  `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distintos para un mismo tipo, pero no podemos restringir su uso como parámetros a funciones que esperan trabajar con tipos distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal` (obtener la nota final), en ambos casos, podemos tener un valor del tipo $Double \times Double \times Double$ y utilizarlo como parámetro para las dos funciones, sin distinguir si trabajamos con coordenadas o con notas.
+Aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe un problema con ellas, si quiero tener una tupla que contenga valores en la plano de tres dimensiones el tipo probablemente será: $Double \times Double \times Double$; igualmente si quiero representar los porcentajes de un curso que tiene tres notas, probablemente utilizaremos un tipo parecido. ¿Qué podríamos hacer para diferenciar ambos tipos? Una primera idea que se nos podría ocurrir es utilizar los *alias de tipos*, para ello definiríamos un alias para cada caso: `type Coord3D = (Double, Double, Double)`  y  `type PorNotas = (Double, Double, Double)`. Si observas bien, lo que hemos hecho es dar dos alias distintos para un mismo tipo, pero no podemos restringir su uso como parámetros a funciones que esperan trabajar con tipos distinto como por ejemplo: `convCoord3DPolar`(convertir a coordenadas polares) o `obtNotaFinal` (obtener la nota final), en ambos casos, podemos tener un valor del tipo $Double \times Double \times Double$ y utilizarlo como parámetro para las dos funciones, sin distinguir si trabajamos con coordenadas o con notas.
 
 Esa diferenciación entre los tipos con un mismo cuerpo se puede lograr a través de los tipos de datos algebraicos y la siguiente imagen nos muestra como se puede hacer para crear un tipo `Coordenada` .
 
@@ -661,7 +658,7 @@ Esa diferenciación entre los tipos con un mismo cuerpo se puede lograr a travé
 
 **5)** El constructor de valor `Punto`, indica como construir un valor e identificar cuáles serán las funciones de acceso: `.x` y `.y`. Recuerde que este tipo es inmutable.
 
-La gráfica anterior mostró como definir un tipo de dato algebraico a través de la función producto. En la siguiente, vamos a mostrar como producir un tipo de dato algebraico utilizando la operación de *suma* (*unión).
+La gráfica anterior mostró como definir un tipo de dato algebraico a través del *producto*. En la siguiente, vamos a mostrar como producir un tipo de dato algebraico utilizando la operación de *suma* (*unión*). Suponga que quiere tener un tipo que represente los tres colores básicos que se utilizan en las terminales. 
 
 ![](./images/U2-TDA_Suma.jpg)
 
@@ -961,7 +958,7 @@ Cómo ya habías visto en la  conclusión del tema de las tuplas, **los tipos de
 
 #### Generalizar tipos de datos algebraicos
 
-##### Infograma - Jerarquía de tipos y generalización
+##### Infografía - Jerarquía de tipos y generalización
 
 Hemos dado una definición de tipo asociada a la teoría de conjuntos, donde un tipo de dato son los valores agrupados por un conjunto determinado por un nombre. Ampliaremos dicha definición, indicando que un tipo se encuentra completamente definido cuando no solamente indicamos los valores sino que también un conjunto de funciones asociadas al tipo. 
 
@@ -1350,7 +1347,7 @@ En esta unidad te mostraremos los diferentes acercamientos a la *recursión estr
 
 #### Recursión estructural
 
-##### Infograma - ¿Qué es la recursión estructural?
+##### Infografía - ¿Qué es la recursión estructural?
 
 Has aprendido qué son los tipos de datos algebraicos, y sabes que estos pueden ser construidos utilizandos dos operaciones sobre conjuntos: *suma* ($\cup$) ó *unión*, y *producto* ($\times$) ó *producto cartesiano*. Si observas bien, estos dos mecanismos realizan la composición de un nuevo tipo a partir de otros tipos. Pero que pasa cuando requieres interactúar con dicho tipo, cuya información es inmutable, decidas realizar la operación inversa, es decir descomponer un tipo de dato algebraico, es aquí la *recursión estructural* es utilizada cómo un patrón inverso de descomposición. Pero miremos qué es y en que consiste:
 
@@ -1418,7 +1415,7 @@ Hemos visto hasta ahora utilizar la recursión estructural a través de polimorf
 
 #### Tipos de datos algebraicos recursivos 
 
-##### Infograma - ¿Qué es un tipo de dato recursivo?
+##### Infografía - ¿Qué es un tipo de dato recursivo?
 
 ###### Vídeo - Definición de tipos de datos algebraicos recursivos
 
