@@ -191,3 +191,55 @@
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
+
+## M2. Uso de tipos de datos algebraicos
+
+### U4. Objetos de compañía
+
+#### Objetivos
+
+##### Lograrás:
+
+* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados
+* Utilizar los objetos de compañía a través de funciones.
+
+##### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+
+##### Concretamente esperamos que aprendas a:
+
+* Entender patrones de diseño básicos: *singleton* y *factories*
+* Definir los objetos de compañía.
+* Utilizar los objetos de compañía en contexto reales.
+
+#### Tiempo estimado:
+
+1 hora
+
+#### Ruta de aprendizaje:
+
+|                  *Objetivo de aprendizaje*                   |                  *Actividad de aprendizaje*                  |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        *Introducción*                        |                            [text]                            |
+|                                                              |                         [activacion]                         |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+| Entender patrones de diseño básico: *singleton* y *factories* |                    **Patrones de diseño**                    |
+|                                                              | [Infograma] ¿Qué son los patrones de diseño? Dos patrones útiles: *singleton* y *factories*[Texto] Explicación corta. |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|                 Definir los objetos compañía                 |   **Objetos de compañía, se nombran igual son diferentes**   |
+|                                                              | [Video] `case class`versus `class`, `case object`versus `object` y objetos de compañía |
+|                                                              |                **TDA y objetos de compañía**                 |
+|                                                              |         [Notebook] Definición de objetos de compañía         |
+|                  -------------------------                   | ---------------------------------------------------------------- |
+|     Utilizar los objetos de compañía en contexto reales      |            **Aplicar y usar objetos de compañía**            |
+|                                                              | [Vídeo] Aplicación de objetos de compañía en listas de enteros y en otros TDA |
+|                                                              | [Notebook] Aplicación de objetos de compañía en listas de enteros y árboles |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                                                              |                        **Evaluación**                        |
+|                                                              |                          **Cierre**                          |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |

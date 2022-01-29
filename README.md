@@ -36,6 +36,7 @@
 
 #### Notebook 2. Uso y definición  de tipos de datos algebraicos recursivos
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/dev?labpath=notebooks%2Fels4n-fp-c3-m1-u3-nb-01.ipynb)
 
 
 ## M2. Uso de tipos de datos algebraicos
