@@ -17,7 +17,7 @@ revisión:
 
 **Importante**
 
-* Te invitamos a ingresar al canal de [Microsoft Teams S4N Campus Students](https://teams.microsoft.com/l/channel/19%3ac42db2d304b64e03a6513494cc550918%40thread.tacv2/S4N%2520Campus%2520students?groupId=a1adcd66-1b55-478a-ad09-2a659c71cc5b&amp;tenantId=b41b72d0-4e9f-4c26-8a69-f949f367c91d). Todas tus preguntas y solicitudes serán respondidas allí.
+* Te invitamos a ingresar al canal de [Microsoft Teams S4N Campus Students](https://teams.microsoft.com/l/channel/19%3ac42db2d304b64e03a6513494cc550918%40thread.tacv2/S4N%2520Campus%2520students?groupId=a1adcd66-1b55-478a-ad09-2a659c71cc5b&tenantId=b41b72d0-4e9f-4c26-8a69-f949f367c91d). Todas tus preguntas y solicitudes serán respondidas allí.
 * El aprendizaje será 100% virtual y desarrollarás las unidades a tu propio ritmo (auto-gestionado).
 * Estamos en versión Beta. Nos interesa probar los contenidos y las actividades.
 * Esperamos feedback de tu parte. Los comentarios podrás agregarlos en este [Sheets](https://docs.google.com/spreadsheets/d/1bU9sgtsiyLLlSSp8jrS84ZZMJ5IihNNDnbuURxk3hLk/edit?usp=sharing).
@@ -89,7 +89,8 @@ Observarás la importancia de los tipos de datos inmutables en general, también
 
 ![](./images/TitularCastor_comencemos.png)
 
----------
+------
+---
 
 #### Tuplas
 
@@ -99,12 +100,11 @@ Este vídeo te mostrará la tupla como un tipo de dato inmutable que permite ser
 
 [Vídeo pendiente de edición](videos/ready_pre_edition/EPAM-LATAM-FP-C3-M0-U0-V1-P01-Docente.mp4)
 
-
 ###### Preguntas Vídeo
 
 1.
 
->>Es un efecto colateral<<
+> > Es un efecto colateral<<
 
 ( ). Un programa funcional
 
@@ -114,19 +114,15 @@ Este vídeo te mostrará la tupla como un tipo de dato inmutable que permite ser
 
 ( ). Una acción llevada por otro procesos
 
-
-
 [explanation]
 
 Cada operación que modifique el estado del computador, como memoria, entrada y salidas, es un efecto colateral.
 
 [explanation]
 
-
-
 2.
 
->>Dos tipos de datos inmutables<<
+> > Dos tipos de datos inmutables<<
 
 [ ]. Objetos
 
@@ -136,22 +132,17 @@ Cada operación que modifique el estado del computador, como memoria, entrada y 
 
 [ ]. Arreglos
 
-
-
 [explanation]
 
 Por definición de lenguaje de programación, las tuplas y los tipos de datos algebraicos son inmutables, es decir, no tienen operaciones de modificación.
 
 [explanation]
 
-
-
 ##### Jupyter Notebook - Tuplas definición y uso
 
 Este **Notebook** te permitirá poner en práctica lo aprendido con el vídeo anterior:  con la forma de crear tuplas directamente a través del constructor del lenguaje (el operador parentésis), a través de la instanciación de objetos `TupleX` (donde `X` es el indicador de aridad) y utilizando métodos de acceso para acceder al contenido de los mismos.
 
 [Jupyter Notebook - Tuplas definición y uso - Error técnico](https://hub.gke2.mybinder.org/user/juancardonas4n--s4n-fun-prog-c3-5syyqu6i/tree/notebooks/els4n-fp-c3-m1-u1-nb-01.ipynb)
-
 
 ###### Pregunta Jupyter Notebook
 
@@ -164,13 +155,14 @@ type T3IDI = (Int,Double,Int)
 def aplicar(tpl1:T3IID,tpl2:T3IDI,f:(Int,Double) => Int) = f(tpl1._1,tpl2._2) + f(tpl2._3,tpl1._3)
 ```
 
-   > > Si aplicamos la función `aplicar`  con los siguientes valores que resultado `res0` que obtendremos es<<
+> > Si aplicamos la función `aplicar`  con los siguientes valores que resultado `res0` que obtendremos es<<
 
 ```scala
 scala> aplicar((1,2,3.0),(1,3.0,2),(x:Int,_) => x * 2)
 aplicar((1,2,3.0),(1,3.0,2),(x:Int,_) => x * 2)
 val res0: Int =
 ```
+
    ( ). 4.
 
    ( ). 5.
@@ -207,7 +199,7 @@ Este vídeo te mostrará el uso de la coincidencia de patrones bajo las tuplas: 
 
 1.
 
-> >Los tipos de datos son vistos como:
+> > Los tipos de datos son vistos como:
 
 (x). Conjuntos.
 
@@ -262,27 +254,35 @@ La tupla `Est` tiene la información de un estudiante, donde el segundo elemento
 def obtNotaEst(est:Est):Double = ???
 ```
 
->>Cuál de las siguiente funciones computa el valor de la nota del estudiante<<
+> > Cuál de las siguiente funciones computa el valor de la nota del estudiante<<
 
 ( ) A.
+
 ```scala
 def obtNotaEst(est:Est):Double = est._2 * est._3
 ```
+
 ( ) B.
+
 ```scala
 def obtNotaEst(est:Est):Double =
   est._2._0 * est._3._0 + est._2._1 * est._3._1
 ```
+
 (x) C.
+
 ```scala
 def obtNotaEst(est:Est):Double = est match {
   case (_,(p1,p2),(n1,n2)) => n1 * p1 + n2 * p2
 ```
+
 ( ) D.
+
 ```scala
 def obtNotaEst(est:Est):Double =
   est._2._1 + est._3._1 * est._2._2 + est._3._2
 ```
+
 [explanation]
 
 La primera opción no es válida, por que no se puede multiplicar dos tuplas completas. La segunda opción no es válida por que las funciones de acceso de cada elemento comienza en ._1 y por cada elemento tiene su correspondiente en su elemento. La tercera opción es válida por que accede a cada elemento de la tupla interna y la multiplica con su correspondiente valor ponderado. La cuarta es incorrecta por que la expresión multiplica las ponderaciones y luego se las suma a las notas.
@@ -310,12 +310,13 @@ Observarás como se puede manipular las tuplas, en particular al ser tipos de da
 ###### Preguntas - Vídeo - Manipulación de tuplas
 
 1. Según el siguiente guión (*script*) de Scala
-```scala
-val tpl @ (_,b,3) = (1,2,3)
-tpl._2 * b - tpl._3
-```
+   
+   ```scala
+   val tpl @ (_,b,3) = (1,2,3)
+   tpl._2 * b - tpl._3
+   ```
 
->>Cuál es el resultado de la expresión evaluada en la última línea<<
+> > Cuál es el resultado de la expresión evaluada en la última línea<<
 
 ( ) A. 6
 ( ) B. 4
@@ -329,17 +330,18 @@ Los valores de `tpl`son `(1,2,3)` respectivamente para las funciones de acceso `
 [explanation]
 
 2. Según el siguiente guión (*script*) de Scala
-```scala
-val tpl = (1,2,3)
-val tpl2 = tpl.copy(_3 = 1, _1 = 3)
-tpl2 match {
+   
+   ```scala
+   val tpl = (1,2,3)
+   val tpl2 = tpl.copy(_3 = 1, _1 = 3)
+   tpl2 match {
    case (a,1,c) => a * c
    case (a,2,c) => c - a
    case (a,_,c) => a + c
-}
-```
+   }
+   ```
 
->> Cuál es el valor retornado por la expresión<<
+> > Cuál es el valor retornado por la expresión<<
 
 ( ) A. 1
 (x) B. 2
@@ -358,18 +360,18 @@ Pondrás en práctica todo lo visto en esta unidad a través del manejo de tupla
 
 [Jupyter Notebook - Manejo y transformación de tuplas - Error técnico](https://hub.gke2.mybinder.org/user/juancardonas4n--s4n-fun-prog-c3-71ef49js/notebooks/notebooks/els4n-fp-c3-m1-u1-nb-03.ipynb)
 
-
 ###### Pregunta Jupyter Notebook - Manejo y transformación de tuplas
 
 1.
 
->>Cuáles de los siguientes códigos invierte el tipo del parámetro de entrada y su valor<<
+> > Cuáles de los siguientes códigos invierte el tipo del parámetro de entrada y su valor<<
 
 [x] A.
 
 ```scala
 def invertir(tpl:(Int,Double,Bool)) = (tpl._3,tpl._2,tpl._1)
 ```
+
 [x] B.
 
 ```scala
@@ -377,12 +379,14 @@ def invertir(tpl:(Int,Double,Bool)) = tpl match {
    case (a,b,c) => new Tuple[Bool,Double,Int](c,b,a)
 }
 ```
+
 [x] C.
 
 ```scala
 def invertir(tpl:(Int,Double,Bool)) =
   tpl.copy(_1 = tpl._3, t_3 = tpl._1)
 ```
+
 [ ] D.
 
 ```scala
@@ -411,7 +415,7 @@ Para muchos de nosotros la inmutabilidad de las tuplas, puede ser aparentemente 
 
 1.
 
->>La diferencia entre tuplas y las clases es que<<
+> > La diferencia entre tuplas y las clases es que<<
 
 ( ) A. las tuplas son colecciones, mientras que las clases son tipos de datos.
 (x) B. las tuplas son tipos sin nombres, mientras que las clases son tipos generalmente tienen nombres excepto las anónimas.
@@ -422,7 +426,8 @@ La opción A, las tuplas son tipos de datos pero no son colecciones por que adol
 [explanation]
 
 2. La firma de la siguiente función produce una tupla cuyo primer valor es el mismo de entrada (\) y el segundo es el valor inverso $valor^{-1}$.
->>Construya el cuerpo de la función en scala:<<
+   
+   > > Construya el cuerpo de la función en scala:<<
 
 ```{.scala}
 def obtInv(valor:Double):(Double,Double) = ???
@@ -434,11 +439,12 @@ La idea es construir una tupla a partir de los valores de entrada `valor` y su c
 ```{.scala}
 def obtInv(valor:Double):(Double,Double) = (valor,1.0/valor)
 ```
+
 [explanation]
 
 3. La función `distRango` recibe dos valores enteros `a` y `b`, y retorna una tupla binaria donde el segundo campo es otra tupla binaria. El primer campo de tupla externa es computado con la distancia (`dist`) entre ambos valores de entrada cómo se observa en la fórmula a continuación  y  la tupla interna calcula el rango (`rango`) que toma los dos valores iniciales y establece el orden entre ambos, como se observan la función rango a continuación.
 
->>Implemente `distRango` construyendo las tuplas a partir de `TupleX`.<<
+> > Implemente `distRango` construyendo las tuplas a partir de `TupleX`.<<
 
 ```{.scala}
 def distRango(a:Int, b:Int):Tuple2[Int,Tuple2[Int,Int]] = ???
@@ -465,7 +471,8 @@ Se construye una tupla de tipo `Tuple2` donde el primer campo es el rango calcul
 [explanation]
 
 4. Observa la siguiente firma:
->>cuál de la siguientes opciones obtiene retorna la tupla más interna de la tupla de u<<
+   
+   > > cuál de la siguientes opciones obtiene retorna la tupla más interna de la tupla de u<<
 
 ```{.scala}
 def funcion(u:((Int,Int),Int,Int)) = u match {
@@ -488,7 +495,7 @@ La opción A es válida, porque la coincidencia de patrones toma el primer campo
 def funcion(u:(Int,Int),v:(Int,Int)) = ???
 ```
 
->>ésta tiene dos parámetros que son tuplas `u`y `v`. Implemente una función (`funcion` ) que verifique si `u._2`y `v._1` cumplen las siguientes condiciones: si son iguales y este es cero (`0`) compute: `u._1 + v._2`, si ambos son uno (`1`) compute: `u._1 - v._2`, si son iguales sin importar que valor (diferente de `0`ó `1`) compute: `u._1 * v._2`, en cualquier otro caso retorne cero (`0`). **Recuerde:** que esta implementación utiliza _coincidencia de patrones_ y no los operadores de selección.<<
+> > ésta tiene dos parámetros que son tuplas `u`y `v`. Implemente una función (`funcion` ) que verifique si `u._2`y `v._1` cumplen las siguientes condiciones: si son iguales y este es cero (`0`) compute: `u._1 + v._2`, si ambos son uno (`1`) compute: `u._1 - v._2`, si son iguales sin importar que valor (diferente de `0`ó `1`) compute: `u._1 * v._2`, en cualquier otro caso retorne cero (`0`). **Recuerde:** que esta implementación utiliza _coincidencia de patrones_ y no los operadores de selección.<<
 
 [explanation]
 El siguiente es el cuerpo de la función esperada:
@@ -501,6 +508,7 @@ def funcion(u:(Int,Int),v:(Int,Int)) = (u,v) match {
    case _             => 0
 }
 ```
+
 [explanation]
 
 6. Observa la siguiente expresión:
@@ -509,7 +517,7 @@ def funcion(u:(Int,Int),v:(Int,Int)) = (u,v) match {
 val tupla = new Tuple1(1)
 ```
 
->>De acuerdo con la información anterior, el tipo de la expresión obtenida es<<
+> > De acuerdo con la información anterior, el tipo de la expresión obtenida es<<
 
 ( ) A. `val tupla: Int = 1`
 ( ) B. `val tupla: (,Int) = (,1)`
@@ -521,7 +529,8 @@ El rango de una tupla (El número de elementos que ellas puede contener) es desd
 [explanation]
 
 7.
->>Implementa la función (`funcion`) del ejercicio 5 sin utilizar coincidencia de patrones sobre los parámetros sino utilizando únicamente operaciones de selección sobre tuplas.<<
+
+> > Implementa la función (`funcion`) del ejercicio 5 sin utilizar coincidencia de patrones sobre los parámetros sino utilizando únicamente operaciones de selección sobre tuplas.<<
 
 [explanation]
 El siguiente es el código que se implementa
@@ -533,6 +542,7 @@ def funcion(u:(Int,Int),v:(Int,Int)) = if (u._2 == v._1)
                                                else u._1 * v._2
                                        else 0
 ```
+
 [explanation]
 
 ---
@@ -607,7 +617,6 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 **Tiempo estimado:** 1h 45 min
 
-
 ![](./images/TitularCastor_comencemos.png)
 
 ---
@@ -628,7 +637,6 @@ En la anterior figura puedes observar algo que ya conoces cómo es la asociació
 ![](./images/U2-TDA_Las_tuplas.jpg)
 
 ![](./images/U2-TDA_Las_tuplas_coordenadas.jpg)
-
 
 En la figura anterior observas como se construye un tipo de dato, también llamadado *tipo de dato compuesto* o *tipo de dato definido por usuario*.
 
@@ -662,7 +670,9 @@ La gráfica anterior mostró como definir un tipo de dato algebraico a través d
 6. El tipo de dato `RGB` está definido por el *constructor de tipo*  **`sealed trait RBG`** (`RGB`) inicia la definifición, de forma que todas los alternativas de los valores estén incluidos dentro del "archivo". Y se procede a definir sus valores
 
 7. El constructor de valor utiliza un `case object` para establecer que este valor es único, semejante a una constante que define el valor `Red`.
+
 8. Este constructor de valor define el valor de `RGB`: `Green`.
+
 9. Este constructor de valor define el valor de `RGB`: `Blue`.
 
 Cada *constructor de valor* es un conjunto con un valor único, y a través de la operación de *suma* (*unión*) se forma los valores del conjunto de dato `RGB`.
@@ -671,7 +681,7 @@ Cada *constructor de valor* es un conjunto con un valor único, y a través de l
 
 ##### Video - Definiendo tipos de datos algebraicos
 
-En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través de la forma que este implementa los  *productos* y las *sumas* sobre tipos. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
+En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación Scala a través de la forma que este implementa los  *productos* y las *sumas* sobre tipos. Igualmente, te mostraremos un ejemplo de cómo combinar ambos tipos de construcciones. También, observaremos el uso de los métodos de acceso que nos permite obtener su  contenido, la coincidencia de patrones que nos permite observar la estructura y sus valores; y la forma de construir nuevos valores de un tipo de datos algebraicos a partir de las funciones de copia.
 
 [Vídeo - Definiendo tipos de datos algebraicos](https://youtu.be/A550Fl0XKTo)
 
@@ -687,7 +697,7 @@ final case object EUEuros   extends Monedas
 final case object JAPYenes  extends Monedas
 ```
 
->>La anterior es la definición de un tipo de dato algebraico por Producto<<
+> > La anterior es la definición de un tipo de dato algebraico por Producto<<
 
 ( ) verdadero
 (x) falso
@@ -705,21 +715,28 @@ sealed trait Cuentas
 final case class CuentaCorriente(id:String, saldo:Double) extends Cuentas
 ```
 
->> De las siguiente funciones cuál obtiene el saldo actual<<
+> > De las siguiente funciones cuál obtiene el saldo actual<<
 
 ( ) A.
+
 ```scala
 def funcionA(cuenta:Cuentas) = cuenta.saldo
 ```
+
 (x) B.
+
 ```scala
 def funcionB(cuenta:CuentaCorriente) = cuenta.saldo
 ```
+
 ( ) C.
+
 ```scala
 def funcionC(cuenta:Cuenta) = cuenta._2
 ```
+
 ( ) D.
+
 ```scala
 def funcionC(cuenta:CuentaCorriente) = cuenta._2
 ```
@@ -746,15 +763,11 @@ Con la definición que ya has visto de los tipos, ahora podemos mirar como se us
 3. Los diferentes constructores de valores:`Lunes`, `Martes`,  $\ldots$ , y `Domingo`, cada uno separado por `|`
 4. Cada constructor de valor no sólo es un valor  posible para tipo de dato `DiaSemana`, sino también es una función.
 
-
-
 ![](./images/diaSemana.png)
 
 ![1: (295,771, 2:(606,753), 3:(930,812), 4:(276,1127)](./images/diaSemanaGuia.png)
 
 Ahora mostraremos como construir a partir de producto tipos de datos algebraicos en Haskell
-
-
 
 ![](./images/simbolo.png)
 
@@ -765,6 +778,7 @@ Ahora mostraremos como construir a partir de producto tipos de datos algebraicos
 2. Observa el tipo de dato `Símbolo`,  sus valores pueden provenir de dos tipos: `Char` y  `Int`.  Como dicho valor proviene de esos dos tipos, se tiene un constructor de valor para cada tipo, por ejemplo
 
 3. el primer constructor  `SimC` toma un valor de `Char` y lo hace parte el tipo `Símbolo`.
+
 4. Igualmente en para el constructor de valor  `SimI`que lo hace con un valor de tipo `Int`.
 
 En la siguiente figura se construye un tipo de dato algebraico utilizando *producto*.
@@ -773,21 +787,27 @@ En la siguiente figura se construye un tipo de dato algebraico utilizando *produ
 
 ![1: (383,618), 2:(294,769), 3:(901,731), 4:(948,1259), 5:(1213,1455), 6:(335,1634)](./images/complejoGuia.png)
 
-
-
 1. Los tipos algebraicos se pueden construir utilizando el producto cartesiano, similar a lo que se hizo con las tuplas.
+
 2. Un número `Complejo` que está formado por dos partes $r + i$ donde, $r$ es la parte real (primer `Double`) y $i$ es la representación del valor imaginario $\sqrt{-1}$ (segundo `Double`).
 
 3. El *constructor de valor* `Cplj`construye un valor complejo con dos valores del tipo `Double`. Esta es una función que recibe dos parámetros de tipo `Double` y produce un valor de tipo`Complejo`.
 
 4. El TDA  `Complejo` puede ser construido a través de registros. El método combina la forma anterior basada en posiciones pero especificando para cada campos un nombre que se convierte en un método extractor.
+
 5. El constructor `deriving`  te permitirá  adicionar un comportamiento extra al tipo de dato algebraico utilizando para ello la sobrecarga de operaciones, en este caso las operaciones de `Show` que te permite mostrar el contenido, de todo esto se encarga el compilador.
 
 6. Observa que tanto`Cplj` como `real` son funciones, la primera te permite crea un valor de tipo `Complejo`, la segunda te permite extraer la parte denominada real del tipo en cuestión.
 
 ##### Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala
 
-En este vídeo te mostraremos con más detalle la creación de tipos de datos algebraicos en el lenguaje de programación  Scala a través del uso de productos y del uso de sumas. Igualmente mostramos un ejemplo de como combinar ambos tipos de construcciones. También te observaremos, el uso de los métodos de acceso que nos permite acceder al contenido, la coincidencia de patrones y la forma de construir nuevos tipos de datos algebraicos a partir de los básicos.
+En este vídeo, te mostraremos con más detalle la creación de tipos de datos algebraicos con un ejemplo que *combina* las operaciones de *suma* y *producto*, en un solo tipo. Este ejemplo, nos sirve como base para aprender más sobre la coincidencia de patrones en los tipos de datos algebraicos y como manipularlos a través de los operadores de copia. 
+
+La coincidencia de patrones es el mecanismo por excelencia para acceder de forma posicional a la estructura de los TDA y disecando en los elementos que constituyen dicha estructura. 
+
+Las operaciones de copia nos permite crear nuevos valores de un  tipo de dato algebraicos a partir del original, facilitando la creación de estos nuevos valores, "cambiando" aquellos elementos que queremos diferenciar de los originales.
+
+Una aplicación de coincidencia de patrones y operaciones de copia facilitan el uso de los TDA en nuestros programas.
 
 [Vídeo - Aplicación y uso de tipos de datos algebraicos en Scala](https://youtu.be/-yeXdhETVm0)
 
@@ -801,31 +821,38 @@ final case class Remote(host:String) extends Config
 final case object Local              extends Config
 ```
 
->>De las siguiente definiciones de funciones, produce una función que muestra que la conexión es remota *para cualquier valor del tipo `Config`*<<
+> > De las siguiente definiciones de funciones, produce una función que muestra que la conexión es remota *para cualquier valor del tipo `Config`*<<
 
 [ ] A.
 
 ```scala
 def funcionA(remote:Remote):Boolean = true
 ```
+
 [ ] B.
+
 ```scala
 def funcionB(cfg:Config):Boolean = if (cfg == Remote) true else false
 ```
+
 [x] C.
+
 ```scala
 def funcionC(cfg:Config):Boolean = cfg match {
    case Remote(_) => true
    case Local     => false
 }
 ```
+
 [x] D.
+
 ```scala
 def funcionD(cfg:Config):Boolean = cfg match {
    case Local => false
    case _     => true
 }
 ```
+
 [explanation]
 La opción A, funciona si el tipo que se pasa solamente es `Remote` pero si le pasan un valor de tipo `Local` el compilador lo rechaza por lo tanto no es válido.
 La opción B, aunque se puede hacer una comparación entre tipos algebraicos la comparación no funcion por que en primer lugar `Remote` deber tener una valor asignado (`host`) y segundo la comparación se debe hacer entre valores del mismo tipo. Por lo tanto, esta opción no es válida.
@@ -838,9 +865,9 @@ La opción D, también utiliza coincidencia de patrones sobre la variable `cfg`.
 ```scala
 sealed trait Cuentas
 final case class CuentaCorriente(id:String, saldo:Double) extends Cuentas
-````
+```
 
->> De las siguiente funciones cuál obtiene el saldo actual<<
+> > De las siguiente funciones cuál obtiene el saldo actual<<
 
 ( ) A.
 
@@ -888,7 +915,7 @@ En este *notebook* pondrás en práctica todo lo visto en esta unidad a través 
 ###### Pregunta Jupyter Notebook - Aplicación de tipos de datos algebraicos
 
 1. Se tiene definido un tipo de algebraico de la siguiente forma:
-
+   
    ```scala
    sealed trait UnTDA
    final case class  CValor1(a:Int,b:Double,c:Boolean) extends UnTDA
@@ -897,13 +924,14 @@ En este *notebook* pondrás en práctica todo lo visto en esta unidad a través 
    final case object CValor4 extends UnTDA
    ```
 
->>Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
+> > Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
 
 [ ] A.
 
 ```scala
 def a(unTDA:UnTDA):Int = unTDA.productArity
 ```
+
 [ ] B.
 
 ```scala
@@ -914,6 +942,7 @@ def b(unTDA:UnTDA):Int = unTDA match {
    case _        => 0
 }
 ```
+
 [x]. C.
 
 ```scala
@@ -969,8 +998,6 @@ En la siguientes imágenes tenemos la representación de dos tipos de datos:
 
 ![](./images/U2-TDA_Tipo_dato_Double_Coordenadas.jpg)
 
-
-
 Si comparamos los tipos del operador de `+` definido para enteros y para flotantes, estos son distintos, lo que en principio nos haría pensar que el lenguaje de programación ofrece dos operaciones de suma. Pero todos sabemos que en realidad se ofrece una única operación de suma, y no solo para estos dos tipos sino para otros tipos que requieran esta operación. Esa única operación de suma que se ofrece, se encuentra *sobrecargada* y sirve para cualquiera de los tipos que la requieran.
 
 Esto se logra por que las operaciones de los tipos se pueden agrupar en clases. **¡Clases!** ¿Cómo en la programación orientada a objetos? **¡No!**, Este tipo de *clases* parte de una definición que se encarga de *clasificar* a los tipos de datos por comportamientos similares, ofrecidos por los operadores y las funciones, que en la realidad son la misma cosa.
@@ -979,11 +1006,11 @@ Si observas la siguiente imagen vamos a establecer una clasificación específic
 
 ![](./images/eq.png)
 
-![	](./images/eqGuia.png)
+![    ](./images/eqGuia.png)
 
 1. La clase `Eq` que indica un comportamiento común de igualdad o diferencia.
 
-2.  La clase  `Eq` define un comportamiento por igualdad (`==`), que recibe dos valores de un mismo tipo `a` e indica si son iguales o no.
+2. La clase  `Eq` define un comportamiento por igualdad (`==`), que recibe dos valores de un mismo tipo `a` e indica si son iguales o no.
 
 3. La clase `Eq` define un comportamiento por diferencia (`!=`), que recibe dos valores de un mismo tipo `a` e indica si son diferentes o no.
 
@@ -1007,12 +1034,14 @@ Lo que nos dice la jerarquía es si un tipo pertence a un tipo determinado debe 
 
 ##### Notebook - Uso de la generalización de tipos
 
-[Jupyter Notebook - Uso de la generalización de tipos - Remoto](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-02.ipynb)
+La programación funcional ha borrado la diferencia entre datos y funciones, esto nos va a permitir crear aplicaciones que los datos sean comportamiento y los comportamientos sean datos y aunque esto nos permitirá hacer aplicaciones reutilizables de formas insospechadas, la verdadera potencia la encontramos cuando nuestra programación pueda hacerse independiente del tipo y aplicar un comportamiento que muchos tipos de datos comparte, y esto se hará a través de la generalización de los tipos que mostraremos en este **Notebook** como una introducción a este importante tema y nos planterá como aprovecharnos de esto de una forma muy sencilla, que es la utilización de variables de tipos en nuestros tipos de datos algebraicos, que podrán ser remplazados en tiempo de ejecución por el tipo específico. Demos un paso más en este facinante mundo.
+
+https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m1-u2-nb-02.ipynb
 
 ###### Pregunta - Notebook - Uso de la generalización de tipos
 
 1. Se tiene definido un tipo de algebraico de la siguiente forma:
-
+   
    ```scala
    sealed trait UnTDAG[+A]
    final case class  VTDG1[+A](a:A) extends UnTDAG[A]
@@ -1021,7 +1050,7 @@ Lo que nos dice la jerarquía es si un tipo pertence a un tipo determinado debe 
    final case object VTDG0 extends UnTDA[Nothing]
    ```
 
->>Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
+> > Cuál de las siguientes funciones calcula la aridad de cualquiera de los valores de un tipo  `UnTDA`<<
 
 [x] A.
 
@@ -1089,7 +1118,7 @@ La generalización de los tipos de datos algebraicos, te ayudará a que tus tipo
 
 1.
 
->>A partir de cero o más conjunto de datos, estas operaciones nos sirve para definir tipos de datos algebraicos<<
+> > A partir de cero o más conjunto de datos, estas operaciones nos sirve para definir tipos de datos algebraicos<<
 
 ( ) A. Producto cartesiano y cardialidad de conjuntos.
 (x) B. La unión y el producto.
@@ -1104,11 +1133,11 @@ La opción C, la *suma* es otra forma de unión y nos permite contruir TDA, pero
 
 La opción D, el *producto cartesiano* nos permite construir un TDA, pero los constructures de valores es un término muy genérico y puede incluir los literales enteros que sirven para construir el conjunto de los enteros que no es un TDA.
 
-​	[explanation]
+​    [explanation]
 
 2.
 
->>Son las tuplas un tipo de dato algebraico<<
+> > Son las tuplas un tipo de dato algebraico<<
 
 (x) verdadero.
 
@@ -1120,38 +1149,48 @@ Las tuplas son construidas utilizando la operación de producto entre tipos, com
 [explanation]
 
 3. Observe el siguiente código:
-```scala
-sealed trait Bool
-final case object False extends Bool
-final case object True extends Bool
-```
->>Cuál de las siguiente funciones convierte un valor de tipo `Boolean` al tipo `Bool`<<
+   
+   ```scala
+   sealed trait Bool
+   final case object False extends Bool
+   final case object True extends Bool
+   ```
+   
+   > > Cuál de las siguiente funciones convierte un valor de tipo `Boolean` al tipo `Bool`<<
 
 [X] A.
+
 ```scala
 def funcionA(b:Boolean):Bool = if (b) True else False
 ```
+
 [X] B.
+
 ```scala
 def funcionB(b:Boolean):Bool = b match {
    case true => True
    case _    => False
 }
 ```
+
 [ ] C.
+
 ```scala
 def funcionC(b:Boolean):Bool = b match {
    case _    => False
    case true => True
 }
 ```
+
 [X] D.
+
 ```scala
 def funcionD(b:Boolean):Bool = b match {
    case c if c => True
    case _      => False
 }
 ```
+
 [explanation]
 La opción A, verifica que el valor de la variable `b` que es de tipo `Bool` en la expresión `if` y por lo tanto convierte cada valor de la variable `b` en el correspondiente valor del tipo esperado. Es válida.
 La opción B, utiliza la coincidencia de patrones sobre la variable `b` de forma que cada uno de sus valores literales es convertido al valor del tipo esperado. Es válida.
@@ -1159,15 +1198,18 @@ La opción C, utiliza la coincidencia de patrones sobre la variable `b`, pero es
 La opción D, utiliza coincidencia de patrones pero esta vez utiliza las guardas que puede tener un constructor `case` lo que hace que que válida que el valor de c contiene un valor de verdad, este produce el valor `True`, en el caso por omisión produce el valor de `False`,  por lo tanto produce los valores del tipo esperado. Es válida.
 [explanation]
 4. Observe el siguiente código:
+
 ```scala
 sealed trait Transacciones
 final case class TransCant(seq:Int,cantidad:Double,valor:Double) extends Transacciones
 final case class TransDesc(seq:Int,valor:Double,descuento:Double) extends Transacciones
 final case object NoTrans extends Transacciones
 ```
->>Cuál de las siguiente funciones obtiene el valor final de la transacción<<
+
+> > Cuál de las siguiente funciones obtiene el valor final de la transacción<<
 
 ( ) A.
+
 ```scala
 def funcionA(trans:Transacciones):Double =
   if (trans.cantidad == 0)
@@ -1176,14 +1218,18 @@ def funcionA(trans:Transacciones):Double =
   else
      trans.cantidad * trans.valor
 ```
+
 ( ) B.
+
 ```scala
 def funcionB(trans:Transacciones):Double = b match {
    case TransCant(_,c,v) => c + v
    case TransDesc(_,v,d) => v - d
 }
 ```
+
 ( ) C.
+
 ```scala
 def funcionC(trans:Transacciones):Double = b match {
    case _ => 0.0
@@ -1191,7 +1237,9 @@ def funcionC(trans:Transacciones):Double = b match {
    case TransDesc(_,v,d) => v - d
 }
 ```
+
 (x) D.
+
 ```scala
 def funcionD(trans:Transacciones):Double = b match {
    case NoTrans          => 0.0
@@ -1199,6 +1247,7 @@ def funcionD(trans:Transacciones):Double = b match {
    case TransDesc(s,v,d) => v - d
 }
 ```
+
 [explanation]
 La opción A, no se puede tener acceso a los métodos de acceso sin especificar el tipo sobre el que se va actuar. No es válida.
 La opción B, no cubre todos los casos de los valores de tipo `Transacciones`y adicionalemente la operación en valor `TransCant` no es la correcta. No es válida.
@@ -1206,13 +1255,15 @@ La opción C, el primer `case` es más genérico que los demás y por lo tanto s
 La opción D, para cada valor calcula el resultado específico, si el valor es `NoTrans` el resultado es `0.0`. Cuando es `TransCant` múltiplica la cantidad por el valor y cuando es `TransDesc` toma el valor menos el descuento. Es válida.
 [explanation]
 5. Observe el siguiente código:
+
 ```scala
 sealed trait Tipo
 final case class  SubTipoA(a:Int,b:Boolean) extends Tipo
 final case class  SubTipoB(d:Double,c:Char) extends Tipo
 final case object SubTipoC extends Tipo
 ```
->>Cuál es la función del constructor `sealed` en el trait<<
+
+> > Cuál es la función del constructor `sealed` en el trait<<
 
 ( ) A. Un `sealed trait` es una forma para distinguir los tipos de datos algebraicos (TDA).
 ( ) B. Un `sealed trait` es un constructor al inicio del archivo para declarar al compilador que lo que sigue con `final` pertenecen al mismo tipo.
@@ -1222,48 +1273,57 @@ final case object SubTipoC extends Tipo
 El constructor `sealed` se antepone ante un `trait` que todos sus subtipos deben definirse dentro del mismo archivo para que el compilador reconozca todos los posible valores de los tipos de datos algebraicos. La opción C, es válida.
 [explanation]
 6. Observe el siguiente código:
+
 ```scala
 sealed trait Marcados[+A]
 final case class  Marca[A](sec:Int,unA:A) extends Marcados[A]
 final case object SinMarca extends Marcados[Nothing]
 ```
->>Cuál de las siguiente funciones implementa una función que incrementa la secuencia de la marca, si se encuentra `SinMarca` se deja igual.<<
+
+> > Cuál de las siguiente funciones implementa una función que incrementa la secuencia de la marca, si se encuentra `SinMarca` se deja igual.<<
 
 [x] A.
+
 ```scala
 def funcionA[A](mrc:Marcados[A]):Marcados[A] = mrc match {
    case m @ Marca(s,_) => m.copy(sec = s + 1)
    case j              => j
 }
 ```
+
 [ ] B.
+
 ```scala
 def funcionB[B](mrc:Marcados[B]):Marcados[B] = mrc match {
    case m @ Marca(s,_) => Marca(s + 1, m.unA)
    case _              => _
 }
 ```
+
 [ ] C.
+
 ```scala
 def funcionC[C](mrc:Marcados[C]):Marcados[C] = mrc match {
    case m @ Marca(_,_) => m.copy(sec += 1)
    case _              => SinMarca
 }
 ```
+
 [x] D.
+
 ```scala
 def funcionD[D](mrc:Marcados[D]):Marcados[D] = mrc match {
    case Marca(s,u) => Marca(s + 1, u)
    case _          => SinMarca
 }
 ```
+
 [explanation]
 La opción A, realiza coincidencia de patrones desde el particular al más general, si encuentra un marca a través de la etiqueta `m` crea una copia del valor e inicializa el campo de `sec` con el valor actual más uno. El segundo devuelve el mismo valor. Es válido.
 La opción B, realiza la coincidencia de patrones desde el particular al más general, el primer caso crea una `Marca` nueva incrementando la secuencia, y copiando el valor genérico original en la copia. El problema se presenta en la segundo `case` puesto que éste reconce los demás con el comodín, pero no puede pasar de nuevo el mismo comodín. Es no válido.
 La opción C, realiza la coincidencia de patrones desde el particular al más general, el problema está en la construcción del resultado, la función `sec` es una función de acceso, y como el tipo es inmutable no se puede ser modificado.
 La opción D, realiza la coincidencia de patrones desde el particular al más general, en el primer `case` se encarga de crear una copia construyendo un nuevo valor y en la segundo `case` el tipo esperado es un `SinMarca` por lo tanto lo returna nuevamente dicho valor. Es válido.
 [explanation]
-
 
 #### Cierre
 
@@ -1334,7 +1394,6 @@ En esta unidad te mostraremos los diferentes acercamientos a la *recursión estr
 
 **Tiempo estimado:** 2h 15 min
 
-
 ![](./images/TitularCastor_comencemos.png)
 
 #### Recursión estructural
@@ -1358,7 +1417,7 @@ En primer lugar, repasaremos el manejo de polimorfismo, por sobrecarga de métod
 
 En la siguiente figura puedes observar un ejemplo del polimorfismo:
 
-![](./images/U3-IF1-D01-Integrar.png)
+<img src="./images/U3-IF1-D01-Integrar.png" title="" alt="" data-align="center">
 
 * Implementación. Se observa el modelo del polimorfismo donde las clases `B`y `C` son subclases de la clase `A`. Donde cada subclase implementa de forma directa el método `d`de forma distinta.
 * Ejecución. No se puede crear instancias directamente  de un `trait` ó `interface`, porque son abstractas, pero si podemos crear instancias de las subclases (`B`´ ó `C`) y hacerlas instancias de la superclase `A`. Esto se observa en la ejecución del código donde se crea un ejemplar de `B` (ó `C`) como un valor de tipo `A`llamado `unA` y al invocar el método `d` puedes observar que se invoca en cada uno de los dos casos con el código definido para el método de la subclase.
@@ -1371,6 +1430,7 @@ En la siguiente figura, observas una implementación un poco diferente, porque e
 * Ejecutar.  Cómo ya es de tu conocimiento, no puedes crear instancias directamente  de un `trait` ó `interface`. Igual, que lo hiciste anteriormente, puedes crear instancias de las subclases (`B` ó `C`) y hacerlas instancias de la super-clase `A` cómo lo puedes al observar el código de la ejecución en la imagen, donde se crean diferentes instancias de `A` llamada `unA`, pero de diferentes sub-clases, y al invocar el método `d` se invoca el correspondiente método implementado.
 
 ###### Polimorfismo en tipos de datos algebraicos
+
 Hablemos ahora como utilizar la recursión estructural a partir de los tipos de datos algebraicos utilizando el concepto de polimorfismo. En la siguiente figura se observa una definición de un tipo de dato algebraico `A` con su correspondientes constructor de valor `B`. El `trait` `A`tiene un método *abstracto* `e` que retorna un valor de tipo `F`. Por lo tanto, `B` debe implementarlo de forma que el resultado que produzca debe ser tipo `F`.
 ![](images/U3-IF2-D01-Integrar.png)
 `B` utiliza producto en los valores de tipo `C` y `D`, por lo tanto el método `e` debe utilizar los métodos de los tipos `C` y `D` para obtener un valor de tipo `F`, en la figura se sugiere utilizar del parámetro `c` de tipo `C` un método que obtenga un valor de tipo `F` ($c.toF$), de forma idéntica se sugiere con el parámetro `d` de tipo `D` ($d.ToF$) y ahora esos valores puede ser combinados a través de un operador $\oplus_F$ del tipo `F`.
@@ -1394,16 +1454,18 @@ Hemos visto hasta ahora utilizar la recursión estructural a través de polimorf
 ###### Preguntas - Vídeo - La recursión estructural en tipos de datos algebraico
 
 1. Teniendo en cuenta la recursión estructural sobre los naturales
->> Qué hace la siguiente función<<
-```scala
-def funcion(n:Int) = {
+   
+   > > Qué hace la siguiente función<<
+   
+   ```scala
+   def funcion(n:Int) = {
    def aux(m:Int,a:Int,f:(Int,Int)=>Int):Int = m match {
       case 0 => a
       case k => aux(k-1,f(k,a))
    }
    aux(n,0,_+_)
-}
-```
+   }
+   ```
 
 ( ) A. Productoria de $n$ elementos.
 ( ) B. Factorial de $n$ elementos.
@@ -1414,7 +1476,8 @@ La opción correcta es la C, porque el programa comienza con el valor $0$ y en c
 [explanation]
 
 2. Teniendo en cuenta la recursión estructural sobre los naturales
->> Cuáles de las siguientes funciones realiza recursión estructural sobre los naturales
+   
+   > > Cuáles de las siguientes funciones realiza recursión estructural sobre los naturales
 
 [ ] A.
 
@@ -1424,6 +1487,7 @@ def a(n:Int):Int = n match {
   case _ => 0
 }
 ```
+
 [x] B.
 
 ```scala
@@ -1432,6 +1496,7 @@ def b(n:Int):Int = n match {
    case l @ _ => b(l - 1)
 }
 ```
+
 [x] C.
 
 ```scala
@@ -1443,6 +1508,7 @@ def c(n:Int):Int = {
    aux(n,1)
 }
 ```
+
 [x] D.
 
 ```scala
@@ -1487,14 +1553,16 @@ case Suc(n) => ???
 
 1. Suponga que todas las funciones implementadas del este *Notebook* fueron implementadas de forma correcta y que tiene acceso al código, reutilizando este código.
 
->> Cómo implementaría la función `menorIgualQue` sobre el tipo `Nat`
+> > Cómo implementaría la función `menorIgualQue` sobre el tipo `Nat`
 
 [X] A.
+
 ```scala
 def menorIgualQue(n:Nat, m:Nat):Boolean = menorQue(n:Nat,m:Nat) || n == m
 ```
 
 [ ] B.
+
 ```scala
 def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
    case (Cero,Cero)       => true
@@ -1505,6 +1573,7 @@ def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
 ```
 
 [ ] C.
+
 ```scala
 def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
    case (Cero,Cero)       => false
@@ -1513,7 +1582,9 @@ def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
    case (Suc(np),Suc(mp)) => menorIgualQue(np,mp)
 }
 ```
+
 [X] D.
+
 ```scala
 def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
    case (Cero,Cero)       => true
@@ -1522,6 +1593,7 @@ def menorIgualQue(n:Nat,m:Nat):Boolean = (n,m) match {
    case (Suc(np),Suc(mp)) => menorIgualQue(np,mp)
 }
 ```
+
 [explanation]
 La opción A, está reutilizando la función `menorQue` implementada que verifica que `n` sea menor a`m`. Si esto falla es decir que ambos son iguales, la parte final de la expresión se encarga de verificar que ambas sean iguales. Por lo tanto, cumple.
 
@@ -1553,11 +1625,79 @@ Partimos de la definición de un conjunto de dígitos, luego utilizando una defi
 
 ###### Vídeo - Definición de tipos de datos algebraicos recursivos
 
-<!-- TODO Vídeo - Definición de tipos de datos algebraicos recursivos -->
+
+
+[](./videos/ready_pre_edition/EPAM-LATAM-M1-C3-M1-U3-V2-P01-Docente.mp4)
+
+
 
 ###### Preguntas - Vídeo - Definición de tipos de datos algebraicos recursivos
 
-<!-- TODO Preguntas - Vídeo - Definición de tipos de datos algebraicos recursivos -->
+1. Observe el siguiente código
+   
+```scala
+sealed trait ListaInt
+
+final case object VaciaInt extends ListaInt
+final case class ConsInt(n:Int, lst:ListaInt) extends ListaInt
+
+def funcion(lst:ListaInt):Int = {
+   def aux(l:ListaInt,n:Int):Int = l match {
+      case VaciaInt                      => n
+      case ConsInt(m, ll) if (m - n) > 0 => aux(ll,m)
+      case ConsInt(_, ll)                => aux(ll,n)
+   }
+   aux(lst, lst.n)
+}
+```
+
+**Nota** Tenga en cuenta que la función `funcion` no se le pasa una lista vacía.
+
+>> Qué hace `funcion`.<<
+
+( ) A. La función `aux` no cumple con la recursión estructural por lo tanto falla.
+
+( ) B. La función `funcion` encuentra el primer valor positivo de la lista.
+
+( ) C. La función `funcion` encuentra el primer valor negativo de la lista.
+
+(X) D. La función `funcion` encuentra el mayor valor de la lista.
+
+[explanation]
+La precondición inicial impide pasar una lista vacía, por lo tanto la primera invocación de la función `aux` pasa la lista original y el primer elemento, este es comparado con cada elemento de la lista, buscando si existe uno mayor a él, si esto es así, el número mayor es pasado a la siguiente invocación de `aux`, sino continua el mismo valor. Al final queda el mayor. Por lo tanto la opción correcta es la D.
+[explanation]
+
+2. Observe el siguiente código
+
+```scala
+sealed trait ArbolBinInt
+
+final case class Hoja(n:Int) extends ArbolBinInt
+final case class BinInt(i:ArbolBinInt, d:ArbolBinInt) extends ArbolBinInt
+
+def funcion(ab:ArbolBinInt):Int = ab match {
+   case Hoja(n)     => n
+   case BinInt(i,d) => {
+      val vi = funcion(i)
+      val vd = funcion(d)
+      if (vi - vd < 0) vd else vi
+   }
+}
+```
+
+> > Qué hace `funcion`.<<
+
+( ) A. La función `funcion` encuentra el menor valor del árbol.
+
+( ) B. La función `funcion` encuentra el primer valor positivo de la árbol.
+
+( ) C. La función `funcion` encuentra el primer valor negativo de la árbol.
+
+(X) D. La función `funcion` encuentra el mayor valor del árbol.
+
+[explanation]
+Las hojas supone que su valor es el buscado. En los nodos `BinInt` busca en el lado izquierdo y en lado derecho los correspondientes valores `vi` y `vd`, los compara si este es negativo quiere decir que `vd` es mayor y pasa dicho resultado en caso contrario pasa a `vi`. Por lo tanto busca el mayor. La respuesta es la opción D.
+[explanation]
 
 ##### Notebook - Uso y definición de tipos de datos algebraicos recursivos
 
@@ -1568,7 +1708,8 @@ Vamos en este **Notebook**  a aplicar los conceptos de tipos de datos algebraico
 ###### Pregunta - Notebook - Uso y definición de tipos de datos algebraicos recursivos
 
 1. Observe la siguiente definición de tipo de dato algebraico recursivo para los números binarios
-```
+
+```scala
 sealed trait BinNumber
 
 final case object Zero extends BinNumber
@@ -1579,6 +1720,7 @@ sealed trait Binary
 final case class L(bn:BinNumber) extends Binary
 final case class C(bn:BinNumber, bin:Binary) extends Binary
 ```
+
 Esta forma de almacenar los número binarios, permite formas curiosas para representar el  número $0_{10}$ en  base $2$. Estas formas se muestran a continuación:
 
 ```scala
@@ -1589,7 +1731,8 @@ val cero_v6 = C(Zero, C(Zero, C(Zero,C(Zero,C(Zero,L(Zero))))))
 ```
 
 Un valor diferente de `Zero`, en cualquier posición hará que el número no tenga el valor de $0_{10}$.
->> Cuáles de las siguiente funciones verifica que el número entrado con tipo `Binary` representa el valor $0_{10}$ ó $0_{2}$.
+
+> > Cuáles de las siguiente funciones verifica que el número entrado con tipo `Binary` representa el valor $0_{10}$ ó $0_{2}$.
 
 ( ) A.
 
@@ -1627,7 +1770,6 @@ def isZero(bin:Binary):Boolean = {
 }
 ```
 
-
 ( ) D.
 
 ```scala
@@ -1647,7 +1789,7 @@ La opción A, falla en detectar un el valor de `Zero` solo. Por lo tanto, no cum
 
 La opción B, cuando encuentra al menos un valor de `One` inmediatemente retorna `false`. Y en el caso que lo secuencia de valores entrados sean todos `Zero` este los examinará hasta que el último sea de valor `Zero`. Por lo tanto, cumple.
 
-La opción C, la implementación de la función asumen que el resultado inicial es `true`, este valor fallo cuando el último valor entrado en el tipo `Binary`	 sea un valor `One`, pero que pasá, si la secuencia es de esta forma `C(One,L(Zero))`, comienza con `true`, luego aplica `true || false` que produce `true` y que en la última posición retorna el valor acumulado que es `true`. Por lo tanto, no cumple.
+La opción C, la implementación de la función asumen que el resultado inicial es `true`, este valor fallo cuando el último valor entrado en el tipo `Binary`     sea un valor `One`, pero que pasá, si la secuencia es de esta forma `C(One,L(Zero))`, comienza con `true`, luego aplica `true || false` que produce `true` y que en la última posición retorna el valor acumulado que es `true`. Por lo tanto, no cumple.
 
 La opción D, falla en la siguiente secuencia `C(One,C(Zero, L(Zero)))`, comienza con `true`, cuando encuentra el primer `One` lo convierte a `false`, cuando encuentra un `Zero` lo cambia a `true`y al final retorna esta valor. Por lo tanto, no cumple.
 
@@ -1661,15 +1803,17 @@ Has observado, no solamente cómo definir tipos de datos algebraicos recursivos,
 
 #### Evaluación
 
-<!-- TODO Evaluación -->
-
 1.
->> Por qué es necesario el caso base, en la construcción de tipos de datos algebraicos el caso base.<<
 
-( ) A. Son necesarios porque la estructura de los `trait` siempre lo requiere.
-(X) B. Porqué el tipo de dato algebraico requiere un punto de terminación.
-( ) C. Porqué el tipo de dato algebraico son conjuntos y los conjuntos pueden ser recursivos
-( ) D. Son necesarios porque la estructura de los `case class` no tiene un cierre transitivo.
+> > Por qué es necesario el caso base en la construcción de tipos de datos algebraicos.<<
+
+( ) A. Son necesarios porqué la estructura de los `trait` siempre lo requiere.
+
+(X) B. Son necesarios porqué el tipo de dato algebraico requiere un punto de terminación.
+
+( ) C. Son necesarios porqué el tipo de dato algebraico son conjuntos y los conjuntos pueden ser recursivos
+
+( ) D. Son necesarios porqué la estructura de los `case class` no tiene un cierre transitivo.
 
 [explanation]
 Un tipo de dato algebraico recursivo, se comporta como una función (en el fondo los tipos de datos algebraicos son funciones), como la recursividad en la funciones estas requiere dos casos: el base y el recursivo; esto mismo debe ocurrir en los tipos de datos algebraicos. Por lo tanto, la opción B es la correcta, porqué se requiere un punto de terminación para que el tipo de dato no sea infinito, como las funciones que no terminan.
@@ -1687,45 +1831,49 @@ Un tipo de dato algebraico recursivo, se comporta como una función (en el fondo
 
 (X) D. Para definir ciclos que no existen en la programación funcional.
 
-
-
 [explanation]
 
 La recursión estructural sirve para definir el recorrido de estructuras, ya se a través de la sobrecarga de operadores o la coincidencia de patrones, pero la implementación de recursión estructural sobre los enteros, también sirven para simular los ciclos que no existen en la programación funcional. 
 
 [explanation]
 
-
 3. Observe el siguiente código
+
 ```scala
 sealed trait NArbol
 
 final case object NVacio extends NArbol
 final case object Nodo(i:Int, ai:NArbol, ad:NArbol) extends NArbol
 ```
->> Cuál de los siguiente representaciones del valor `arbol`representa correctamente siguiente el formato del código anterior<<
+
+> > Cuál de los siguiente representaciones del valor `arbol`representa correctamente siguiente el formato del código anterior<<
 
 ![](./images/C3-M1-U3-EV-P01-D01.drawio.png)
 
 ( ) A.
+
 ```scala
 val arbol = Nodo(Nodo(Nodo(4),Nodo(Nodo(7),Nodo(9),8)6),Nodo(Nodo(12),16),10)
 ```
 
 ( ) B.
+
 ```scala
 val arbol = Nodo(10,Nodo(6,Nodo(4),Nodo(8,Nodo(7),Nodo(9))),Nodo(16,Nodo(12))
 ```
 
 ( ) C.
+
 ```scala
 val arbol = Nodo(Nodo(Nodo(NVacio,4,NVacio),6,Nodo(Nodo(NVacio,7,NVacio),8,Nodo(NVacio,9,NVacio))),10,Nodo(Nodo(NVacio,12,NVacio),16,NVacio))
 ```
 
 (X) D.
+
 ```scala
 val arbol = Nodo(10,Nodo(6,Nodo(4,NVacio,NVacio),Nodo(8,Nodo(7,NVacio,NVacio),Nodo(9,NVacio,NVacio))),Nodo(16,Nodo(12,NVacio,NVacio),NVacio)
 ```
+
 [explanation]
 La opción A, tiene el caso recursivo, pero no tiene el caso base; y adicionalmente el caso recursivo no cumple la estructura del `case class Nodo` donde primero va el entero y luego van los dos subárboles. Por lo tanto, no cumple.
 La opción B, el caso recursivo sigue la estructura del `case class Nodo`, pero no tiene caso base.
@@ -1733,18 +1881,98 @@ La opción C, el caso recursivo no sigue la estructura del `case class Nodo`, di
 La opción D, el caso recursivo sigue la estructura del `case class Nodo`, y el caso base esta ubicado donde se espera. Por lo tanto, cumple.
 [explanation]
 
-4. 
+4. Observe el siguiente código
 
-5. Observe el siguiente código
+```scala
+sealed trait Logica
+
+final case object Verdadero extends Logica
+final case object Falso extends Logica
+final case class Y(p:Logica, q:Logica) extends Logica
+final case class O(p:Logica, q:logica) extends Logica
+```
+
+> > Cuáles de las siguientes funciones evalua una expresión lógica<<
+
+Tenga en cuenta que la siguiente son las tablas de verdad de `Y` $\wedge$ `O`.
+
+| `&&`      | Verdadero | Falso | `||` | Verdadero | Falso     | 
+|:---------:|:---------:|:-----:|:----:|:---------:|:---------:|
+| Verdadero | Verdadero | Falso |      | Verdadero | Verdadero |
+| Falso     | Falso     | Falso |      | Verdadero | Falso     |
+
+
+[ ] A.
+
+```scala
+def eval(l:Logica):Boolean = l match {
+   case Verdadero => Verdadero
+   case Falso     => Falso
+   case Y(p,q)    => eval(p) && eval(q)
+   case O(p,q)    => eval(p) || eval(q)
+}
+```
+
+[X] B.
+
+```scala
+def eval(l:Logica):Boolean = l match {
+   case Verdadero => true
+   case Falso     => falso
+   case Y(p,q)    => eval(p) && eval(q)
+   case O(p,q)    => eval(p) || eval(q)
+}
+```
+
+[X] C.
+
+```scala
+def eval(l:Logica):Boolean = l match {
+   case Verdadero      => true
+   case Falso          => false
+   case Y(Falso,_)     => false
+   case Y(p,Falso)     => false
+   case Y(p,q)         => eval(p) && eval(q)
+   case O(Verdadero,q) => eval(q)
+   case O(p,Verdadero) => eval(p)
+   case O(p,q)         => eval(p) || eval(q)
+}
+```
+
+[X] D.
+
+```scala
+def eval(l:Logica):Boolean = l match {
+   case Verdadero      => true
+   case Falso          => false
+   case Y(Falso,_)     => false
+   case Y(p,Falso)     => false
+   case Y(p,q)         => eval(p) && eval(q)
+   case O(Verdadero,_) => true
+   case O(_,Verdadero) => true
+   case O(p,q)         => eval(p) || eval(q)
+}
+```
+
+[explanation]
+La opción A, no es válida por el resultado es de un tipo diferente (`Logica`) y resultado esperado es `Boolean`. Por lo tanto, no cumple.
+La opción B, en los casos base `Verdadero` y `Falso` retornan el valor correspondiente. En las operaciones `Y` $\wedge$ `O` este evalúa a cada sub-hijo y espera que la subexpresión sea correcta. Por lo tanto, cumple.
+La opción C, en los casos base `Verdadero` y `Falso` retornan el valor correspondiente. En la operación `Y` si uno de ellos es `Falso` toda la expresión es inmediatamente falsa, excepto cuando ambas subexpresiones no son `Falso` que deja el caso recursivo para los elementos `p` y `q`. El problema se presenta con la operación `O`, cuando ambos son `Verdadero` el resultado es `true`  sin importar el valor, pero se deja la evaluación del valor de `p ` ó `q`, lo que puede conducir a un valor de falso. Por lo tanto, no cumple.
+En la opción D, en los casos base `Verdadero` y `Falso` retornan el valor correspondiente. En la operación `Y` si uno de ellos es `Falso` toda la expresión es inmediatamente falsa, excepto cuando ambas subexpresiones no son `Falso` que deja el caso recursivo para los elementos `p` y `q`. En la operación `O`, cuando ambos son `Verdadero` el resultado es `true` sin importar el valor de las otras subexpresiones, y cuando al menos una de las subexpresiones de `O` no es verdadero, el computó se deja de forma recursiva con la forma de la subexpresiones. Por lo tanto, cumple.
+
+6. Observe el siguiente código
+
 ```scala
 sealed trait NArbol
 
 final case object NVacio extends NArbol
 final case class Nodo(i:Int, ai:NArbol, ad:NArbol) extends NArbol
 ```
->> Cuáles de los siguientes códigos se encargan de contar el número de enteros dentro de un árbol<<
+
+> > Cuáles de los siguientes códigos se encargan de contar el número de enteros dentro de un árbol<<
 
 [ ]  A.
+
 ```scala
 def a(arbol:NArbol):Int = arbol match {
   case NVacio    => 0
@@ -1753,6 +1981,7 @@ def a(arbol:NArbol):Int = arbol match {
 ```
 
 [X] B.
+
 ```scala
 def b(arbol:NArbol):Int = arbol match {
    case NVacio        => 0
@@ -1761,6 +1990,7 @@ def b(arbol:NArbol):Int = arbol match {
 ```
 
 [ ] C.
+
 ```scala
 def c(arbol:NArbol):Int = arbol match {
    case NVacio        => 0
@@ -1769,6 +1999,7 @@ def c(arbol:NArbol):Int = arbol match {
 ```
 
 [X] D.
+
 ```scala
 def d(arbol:NArbol):Int = arbol match {
    case NVacio        => 0
@@ -1783,7 +2014,8 @@ La opción C, está función hace el recorrido, pero el problema es que no se en
 La opción D, esta función hace un recorrido, pero en vez de utilizar el resultado de la coincidencia de patrones, recorre el árbol a la izquierda con `arbol.ai` y a la derecha con `arbol.ad`, obteniendo de cada subárbol el número de nodos que contiene, y en cada visita le suma $1$ por la visita del actual. Igualmente, cuando visita la hojas el valor de retorno es $0$. Por lo tanto, cumple.
 [explanation]
 
-6. Observe el siguiente código
+7. Observe el siguiente código
+
 ```scala
 sealed trait NArbol
 
@@ -1795,11 +2027,14 @@ sealed trait ListaInt
 final case class Cons(i:Int, lst:ListaInt) extends ListaInt
 final objec class VaciaLst extends ListaInt
 ```
+
 Suponga que tiene la función `concatenar` definida que tiene la siguiente forma:
+
 ```scala
 def concatenar(lst1:ListaInt,lst2:ListaInt):ListaInt = ???
 ```
->> Cuales de las siguientes funciones de implementar la función colapsar el árbol, es decir transformar el árbol en una lista
+
+> > Cuales de las siguientes funciones de implementar la función colapsar el árbol, es decir transformar el árbol en una lista
 
 La idea es tomar un árbol cómo el que se ve en la siguiente figura
 
@@ -1812,6 +2047,7 @@ Cons(10,Cons(6,Cons(4,Cons(8,Cons(7,Cons(9,Cons(16,Cons(12,ListaVacia))))))))
 ```
 
 [X] A.
+
 ```scala
 def colapsar(a:NArbol):ListaInt = (a: @unchecked) match {
   case NVacio                       => ListaVacia
@@ -1820,15 +2056,16 @@ def colapsar(a:NArbol):ListaInt = (a: @unchecked) match {
 ```
 
 [X] B.
+
 ```scala
 def colapsar(a:NArbol):ListaInt = (a: @unchecked) match {
   case NVacio                       => ListaVacia
   case Nodo(i,ai:NArbol, ad:NArbol) => Cons(i, concatenar(colapsar(ai),colapsar(ad)))
 }
 ```
+
 [ ] C.
 
-```scala
 ```scala
 def colapsar(a:NArbol):ListaInt = (a: @unchecked) match {
   case NVacio                       => ListaVacia
@@ -1853,76 +2090,14 @@ La opción B, colapsa primero el lado izquierdo, y colapsa el lado derecho, cuyo
 La opción C, colapsa primero el lado izquierdo, y luego de colapsar el lado derecho, le antepone a la lista derecha el valor del nodo actual, lo que haría que quede en la mitad. Por lo tanto, no cumple.
 
 La opción D, despues de colapsar el lado izquierdo, y luego de colapsar el lado derecho, concatena ambas listas, pero a esta lista pone al final el elemento del nodo actual. Por lo tanto, no cumple.
-
 [explanation]
-
-
-7. Como ocurren con las funciones, los tipos de datos algebraicos también pueden ser mutuamente recursivos, es decir que un tipo de dato puede contener otro tipo de dato, que internamente lo contenga.
-La siguiente es la definición de dicho tipo de dato:
-```scala
-sealed trait Bloque
-
-final case class B(lst:Secuencia) extends Bloque
-
-sealed trait Secuencia
-
-final case object SecVacia extends Secuencia
-final case class EI(i:Int,lst:Lista) extends Secuencia
-final case class EB(b:Bloque, lst:Lista) extends Secuencia
-```
-
->> Cuál de las siguiente funciones calcula el mayor nivel de anidamiento que puede estar un bloque
-
-(X) A.
-```scala
-def maxProf(B)
-```
-( ) B.
-( ) C.
-( ) D.
-
-[explanation]
-[explanation]
-
-8. Se ha diseñado un vídeo juego que simula el comportamiento de un jugador en un plano cartesiano. El siguiente código es la muestra de los movimientos definido por el tipo `Direccion`y por el tipo camino que muestra una traza de movimiento de un jugador.
-```scala
-sealed trait Direccion
-
-final case object Norte extends Direccion
-final case object Sur extends Direccion
-final case object Oriente extends Direccion
-final case object Occidente extends Direccion
-
-sealed trait Camino
-
-final case class Paso(d:Direccion, c:Camino) extends Camino
-final case object Detencion extends Camino
-```
-
-La posición del jugador es registrado en un tipo llamado `Posicion` que registra la posición en el plano cartesiano.
-
-```scala
-sealed trait Posicion
-
-final case class Pxy(x:Int,y:Int) extends Posicion
-```
-( ) A.
-( ) B.
-( ) C.
-( ) D.
-
-[explanation]
-[explanation]
-
 
 #### Cierre
 
-<!-- TODO Cierre -->
+Con esta unidad hemos completado la definición de tipos de datos algebraicos TDA al añadir finalmente dos elementos, la recursión estructural, como un mecanismo que nos sirve para definir la estructura de los TDA  y sus correspondientes funciones. Más, la definición de tipos de datos recursivos de forma más simple que se hacen en otros lenguajes diferentes a los lenguajes funcionales. Si lo observas con detalles estamos utilizando las mismas técnicas para definir funciones 
 
 ##### ¿Quieres saber más?
 
-<!-- TODO ¿Quieres saber más? -->
+* []()
 
 ##### EPAM - Insights
-
-<!-- TODO EPAM - Insights -->
