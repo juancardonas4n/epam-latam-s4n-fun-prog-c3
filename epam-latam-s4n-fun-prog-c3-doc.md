@@ -1354,7 +1354,7 @@ En este momento conoces como se construyen los tipos de datos algebraicos a trav
 
 En esta unidad observaremos dos cosas que podemos utilizar dentro de la definición del tipos de datos algebraicos:
 
-* la definición del tipo propio ateniendonos para ello del que se conoce como la recursión estructural, en la que establece que para definir dicho tipo se debe tener un caso *base* y un caso *recursivo*, 
+* la definición del tipo propio ateniéndonos para ello de lo que se conoce como la recursión estructural, en la que establece que para definir dicho tipo se debe tener un caso *base* y un caso *recursivo*, 
 * y la misma recursión estructural nos sirve para definir las funciones que trabajen sobre esos tipos de datos algebraicos.
 
 Lo anterior nos permite reconocer que dentro de la programación funcional la barrera entre datos y programa se pierde. En esta unidad te mostraremos los diferentes acercamientos a la *recursión estructural*, a la definición de tipos de *datos algebricos recursivos* haciendo uso de la *recursión estructural* y del uso de la misma para definir funciones que procesen tipos de *datos algebraicos recursivos*.
@@ -1405,16 +1405,22 @@ Lo anterior nos permite reconocer que dentro de la programación funcional la ba
 
 ##### Infografía - ¿Qué es la recursión estructural?
 
-Has aprendido qué son los tipos de datos algebraicos, y sabes que estos pueden ser construidos utilizandos dos operaciones sobre conjuntos: *suma* ($\cup$) ó *unión*, y *producto* ($\times$) ó *producto cartesiano*. Si observas bien, estos dos mecanismos realizan la composición de un nuevo tipo a partir de otros tipos. Pero que pasa cuando requieres interactúar con dicho tipo, cuya información es inmutable, decidas realizar la operación inversa, es decir descomponer un tipo de dato algebraico, es aquí la *recursión estructural* es utilizada cómo un patrón inverso de descomposición. Pero miremos qué es y en que consiste:
+Has aprendido qué son los tipos de datos algebraicos, y sabes que estos pueden ser construidos utilizandos dos operaciones sobre conjuntos: *suma* ($\cup$) ó *unión*, y *producto* ($\times$) ó *producto cartesiano*. 
 
-> *La recursión estructural* es el proceso de descomposición de un tipo de dato algebraico en sus partes constituyente, teniendo en cuenta la estructura del tipo de dato algebraico.
+Si observas bien, estos dos mecanismos realizan la composición de un nuevo tipo a partir de otros tipos, es decir construyen un tipo de dato algebraico que es inmutable.
 
-Cómo Scala es un lenguaje múltiple paradigma asociado al paradigma orientado a objetos y al funcional, existen dos formas de *recursión estructural*:
+¿Qué pasa cuando requieres interactuar con un tipo cuya información es inmutable y debas descomponerlo en sus elementos básicos?
 
-1. Objetual, a través del polimorfismo.
-2. Funcional, a través de la coincidencia de patrones.
+ Es aquí donde surge la *recursión estructural*:
 
-Cada una de ellas a al vez basada en la estructura de construción: *suma* ó *producto*.
+> *La recursión estructural* es el proceso de descomposición de un tipo de dato algebraico en sus partes constituyentes, teniendo en cuenta la estructura del tipo de dato algebraico.
+
+Cómo Scala es un lenguaje de programación multiparadigma, asociado tanto al paradigma orientado a objetos y como al funcional, dentro de él existen dos formas de *recursión estructural*:
+
+1. Una objetual: a través del polimorfismo.
+2. Otra funcional: a través de la coincidencia de patrones.
+
+Cada una de ellas a al vez basada en la estructura de construcción: *suma* ó *producto*.
 
 ###### Polimorfismo a través de la sobrecarga de métodos (o operadores) en la POO
 
@@ -1425,9 +1431,9 @@ En la siguiente figura puedes observar un ejemplo del polimorfismo:
 <img src="./images/U3-IF1-D01-Integrar.png" title="" alt="" data-align="center">
 
 * Implementación. Se observa el modelo del polimorfismo donde las clases `B`y `C` son subclases de la clase `A`. Donde cada subclase implementa de forma directa el método `d`de forma distinta.
-* Ejecución. No se puede crear instancias directamente  de un `trait` ó `interface`, porque son abstractas, pero si podemos crear instancias de las subclases (`B`´ ó `C`) y hacerlas instancias de la superclase `A`. Esto se observa en la ejecución del código donde se crea un ejemplar de `B` (ó `C`) como un valor de tipo `A`llamado `unA` y al invocar el método `d` puedes observar que se invoca en cada uno de los dos casos con el código definido para el método de la subclase.
+* Ejecución. No se puede crear instancias directamente  de un `trait` ó `interface`, porque son abstractas, pero si podemos crear instancias de las subclases (`B` ó `C`) y hacerlas instancias de la superclase `A`. Esto se observa en la ejecución del código donde se crea un ejemplar de `B` (ó `C`) como un valor de tipo `A`llamado `unA` y al invocar el método `d` puedes observar que se invoca en cada uno de los dos casos con el código definido para el método de la subclase.
 
-En la siguiente figura, observas una implementación un poco diferente, porque en este caso la clase abstracta `A`deja una implementación por omisión del método `d` así que las subclases si quiere hacer debe sobre-escribir dicho código si así lo quieren.
+En la siguiente figura, observas una implementación un poco diferente, porque en este caso la clase abstracta `A`deja una implementación por omisión del método `d`,  así que las correspondientes subclases deben sobre-escribir dicho método, si así lo requieren.
 
 ![](./images/U3-IF1-D02-Integrar.png)
 
@@ -2110,5 +2116,77 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 * [Structural Recursion (In Haskell)](https://bentnib.org/posts/2011-04-22-structural-recursion.html)
 * [Recursion - Structural vs Generative](https://craftofcoding.wordpress.com/2021/05/18/recursion-structural-versus-generative/)
 * [Recursion and Structural Induction](https://courses.grainger.illinois.edu/cs173/fa2020/Lectures/Notes/RecursionAndStructuralInductionNotes.pdf)
+
+##### EPAM - Insights
+
+## M2. Uso de tipos de datos algebraicos
+
+### U4. Objetos de compañía
+
+#### Introducción
+
+##### Guía del curso
+
+##### Objetivos de la unidad
+
+###### Lograrás
+
+* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados
+* Utilizar los objetos de compañía a través de funciones.
+
+###### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+
+###### Concretamente esperamos que aprendas a:
+
+* Entender patrones de diseño básicos: *singleton* y *factories*
+* Definir los objetos de compañía.
+* Utilizar los objetos de compañía en contexto reales.
+
+###### Ruta de aprendizaje:
+
+* Fundamentos
+  * Patrones de diseño
+  * Objetos de compañia
+* Prácticas
+  * Definición de objetos de compañía
+  * Aplicación de objetos de compañía en listas de enteros y otros TDA
+* Evaluación
+* Cierre
+
+**Tiempo estimado:** 1h 50 min
+
+![](./images/TitularCastor_comencemos.png)
+
+#### 
+
+#### Patrones de diseño
+
+##### Infografía - ¿Qué son los patrones de diseño? Dos patrones útiles: *Singleton* y *Factories*
+
+#### Objetos de compañía, se nombran igual son diferentes
+
+##### Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía
+
+#### TDA y objetos de compañía
+
+##### Notebook - Definición de objetos de compañía
+
+#### Aplicar y usar objetos de compañía
+
+##### Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA
+
+##### Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+
+#### Evaluación 
+
+#### Cierre
+
+##### ¿Quieres saber más?
 
 ##### EPAM - Insights
