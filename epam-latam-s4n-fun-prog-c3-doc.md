@@ -1350,9 +1350,14 @@ Pero, es solo el principio, en la siguiente unidad observaremos como crear tipos
 
 #### Introducción
 
-En este momento conoces como se construyen los tipos de datos algebraicos a través de las operaciones de *suma* (*unión*) y *producto* (*producto cartesiano*), utilizando para ello conjuntos preestablecidos (`Int`, `Double`, `Boolean`, `Float`, etc.) y tipos definidos (`Coordenada`, `Punto`, etc.). En esta unidad observaremos dos cosas: que podemos utilizar dentro de la definición del tipos de datos algebraicos, la definición del tipo propio ateniendonos para ello del que se conoce como la recursión estructural, en la que establece que para definir dicho tipo se debe tener un caso *base* y un caso *recursivo*, como se hace con las funciones se puede hacer también con los tipos de datos, lo que nos permite reconocer que dentro de la programación funcional la barrera entre datos y programa se pierde.
+En este momento conoces como se construyen los tipos de datos algebraicos a través de las operaciones de *suma* (*unión*) y *producto* (*producto cartesiano*), utilizando para ello conjuntos preestablecidos (`Int`, `Double`, `Boolean`, `Float`, etc.) y tipos definidos (`Coordenada`, `Punto`, etc.). 
 
-En esta unidad te mostraremos los diferentes acercamientos a la *recursión estructural*, a la definición de tipos de *datos algebricos recursivos* haciendo uso de la *recursión estructural* y del uso de la misma para definir funciones que procesen tipos de *datos algebraicos recursivos*.
+En esta unidad observaremos dos cosas que podemos utilizar dentro de la definición del tipos de datos algebraicos:
+
+* la definición del tipo propio ateniendonos para ello del que se conoce como la recursión estructural, en la que establece que para definir dicho tipo se debe tener un caso *base* y un caso *recursivo*, 
+* y la misma recursión estructural nos sirve para definir las funciones que trabajen sobre esos tipos de datos algebraicos.
+
+Lo anterior nos permite reconocer que dentro de la programación funcional la barrera entre datos y programa se pierde. En esta unidad te mostraremos los diferentes acercamientos a la *recursión estructural*, a la definición de tipos de *datos algebricos recursivos* haciendo uso de la *recursión estructural* y del uso de la misma para definir funciones que procesen tipos de *datos algebraicos recursivos*.
 
 ##### Guía del curso
 
@@ -2094,10 +2099,16 @@ La opción D, despues de colapsar el lado izquierdo, y luego de colapsar el lado
 
 #### Cierre
 
-Con esta unidad hemos completado la definición de tipos de datos algebraicos TDA al añadir finalmente dos elementos, la recursión estructural, como un mecanismo que nos sirve para definir la estructura de los TDA  y sus correspondientes funciones. Más, la definición de tipos de datos recursivos de forma más simple que se hacen en otros lenguajes diferentes a los lenguajes funcionales. Si lo observas con detalles estamos utilizando las mismas técnicas para definir funciones 
+Con esta unidad hemos completado la definición de tipos de datos algebraicos (TDA) por medio de la recursión estructural, como un mecanismo que nos sirve para definir la estructura de los TDA  y las funciones correspondientes que se encargen de recorrerlo. Tambiénm, la recursión estructural nos ha servido como base para la definición de tipos de datos algebraicos recursivos. En particular, hemos visto la definición de dos tipos de datos recursivos que son extensos dentro de la programación funcional como son: la lista de números enteros y los árboles binarios de enteros.
+
+Gran parte de la programación funcional se basa en el uso de TDA recursivos y de la recursión estructural para desarrollar aplicaciones, en las cuales consistirán en un conjunto de TDA con un conjunto de funciones que manteniendo la inmutabilidad, nos permitirán representar información que será más confiable en los entornos de desarrollo modernos que involucran: *cloud*, *sistemas distribuidos* y *concurrencia*. Estos temas se verán potenciados porque la programación funcional nos facilita crear funciones que manipulen estos TDA de forma al ser inmutables podamos demostrar muchos comportamientos esperados. 
 
 ##### ¿Quieres saber más?
 
-* []()
+* [Basic Recursion Schemes in Scala](https://www.47deg.com/blog/basic-recursion-schemes-in-scala/)
+* [Structural Recursion - an Introduction](https://eecs280staff.github.io/notes/21_Structural_Recursion.html)
+* [Structural Recursion (In Haskell)](https://bentnib.org/posts/2011-04-22-structural-recursion.html)
+* [Recursion - Structural vs Generative](https://craftofcoding.wordpress.com/2021/05/18/recursion-structural-versus-generative/)
+* [Recursion and Structural Induction](https://courses.grainger.illinois.edu/cs173/fa2020/Lectures/Notes/RecursionAndStructuralInductionNotes.pdf)
 
 ##### EPAM - Insights
