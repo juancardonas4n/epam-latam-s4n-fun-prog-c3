@@ -1634,7 +1634,7 @@ En la siguiente figura se observa como se construye un tipo de dato recursivo, a
 
 Partimos de la definición de un conjunto de dígitos, luego utilizando una definición con al menos dos partes: una base y una recursiva pudimos definir nuestro tipo de dato recursivo.
 
-###### Vídeo - Definición de tipos de datos algebraicos recursivos
+##### Vídeo - Definición de tipos de datos algebraicos recursivos
 
 
 
@@ -2125,7 +2125,11 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 #### Introducción
 
+<!-- TODO - Introducción -->
+
 ##### Guía del curso
+
+![](./images/Map_Beta_Scala_03_U0.gif)
 
 ##### Objetivos de la unidad
 
@@ -2163,30 +2167,72 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 ![](./images/TitularCastor_comencemos.png)
 
-#### 
-
 #### Patrones de diseño
 
 ##### Infografía - ¿Qué son los patrones de diseño? Dos patrones útiles: *Singleton* y *Factories*
+
+<!-- TODO - Infografía - ¿Qué son los patrones de diseño? -->
 
 #### Objetos de compañía, se nombran igual son diferentes
 
 ##### Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía
 
+<!-- TODO - Vídeo - case class versus class, case object versus object y objetos de compañia -->
+
+###### Pregunta - Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía 
+
+<!-- TODO - Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía -->
+
 #### TDA y objetos de compañía
 
 ##### Notebook - Definición de objetos de compañía
+
+<!-- TODO - Introducción - Notebook - Definición de objetos de compañía -->
+
+<!-- TODO - Notebook - Definición de objetos de compañía -->
+
+###### Pregunta - Notebook - Definición de objetos de compañía
+
+<!-- TODO - Pregunta - Notebook - Definición de objetos de compañía -->
+
+###### Cierre - Notebook - Definición de objetos de compañía
+
+<!-- TODO - Cierre - Notebook - Definición de objetos de compañía -->
 
 #### Aplicar y usar objetos de compañía
 
 ##### Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA
 
+<!-- TODO - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+
+###### Pregunta - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA
+
+<!-- TODO - Pregunta - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+
 ##### Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+
+<!-- TODO - Introducción - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+
+<!-- TODO - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+
+###### Pregunta - Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+
+<!-- TODO - Pregunta - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+
+###### Cierre - Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
 
 #### Evaluación 
 
+<!-- TODO - Evaluación -->
+
 #### Cierre
+
+<!-- TODO - Cierre -->
 
 ##### ¿Quieres saber más?
 
+<!-- TODO - ¿Quieres saber más? -->
+
 ##### EPAM - Insights
+
+<!-- EPAM - Insights -->
