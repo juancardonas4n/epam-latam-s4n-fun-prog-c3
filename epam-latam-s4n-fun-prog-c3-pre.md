@@ -229,7 +229,7 @@
 |                                                              |                         [activacion]                         |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 | Entender patrones de diseño básico: *singleton* y *factories* |                    **Patrones de diseño**                    |
-|                                                              | [Infograma] ¿Qué son los patrones de diseño? Dos patrones útiles: *singleton* y *factories*[Texto] Explicación corta. |
+|                                                              | [Infograma] ¿Qué son los patrones de diseño? Dos patrones básicos: *singleton* y *factories*[Texto] Explicación corta. |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |                 Definir los objetos compañía                 |   **Objetos de compañía, se nombran igual son diferentes**   |
 |                                                              | [Video] `case class`versus `class`, `case object`versus `object` y objetos de compañía |

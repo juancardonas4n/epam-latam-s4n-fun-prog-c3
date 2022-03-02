@@ -1632,11 +1632,11 @@ En la siguiente figura se observa como se construye un tipo de dato recursivo, a
 
 ![](./images/C3-M1-U3-IF3-D01-01.drawio.png)
 
-Partimos de la definición de un conjunto de dígitos, luego utilizando una definición con al menos dos partes: una base y una recursiva pudimos definir nuestro tipo de dato recursivo.
+Partiendo de la definición de `Digito` vamos a utilizarla para definir que es un tipo de dato `Numero`, que en el caso más simple (también llamado base) consta de un `Digito`, observe constructor de valor `D`; y que en el caso más complejo es un `Digito` seguido de un `Numero` (definición llamada recursiva), observe el constructor de valor `N`.
 
 ##### Vídeo - Definición de tipos de datos algebraicos recursivos
 
-
+Vamos a implementar de forma práctica los tipos de datos algebraicos recursivos a través de dos tipos de datos que serán muy comunes dentro de la programación como son las lista y árboles de enteros. Con dichos tipos, además de observar cómo definirlos a través de la recursión estructural, también observaremos que dicha recursión estructural nos sirve para recorrer las estructuras obteniendo información sobre ellas o construyendo nuevas estructuras a partir de ellas, no se te olvide que los tipos de datos algebraicos son inmutables, al igual que los tipos de datos recursivos.  
 
 [](./videos/ready_pre_edition/EPAM-LATAM-M1-C3-M1-U3-V2-P01-Docente.mp4)
 
@@ -1810,7 +1810,7 @@ La opción D, falla en la siguiente secuencia `C(One,C(Zero, L(Zero)))`, comienz
 
 ![](./images/VEA.jpg)
 
-Has observado, no solamente cómo definir tipos de datos algebraicos recursivos, sino también a crear funciones que trabajen con dichas estructuras. A través de estos ejercicios has aprendido que muchas de estas funciones, y aunque en este momento tienes todos los conceptos para comenzar a manejar lo que el argot de programación funcional se conoce como funciones de alto orden, en la siguientes unidades explorarás algunos conceptos adicionales que se requiere para que domines y apliques estos patrones. Todo esto hará que tu código sea más compacto y eficiente, porque mucho te consentrarás en lo que debe hacer tu programa y no en cómo lograrlo.
+Has observado, no solamente cómo definir tipos de datos algebraicos recursivos, sino también cómo crear funciones que trabajen con dichas estructuras. A través de estos ejercicios has aprendido e incorporado a tu estilo de programación ambos conceptos. Pero esto no queda ahí, los *tipos de datos algebraicos* (recursivos o no) en conjunto con las funciones como valores, te permitirán identificar patrones de comportamiento en el diseño e implementación de los tipos de datos y sus funciones, y la identificación de esos patrones las observaremos en curso venideros en particular en el tema de las funciones de alto orden que será una revolución en la forma de programar, ten un poco de paciencia, que esto apenas está comenzando. 
 
 #### Evaluación
 
@@ -2169,11 +2169,36 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 #### Patrones de diseño
 
-##### Infografía - ¿Qué son los patrones de diseño? Dos patrones útiles: *Singleton* y *Factories*
+##### Infografía - ¿Qué son los patrones de diseño? Dos patrones básicos: *Singleton* y *Factories*
 
-<!-- TODO - Infografía - ¿Qué son los patrones de diseño? -->
+Para comprender que son los objetos de compañía vamos a realizar un acercamiento para indicar de donde ellos posiblemente proviene y para ello iniciaremos con los patrones de diseño, en particular observaremos dos de ellos que son construidos a través de los objetos de compañía.
 
-#### Objetos de compañía, se nombran igual son diferentes
+![](./images/C3-M2-U4-IF01-D01-01.png)
+
+
+
+Cómo se observa en la figura, son muchos los patrones de diseño estos dos patrones:
+
+* *Singleton* (Único)
+* Método de fabricación
+
+Estos patrones nos interesa porque a través de ellos podemos explicar el origen del concepto de qué son los objetos de compañía. No intentaremos una explicación completa y formal de como la documentación de los patrones sugiere que deberíamos hacer. Ambos patrones son muy simples e intentaremos una explicación informal directa.
+
+En la siguiente figura se observa la estructura UML del patrón *Singleton*. El propósito de este patrón es la de garantizar un única existencia de una instancia de la clase que implemente dicho patrón.  La mayoría de los lenguajes de programación orientado a objetos el constructor de clase al ser público permite crear un número ilimitado de instancias y el diseño presentado en el diagrama UML nos muestra que esto lo podemos lograr, en primer lugar por el constructor de esta clase es privado, tenemos una única `instancia` que es global y que no puede acceder directamente, sino a través del método `obtInstancia()` que tiene como función retorna `instancia`así siempre habrá una sola instancia y no puede ser cambiada hasta que el programa termine. 
+
+![](./images/C3-M2-U4-IF01-D01-02.png)
+
+
+
+El método de fabricación se muestra en la siguiente figura. En ella, se observan dos jerarquías de clases, la primera es la jerarquía de la interface `Producto`, esta representa una familia de productos que se desea instanciar;  la segunda es la jerarquía de la interface  `Creador` que establece un mecanismo para crear instancias de `Producto` a través del  `metodoDeFabrica()`, pero aquí este método es *abstracto* por lo tanto se debe implementar a través de `CreadorConcreto` que establece a través del método *sobrecargado* `metodoDeFabrica()`que `ProductoConcreto` se quiere instanciar. Así el propósito de este patrón permite tener un método estándar para crear un objeto, delegando esa tarea a las subclases de `CreadorConcreto`. La idea es permitir construir de forma simple instancias que pueden resultar en un momento dado complejas debido al manejo de los constructores originales en la jerarquía de `Producto`.
+
+![](./images/C3-M2-U4-IF01-D01-03.png)
+
+Estos dos patrones están relacionados con la creación de instancias, el primero crear un único elemento y el otro con la forma de crear instancias de forma simple, ocultando las complejidades de la creación y facilitando a los usuarios de estas clases la creación de `Producto`. 
+
+A diferencia de otros lenguajes de programación que se requiere seguir el patrón para implementarlo, Scala incorpora estos dos patrones, el primero a través del constructor `object`que se encarga de crear una única instancia (*singleton*), y el segundo, por la definición dentro de este `objeto` del método `apply` que se comporta como el `metodoDeFabrica()`. Pero esto no es todo, veremos en la siguiente sección que `object` tendrá dos funciones dependiendo del nombre que se le asigne dependiendo de este está relacionado o no con una clase. Entonces hablaremos de: *objetos* o *objectos de compañía*. 
+
+#### Objetos y objetos de compañía, se nombran igual pero son diferentes
 
 ##### Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía
 
@@ -2231,7 +2256,15 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 ##### ¿Quieres saber más?
 
-<!-- TODO - ¿Quieres saber más? -->
+<!-- TODO - ¿Quieres saber más? - ¡Podar! -->
+
+* [Patrón de diseño - Wikipedia](https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o)
+* [Scala Singlenton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
+* [Scala Singleton and Companion objects and Advantages](https://www.linkedin.com/pulse/scala-singleton-companion-objects-advantages-swastik-mohanty)
+* [Singlenton Objects](https://docs.scala-lang.org/tour/singleton-objects.html)
+* [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)
+* [Scala companinon objects are not singlenton](https://stackoverflow.com/questions/49686734/scala-companion-objects-are-not-singleton)
+* []()
 
 ##### EPAM - Insights
 
