@@ -26,12 +26,12 @@ object Eval {
   def getFGC(e:Eval):Eval = e match {
     case ee @ Eval(_,_,cn,_,_,_)   if (cn == 0.0) => ee
     case ee @ Eval(ce,cg,cn,_,_,_) if (cn > 0.0 && cn <= 1.0) =>
-      ee.copy(cExpG = if (ce >= 3.0) 0.0 else (3.0 - ce) * cn)
+      ee.copy(cExpG = if (ce >= 3.0) 0.0 else (3.0 - ce) / cn)
     case ee @ Eval(ce,cg,cn,_,ne,e) => {
         val n = ne + e
         val ag = ce / e
         val nep = ne / n
-        ee.copy(cExpG = if (ag >= 3.0) 0.0 else (3.0 - ce) * nep,
+        ee.copy(cExpG = if (ag >= 3.0) 0.0 else (3.0 - ce) / nep,
                 cNEval = nep)
     }
   }

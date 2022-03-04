@@ -63,11 +63,11 @@ object Course {
       })
     }
     else
-      Left(s" Grade: $strGrade doesn't exists at Course $course.name")
+      Left(s"Grade: $strGrade doesn't exists at Course ${course.name}")
   }
 
-  def getGradeCourse(course:Course):Eval = {
+  def getGradeCourse(course:Course):ErrorOr[Eval] = {
     val e = course.grades.foldLeft(Eval())((r,e) => getGC(r,e._2))
-    getFGC(e)
+    Right(getFGC(e))
   }
 }

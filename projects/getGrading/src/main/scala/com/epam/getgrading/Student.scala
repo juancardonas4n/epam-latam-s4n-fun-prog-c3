@@ -1,6 +1,7 @@
 package com.epam.getgrading
 
-import com.epam.getgrading.Course.{apply,grading}
+import com.epam.getgrading.Course.{apply,grading,getGradeCourse}
+import com.epam.getgrading.Eval
 import com.epam.getgrading.Utils._
 import cats.syntax.either
 import cats.data.State
@@ -29,7 +30,7 @@ object Student {
   } yield r
 
   def regGrade(idCG:String,
-               grade:Double):EitherState[Unit] = for {
+               grade:Double):EitherState[Eval] = for {
     s <- StateT.get[ErrorOr,Student]
     cs:Map[String,Course] = s.courses
     idCourseGrade:Array[String] = idCG.split(":")
@@ -40,14 +41,17 @@ object Student {
     rit = (c:Course) => for {
       cr <- StateT.liftF[ErrorOr,
                          Student,
-                         Course](grading(c,idCG,grade))
-      r_ <- StateT.modify[ErrorOr,
+                         Course](grading(c,idCourseGrade(1),grade))
+      _ <- StateT.modify[ErrorOr,
                           Student](_.copy(courses = cs + (cr.name -> cr)))
-    } yield r_
+      r <- StateT.liftF[ErrorOr,
+                        Student,
+                        Eval](getGradeCourse(cr))
+    } yield r
 
     rif = StateT.liftF[ErrorOr,
                        Student,
-                       Unit](Left(s"Course ${idCourseGrade(0)} not found at registered courses"))
+                       Eval](Left(s"Course ${idCourseGrade(0)} not found at registered courses"))
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) else rif
   } yield r
 
@@ -85,12 +89,32 @@ object Student {
                                   ("Seguimiento", 0.20),
                                   ("Trabajo final", 0.30)))
 
-  def test:EitherState[Unit] = for {
+  def test:EitherState[Eval] = for {
     c <- StateT.liftF[ErrorOr,
                       Student,
                       Course](cST0270)
     _ <- regCourse(c)
     _ <- regGrade("ST0270:Parcial 1", 3.1)
     r <- regGrade("ST0270:Parcial 2", 3.3)
+  } yield r
+
+  def test2:EitherState[Eval] = for {
+    c <- StateT.liftF[ErrorOr,
+                      Student,
+                      Course](cST0270)
+    _ <- regCourse(c)
+    _ <- regGrade("ST0270:Parcial 1", 3.1)
+    _ <- regGrade("ST0270:Parcial 2", 3.3)
+    r <- regGrade("ST0270:Parcial 3", 4.5)
+  } yield r
+
+  def test3:EitherState[Eval] = for {
+    c <- StateT.liftF[ErrorOr,
+                      Student,
+                      Course](cST0270)
+    _ <- regCourse(c)
+    _ <- regGrade("ST0270:Parcial 1", 3.1)
+    _ <- regGrade("ST0270:Parcial 2", 3.3)
+    r <- regGrade("ST0270:Practica Final", 4.5)
   } yield r
 }
