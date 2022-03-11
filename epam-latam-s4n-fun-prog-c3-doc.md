@@ -2202,49 +2202,103 @@ A diferencia de otros lenguajes de programación que se requiere seguir el patr�
 
 ##### Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía
 
-<!-- TODO - Vídeo - case class versus class, case object versus object y objetos de compañia -->
+[Vídeo - Preedición](https://epam.sharepoint.com/:f:/r/sites/EPAMEPAMLatamCampusFPCurso3/Shared Documents/Unidad 4/Vídeo 1?csf=1&web=1&e=LhEUfw)
 
 ###### Pregunta - Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía 
 
-<!-- TODO - Vídeo - `case class` versus `class`, `case object` versus `object`y objetos de compañía -->
+1. Sabemos que los `class` y `cases class` pueden tener objetos de compañía.
+
+>> Pueden los `cases object` tener objetos de compañía<<
+
+( ) Si
+(X) No
+
+[explanation]
+No, pues que la idea de los objetos de compañía es tener una única instancia, los `case object` ya cumplen con dicha condición.
+[explanation]
+2. Los objetos de compañía fueron diseñados para ajustarse a dos patrones de programación importantes.
+
+>> Cuáles son<<
+
+[ ] *Class Factory*
+[X] *Method Factory*
+[ ] *Visitor*
+[X] *Singleton*
+
+[explanation]
+Los objetos de compañía crean una única instancia por lo tanto implementan el patrón *Singleton* y a través de la implementación del método `apply` permiten la tener un mecanismo de creación de instancias de las clase de compañía por lo tanto implementa el patron *Method Factory*.
+[explanation]
 
 #### TDA y objetos de compañía
 
 ##### Notebook - Definición de objetos de compañía
 
-<!-- TODO - Introducción - Notebook - Definición de objetos de compañía -->
+Hemos observado la relación de los objetos de compañía con los diferentes tipos de clases de compañía (como `class`es y `case class`es), en este **Notebook* vamos aplicar las diferentes formas de uso de los objetos de compañía en cuatros casos como: objetos únicos (*Singleton*), puntos de entrada de programa, métodos de fabricación (*factory methods*), objetos de compañía como módulos que contienen métodos y valores. 
 
-<!-- TODO - Notebook - Definición de objetos de compañía -->
+Esto nos permitirá entender la forma que se aplicará la programación funcional a través de dos elementos los tipos de datos y las funciones que operan sobre estos,  donde los primeros serán tipos de dato algebraicos que se definirán a través de los `trait`s y sus correspondientes implementaciones de `case class`es y `case object`s, mientras que las segundas estarán definidas en los objetos de compañía como métodos.
+
+<!-- TODO - Notebook - Añadir enlace de mybinder.com -->
 
 ###### Pregunta - Notebook - Definición de objetos de compañía
 
-<!-- TODO - Pregunta - Notebook - Definición de objetos de compañía -->
+
+1. Si un objeto de compañía es definido con el nombre `Document`
+
+>> Qué significa la siguiente línea de código<<
+
+```scala
+import Document._
+```
+
+( ) A. Nada es error sintáctico.
+( ) B. Es la forma permita reconocer correspondientes clases de compañía.
+(X) C. Permite que se accedan a las funciones definidas en el objeto de compañía.
+( ) D. Permite importar a los objetos de compañía y a las correspondientes clases de compañía.
+
+[explanation]
+Los objetos de compañía actúan como un módulo y de esta forma se permite acceder de forma directa a los métodos y valores definidos dentro de ella, que de otra forma habría que acceder de forma cualificada `<nombre objeto de compañía>.<nombre del método>`, puesto que la importación del módulo (`import <nombre objeto de compañía>._`) nos permite acceder al método directamente: `<nombre del método>`.
+[explanation]
 
 ###### Cierre - Notebook - Definición de objetos de compañía
 
-<!-- TODO - Cierre - Notebook - Definición de objetos de compañía -->
+En este **Notebook** has observado los diferentes usos de los objetos de compañía y en particular de su uso dentro de los tipos de datos algebraicos y en la programación funcional, puesto que no tenemos que definir clases y componerlas directamente con sus datos y métodos que permitan manipularlos, en cambio, los objetos de compañía nos permite separar los datos de su comportamiento, definiendo para ellos funciones e importarlas dentro de nuestros programas.
+
+Esta separación nos permitirá definir los servicios que se ofrecen para los TDA, puesto que el servicio serán un conjunto de funciones que trabajen sobre dichos datos inmutables, lo que más adelante nos permitirá diseñar en base a este modelo una programación más eficiente y confiable.
+
 
 #### Aplicar y usar objetos de compañía
 
-##### Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA
+##### Infografía - ¿Qué son las mónadas y los transformadores de mónadas?
 
-<!-- TODO - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+<!-- TODO - Infograma - ¿Qué son las mónadas y transformadores de mónadas? -->
 
-###### Pregunta - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA
+##### Infografía - Algunas mónadas útiles: `Either`, `State`, `Io`
 
-<!-- TODO - Pregunta - Vídeo - Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+<!-- TODO - Infograma - Algunas mónadas útiles: `Either`, `State`, `Io`-->
 
-##### Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+##### Vídeo - Aplicación `getGrading`
 
-<!-- TODO - Introducción - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+<!-- TODO - Aplicación -  `getGrading` -->
 
-<!-- TODO - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+<!-- TODO - Vídeo - `getGrading` -->
 
-###### Pregunta - Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+###### Preguntas - Vídeo - Aplicación `getGrading`
 
-<!-- TODO - Pregunta - Notebook -  Aplicación de objetos de compañía en listas de enteros y otros TDA -->
+<!-- TODO - Pregunta - Vídeo - Aplicación `getGrading` -->
 
-###### Cierre - Notebook - Aplicación de objetos de compañía en listas de enteros y otros TDA
+##### Captura de bandera - Modificación de la aplicación `getGrading`
+
+<!-- TODO - Captura de bandera - Texto - Modificación de la aplicación `getGrading` -->
+
+<!-- TODO - Captura de bandera - Programa de verificación - Modificación de la aplicación `getGrading` -->
+
+##### Vídeo - Retroalimentación de la modificación a la aplicación `getGrading`
+
+<!-- TODO - Vídeo - Retroalimentación de la modificación a la aplicación `getGrading`-->
+
+###### Preguntas - Vídeo - Retroalimentación  de la modificación a la aplicación `getGrading`
+
+<!-- TODO - Pregunta - Vídeo - Retroalimentación  de la modificación a la aplicación `getGrading` -->
 
 #### Evaluación 
 
@@ -2259,7 +2313,7 @@ A diferencia de otros lenguajes de programación que se requiere seguir el patr�
 <!-- TODO - ¿Quieres saber más? - ¡Podar! -->
 
 * [Patrón de diseño - Wikipedia](https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o)
-* [Scala Singlenton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
+* [Scala Singleton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
 * [Scala Singleton and Companion objects and Advantages](https://www.linkedin.com/pulse/scala-singleton-companion-objects-advantages-swastik-mohanty)
 * [Singlenton Objects](https://docs.scala-lang.org/tour/singleton-objects.html)
 * [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)

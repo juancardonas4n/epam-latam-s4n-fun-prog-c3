@@ -237,8 +237,11 @@
 |                                                              |         [Notebook] Definición de objetos de compañía         |
 |                  -------------------------                   | ---------------------------------------------------------------- |
 |     Utilizar los objetos de compañía en contexto reales      |            **Aplicar y usar objetos de compañía**            |
-|                                                              | [Vídeo] Aplicación de objetos de compañía en listas de enteros y en otros TDA |
-|                                                              | [Notebook] Aplicación de objetos de compañía en listas de enteros y árboles |
+|                                                              | [Infografía]  ¿Qué son las mónadas y transformadores de mónadas ? |
+|                                                              | [Infograma] Algunas mónadas útiles: `Either`, `State`, `Io`  |
+|                                                              |               [Vídeo] Aplicación `getGrading`                |
+|                                                              | [Captura de bandera] Modificación de la aplicación `getGrading` |
+|                                                              | [Vídeo] Retroalimentación de la modificación a la aplicación `getGrading` |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |

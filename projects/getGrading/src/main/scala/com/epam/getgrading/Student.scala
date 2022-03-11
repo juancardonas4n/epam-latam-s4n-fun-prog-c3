@@ -16,7 +16,7 @@ object Student {
 
   def apply():Student = Student(Map[String,Course]())
 
-  private def checkCGS(idCG:Array[String],
+  private def checkIdCourseWithFunction(idCG:Array[String],
                        msg:String)(f:Array[String]=>Boolean)
   :EitherState[Unit] = for {
     s <- StateT.get[ErrorOr,Student]
@@ -29,15 +29,19 @@ object Student {
     r <- if (f(idCG)) ift else iff
   } yield r
 
-  def regGrade(idCG:String,
+  def recordGrade(idCG:String,
                grade:Double):EitherState[Eval] = for {
     s <- StateT.get[ErrorOr,Student]
+
     cs:Map[String,Course] = s.courses
+
     idCourseGrade:Array[String] = idCG.split(":")
-    _ <- checkCGS(idCourseGrade,
+
+    _ <- checkIdCourseWithFunction(idCourseGrade,
                   s"idCourse CourseID:grade bad format $idCG") {
       id => !(id.size == 1 || id.size > 3)
     }
+
     rit = (c:Course) => for {
       cr <- StateT.liftF[ErrorOr,
                          Student,
@@ -55,7 +59,7 @@ object Student {
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) else rif
   } yield r
 
-  def regCourse(c:Course):EitherState[Unit] = for {
+  def recordCourse(c:Course):EitherState[Unit] = for {
     s <- StateT.get[ErrorOr,Student]
     cs = s.courses
     rit = StateT.liftF[ErrorOr,
@@ -93,28 +97,28 @@ object Student {
     c <- StateT.liftF[ErrorOr,
                       Student,
                       Course](cST0270)
-    _ <- regCourse(c)
-    _ <- regGrade("ST0270:Parcial 1", 3.1)
-    r <- regGrade("ST0270:Parcial 2", 3.3)
+    _ <- recordCourse(c)
+    _ <- recordGrade("ST0270:Parcial 1", 3.1)
+    r <- recordGrade("ST0270:Parcial 2", 3.3)
   } yield r
 
   def test2:EitherState[Eval] = for {
     c <- StateT.liftF[ErrorOr,
                       Student,
                       Course](cST0270)
-    _ <- regCourse(c)
-    _ <- regGrade("ST0270:Parcial 1", 3.1)
-    _ <- regGrade("ST0270:Parcial 2", 3.3)
-    r <- regGrade("ST0270:Parcial 3", 4.5)
+    _ <- recordCourse(c)
+    _ <- recordGrade("ST0270:Parcial 1", 3.1)
+    _ <- recordGrade("ST0270:Parcial 2", 3.3)
+    r <- recordGrade("ST0270:Parcial 3", 4.5)
   } yield r
 
   def test3:EitherState[Eval] = for {
     c <- StateT.liftF[ErrorOr,
                       Student,
                       Course](cST0270)
-    _ <- regCourse(c)
-    _ <- regGrade("ST0270:Parcial 1", 3.1)
-    _ <- regGrade("ST0270:Parcial 2", 3.3)
-    r <- regGrade("ST0270:Practica Final", 4.5)
+    _ <- recordCourse(c)
+    _ <- recordGrade("ST0270:Parcial 1", 3.1)
+    _ <- recordGrade("ST0270:Parcial 2", 3.3)
+    r <- recordGrade("ST0270:Practica Final", 4.5)
   } yield r
 }
