@@ -6,9 +6,12 @@ import com.epam.getgrading.Utils._
 import cats.syntax.either
 import cats.data.State
 import cats.data.StateT
+import cats.data.EitherT
 import cats.Monad
 import cats.Functor
 import cats.implicits._
+import cats.effect.IO
+import cats.effect.implicits._
 
 case class Student(courses:Map[String,Course])
 
@@ -17,21 +20,21 @@ object Student {
   def apply():Student = Student(Map[String,Course]())
 
   private def checkIdCourseWithFunction(idCG:Array[String],
-                       msg:String)(f:Array[String]=>Boolean)
-  :EitherState[Unit] = for {
-    s <- StateT.get[ErrorOr,Student]
-    ift = StateT.liftF[ErrorOr,
+                                        msg:String)(f:Array[String]=>Boolean):
+  EitherStateIO[Unit] = for {
+    s <- StateT.get[ErrorOrIO,Student]
+    ift = StateT.liftF[ErrorOrIO,
                        Student,
-                       Unit](Right(()))
-    iff = StateT.liftF[ErrorOr,
+                       Unit](EitherT.liftF(IO { () } ))
+    iff = StateT.liftF[ErrorOrIO,
                        Student,
-                       Unit](Left(msg))
+                       Unit](EitherT.left[Unit](IO {msg} ))
     r <- if (f(idCG)) ift else iff
   } yield r
 
   def recordGrade(idCG:String,
-               grade:Double):EitherState[Eval] = for {
-    s <- StateT.get[ErrorOr,Student]
+                  grade:Double):EitherStateIO[Eval] = for {
+    s <- StateT.get[ErrorOrIO,Student]
 
     cs:Map[String,Course] = s.courses
 
@@ -43,82 +46,83 @@ object Student {
     }
 
     rit = (c:Course) => for {
-      cr <- StateT.liftF[ErrorOr,
+      cr <- StateT.liftF[ErrorOrIO,
                          Student,
                          Course](grading(c,idCourseGrade(1),grade))
-      _ <- StateT.modify[ErrorOr,
-                          Student](_.copy(courses = cs + (cr.name -> cr)))
-      r <- StateT.liftF[ErrorOr,
+      _ <- StateT.modify[ErrorOrIO,
+                         Student](_.copy(courses = cs + (cr.name -> cr)))
+      r <- StateT.liftF[ErrorOrIO,
                         Student,
                         Eval](getGradeCourse(cr))
     } yield r
 
-    rif = StateT.liftF[ErrorOr,
+    rif = StateT.liftF[ErrorOrIO,
                        Student,
-                       Eval](Left(s"Course ${idCourseGrade(0)} not found at registered courses"))
+                       Eval](EitherT.left[Eval](IO { s"Course ${idCourseGrade(0)} not found at registered courses" } ))
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) else rif
   } yield r
 
-  def recordCourse(c:Course):EitherState[Unit] = for {
-    s <- StateT.get[ErrorOr,Student]
+
+  def recordCourse(c:Course):EitherStateIO[Unit] = for {
+    s <- StateT.get[ErrorOrIO,Student]
     cs = s.courses
-    rit = StateT.liftF[ErrorOr,
+    rit = StateT.liftF[ErrorOrIO,
                        Student,
-                       Unit](Left(s"Key $c.name already exists"))
+                       Unit](EitherT.left[Unit](IO {s"Key $c.name already exists" } ))
     rif = for {
-      _ <- StateT.modify[ErrorOr,
+      _ <- StateT.modify[ErrorOrIO,
                          Student](_.copy(courses = cs +
                                          (c.name -> c)))
-      r_ <- StateT.liftF[ErrorOr,
+      r_ <- StateT.liftF[ErrorOrIO,
                          Student,
-                         Unit](Right(()))
+                         Unit](EitherT.liftF(IO { () } ))
     } yield r_
     r <- if (cs.contains(c.name)) rit else rif
   } yield r
 
-  val fc = Course("ST0000", 4, List(("Parcial 1", 0.20),
-                                    ("Parcial 2", 0.20),
-                                    ("Parcial 2", 0.20),
-                                    ("Seguimiento", 0.10),
-                                    ("Trabajo final", 0.20)))
+  // val fc = Course("ST0000", 4, List(("Parcial 1", 0.20),
+  //                                   ("Parcial 2", 0.20),
+  //                                   ("Parcial 2", 0.20),
+  //                                   ("Seguimiento", 0.10),
+  //                                   ("Trabajo final", 0.20)))
 
-  val cST0270 = Course("ST0270", 4, List(("Parcial 1", 0.20),
-                                  ("Parcial 2", 0.20),
-                                  ("Parcial 3", 0.20),
-                                  ("Seguimiento", 0.10),
-                                  ("Trabajo final", 0.30)))
+  // val cST0270 = Course("ST0270", 4, List(("Parcial 1", 0.20),
+  //                                 ("Parcial 2", 0.20),
+  //                                 ("Parcial 3", 0.20),
+  //                                 ("Seguimiento", 0.10),
+  //                                 ("Trabajo final", 0.30)))
 
-  val cST0275 = Course("ST0275", 5, List(("Parcial 1", 0.25),
-                                  ("Parcial 2", 0.25),
-                                  ("Seguimiento", 0.20),
-                                  ("Trabajo final", 0.30)))
+  // val cST0275 = Course("ST0275", 5, List(("Parcial 1", 0.25),
+  //                                 ("Parcial 2", 0.25),
+  //                                 ("Seguimiento", 0.20),
+  //                                 ("Trabajo final", 0.30)))
 
-  def test:EitherState[Eval] = for {
-    c <- StateT.liftF[ErrorOr,
-                      Student,
-                      Course](cST0270)
-    _ <- recordCourse(c)
-    _ <- recordGrade("ST0270:Parcial 1", 3.1)
-    r <- recordGrade("ST0270:Parcial 2", 3.3)
-  } yield r
+  // def test:EitherState[Eval] = for {
+  //   c <- StateT.liftF[ErrorOr,
+  //                     Student,
+  //                     Course](cST0270)
+  //   _ <- recordCourse(c)
+  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
+  //   r <- recordGrade("ST0270:Parcial 2", 3.3)
+  // } yield r
 
-  def test2:EitherState[Eval] = for {
-    c <- StateT.liftF[ErrorOr,
-                      Student,
-                      Course](cST0270)
-    _ <- recordCourse(c)
-    _ <- recordGrade("ST0270:Parcial 1", 3.1)
-    _ <- recordGrade("ST0270:Parcial 2", 3.3)
-    r <- recordGrade("ST0270:Parcial 3", 4.5)
-  } yield r
+  // def test2:EitherState[Eval] = for {
+  //   c <- StateT.liftF[ErrorOr,
+  //                     Student,
+  //                     Course](cST0270)
+  //   _ <- recordCourse(c)
+  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
+  //   _ <- recordGrade("ST0270:Parcial 2", 3.3)
+  //   r <- recordGrade("ST0270:Parcial 3", 4.5)
+  // } yield r
 
-  def test3:EitherState[Eval] = for {
-    c <- StateT.liftF[ErrorOr,
-                      Student,
-                      Course](cST0270)
-    _ <- recordCourse(c)
-    _ <- recordGrade("ST0270:Parcial 1", 3.1)
-    _ <- recordGrade("ST0270:Parcial 2", 3.3)
-    r <- recordGrade("ST0270:Practica Final", 4.5)
-  } yield r
+  // def test3:EitherState[Eval] = for {
+  //   c <- StateT.liftF[ErrorOr,
+  //                     Student,
+  //                     Course](cST0270)
+  //   _ <- recordCourse(c)
+  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
+  //   _ <- recordGrade("ST0270:Parcial 2", 3.3)
+  //   r <- recordGrade("ST0270:Practica Final", 4.5)
+  // } yield r
 }

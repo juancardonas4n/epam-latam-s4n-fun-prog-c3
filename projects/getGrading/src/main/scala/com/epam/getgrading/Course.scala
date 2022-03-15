@@ -3,6 +3,11 @@ package com.epam.getgrading
 import com.epam.getgrading.Utils._
 import com.epam.getgrading.Grade._
 import com.epam.getgrading.Eval._
+import com.epam.getgrading.GradeElement._
+import cats.data.EitherT
+import cats.implicits._
+import cats.effect.IO
+import cats.effect.implicits._
 
 sealed trait Course {
   def name:String
@@ -49,25 +54,42 @@ object Course {
     }
   }
 
+  def apply(name:String,
+            creditNumber:Int,
+            grades:GradeElement):Either[String, Course] = {
+
+    val sum = sumGradeElement(grades)
+    if (sum.toInt != 1)
+      Left(s"The sum of weights each course must be equals to 1.0 but $sum")
+    else {
+      val listGrades:Map[String,Grade] =
+        grades.foldLeft(Map[String,Grade]())((m:Map[String,Grade],
+                                              grW:(String,Double)) =>
+                                                m + (grW._1 -> Grade(grW._1,
+                                                                     grW._2)))
+      Right(CCourse(name, creditNumber, OnRun, listGrades))
+    }
+  }
+
   def grading(course:Course,
               strGrade:String,
-              grade:Double):ErrorOr[Course] = {
+              grade:Double):ErrorOrIO[Course] = {
 
     if (course.grades.contains(strGrade)) {
       val ngrades = course.grades.updatedWith(strGrade)(g => for {
         gp <- g
         ngp <- setGrade(gp, grade).toOption
       } yield ngp)
-      Right(course match {
-        case c @ CCourse(_,_,_,_) => c.copy(grades = ngrades)
+      EitherT.liftF(course match {
+        case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
       })
     }
     else
-      Left(s"Grade: $strGrade doesn't exists at Course ${course.name}")
+      EitherT.left[Course](IO { s"Grade: $strGrade doesn't exists at Course ${course.name}" } )
   }
 
-  def getGradeCourse(course:Course):ErrorOr[Eval] = {
+  def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
     val e = course.grades.foldLeft(Eval())((r,e) => getGC(r,e._2))
-    Right(getFGC(e))
+    EitherT.liftF( IO { getFGC(e) } )
   }
 }

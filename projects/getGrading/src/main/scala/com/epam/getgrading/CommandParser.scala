@@ -2,10 +2,6 @@ package com.epam.getgrading
 
 import scala.util.parsing.combinator._
 
-sealed trait GradeElement
-final case class GradePercent(percent:Double) extends GradeElement
-final case class GradeMap(map:Map[String,GradeElement]) extends GradeElement
-
 class CommandParser extends JavaTokenParsers {
   def command:Parser[Any]   = course | grade | list | exit
   def course:Parser[Any]    = "add"~>stringLiteral~decimalNumber~gradings
@@ -24,7 +20,5 @@ class CommandParser extends JavaTokenParsers {
 }
 
 object CommandParser extends CommandParser {
-  def run(str:String) = {
-    println(parseAll(command, str))
-  }
+  def parseCommand(str:String):ParseResult[Any] = parseAll(command, str)
 }
