@@ -2318,8 +2318,9 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 * [Singlenton Objects](https://docs.scala-lang.org/tour/singleton-objects.html)
 * [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)
 * [Scala companinon objects are not singlenton](https://stackoverflow.com/questions/49686734/scala-companion-objects-are-not-singleton)
+* [Demystifying the monad in scala](https://medium.com/free-code-camp/demystifying-the-monad-in-scala-cc716bb6f534)
 * []()
 
 ##### EPAM - Insights
 
-<!-- EPAM - Insights -->
+<!-- EPAM - Insights -->	

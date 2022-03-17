@@ -13,14 +13,14 @@ import cats.effect.implicits._
 
 object Main extends IOApp {
 
-  def evalCommand(str:String):EitherStateIO[Boolean] = for {
-    pcr <- liftResult(parseCommand(str))
-    r <- pcr match {
-      case Success(res,_) => liftResult(res)
-      case Failure(msg,_) => liftMsgError(msg)
-      case _              => liftMsgError("Parser: Unknow error")
-    }
-  } yield true
+  // def evalCommand(str:String):EitherStateIO[Boolean] = for {
+  //   pcr <- liftResult(parseCommand(str))
+  //   r <- pcr match {
+  //     case Success(res,_) => res
+  //     case Failure(msg,_) => liftMsgError(msg)
+  //     case _              => liftMsgError("Parser: Unknow error")
+  //   }
+  // } r // yield true
 
   def prompt(str:String) = IO {
         print(str)
@@ -41,22 +41,20 @@ object Main extends IOApp {
 
   val promptGetReading = prompt("getGrading> ")
 
-  def program(std:Student):IO[Unit] =
-    for {
-      _    <- promptGetReading
-      line <- readLine
-      _    <- if (line != "") for {
-        r <- evalCommand(line).run(std).value
-        _ <- r match {
-          case (Right(t)) => if (t._2) program(t._1) else unit
-          case (Left(msg)) => for {
-              _ <- printError(msg)
-              _ <- program(std)
-          } yield ()
-        }
-      } yield ()
-              else program(std)
-    } yield ()
+  def program(std:Student):IO[Unit] = for {
+    _    <- promptGetReading
+    line <- readLine
+    r    <- parseCommand(line).run(std).value
+    _    <- r match {
+      case Right((nxtStd,nextIter)) =>
+        if (nextIter) program(nxtStd) else unit
+      case Left(msg)                =>
+        for {
+          _ <- printError(msg)
+          _ <- program(std)
+        } yield ()
+    }
+  } yield ()
 
   override def run(args: List[String]):IO[ExitCode] =
     for {
