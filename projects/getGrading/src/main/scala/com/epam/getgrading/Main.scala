@@ -13,28 +13,14 @@ import cats.effect.implicits._
 
 object Main extends IOApp {
 
-  // def evalCommand(str:String):EitherStateIO[Boolean] = for {
-  //   pcr <- liftResult(parseCommand(str))
-  //   r <- pcr match {
-  //     case Success(res,_) => res
-  //     case Failure(msg,_) => liftMsgError(msg)
-  //     case _              => liftMsgError("Parser: Unknow error")
-  //   }
-  // } r // yield true
-
   def prompt(str:String) = IO {
         print(str)
         Console.flush()
       }
+
   def printError(msg:String) = IO {
     println(msg)
   }
-
-  def prompt2(str:String):EitherStateIO[Unit] =
-    liftResult {
-      print(str)
-      Console.flush()
-    }
 
   val readLine:IO[String] =
     IO { Console.in.readLine }
@@ -58,6 +44,7 @@ object Main extends IOApp {
 
   override def run(args: List[String]):IO[ExitCode] =
     for {
+      _ <- IO { println("Get greading starting...") }
       _ <- program(Student())
     } yield ExitCode.Success
 }

@@ -7,7 +7,9 @@ libraryDependencies += "org.typelevel" %% "cats-core" %
 libraryDependencies += "org.scala-lang.modules" %%
                     "scala-parser-combinators" % "2.0.0"
 libraryDependencies += "org.typelevel" %% "cats-effect" %
-                    "3.0.0"
+                    "2.0.0"
+libraryDependencies += "org.scalatest" %% "scalatest" %
+                    "3.2.11" % Test
 
 scalacOptions ++= Seq(
   "-Xfatal-warnings",
