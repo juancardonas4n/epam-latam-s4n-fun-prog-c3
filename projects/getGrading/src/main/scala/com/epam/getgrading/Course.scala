@@ -3,8 +3,8 @@ package com.epam.getgrading
 import com.epam.getgrading.Utils._
 import com.epam.getgrading.Grade._
 import com.epam.getgrading.Eval._
-import com.epam.getgrading.GradeElement._
 import cats.data.EitherT
+import cats.data.StateT
 import cats.implicits._
 import cats.effect.IO
 import cats.effect.implicits._
@@ -56,19 +56,13 @@ object Course {
 
   def apply(name:String,
             creditNumber:Int,
-            grades:GradeElement):Either[String, Course] = {
-
-    val sum = sumGradeElement(grades)
-    if (sum.toInt != 1)
-      Left(s"The sum of weights each course must be equals to 1.0 but $sum")
-    else {
-      val listGrades:Map[String,Grade] =
-        grades.foldLeft(Map[String,Grade]())((m:Map[String,Grade],
-                                              grW:(String,Double)) =>
-                                                m + (grW._1 -> Grade(grW._1,
-                                                                     grW._2)))
-      Right(CCourse(name, creditNumber, OnRun, listGrades))
+            grades:Map[String,Grade]):EitherStateIO[Course] = {
+    if (isWeightGrade(grades) && sumMapWeight(grades).toInt != 1) {
+      val sum = sumMapWeight(grades).toInt
+      liftMsgError[Course](s"The sum of weights each course must be equals to 1 but $sum" )
     }
+    else
+      liftResult(CCourse(name, creditNumber, OnRun, grades))
   }
 
   def grading(course:Course,

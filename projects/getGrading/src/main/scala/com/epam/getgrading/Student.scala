@@ -56,9 +56,13 @@ object Student {
                         Eval](getGradeCourse(cr))
     } yield r
 
-    rif = StateT.liftF[ErrorOrIO,
-                       Student,
-                       Eval](EitherT.left[Eval](IO { s"Course ${idCourseGrade(0)} not found at registered courses" } ))
+    rif = StateT.
+    liftF[ErrorOrIO,
+          Student,
+            Eval](EitherT.
+                  left[Eval](IO {
+                    s"Course ${idCourseGrade(0)} not found at registered courses"
+                  } ))
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) else rif
   } yield r
 
@@ -79,6 +83,33 @@ object Student {
     } yield r_
     r <- if (cs.contains(c.name)) rit else rif
   } yield r
+
+  def addWeightedCourse(name:String,
+                        nCredits:Int,
+                        map:Map[String,Grade]):
+  EitherStateIO[Boolean] = for {
+    _ <- liftResult(println("Start register course"))
+    c <- Course(name,nCredits,map)
+    _ <- liftResult(println(s"Add course ${name}"))
+    _ <- recordCourse(c)
+    _ <- liftResult(println(s"Course $name registed"))
+  } yield true
+
+  def registerGrade(name:String,
+                    grade:Double):
+  EitherStateIO[Boolean] = for {
+      eval <- recordGrade(name,grade.toDouble)
+      _ <- liftResult[Unit](println(s"${eval.evaluatedGrade}"))
+  } yield true
+
+  def listCourse(name:String):
+  EitherStateIO[Boolean] = for {
+    _ <- liftResult(println("Not yet implemented"))
+  } yield true
+
+  def exitApp:EitherStateIO[Boolean] = for {
+      _ <- liftResult(println("The application is ending"))
+  } yield false
 
   // val fc = Course("ST0000", 4, List(("Parcial 1", 0.20),
   //                                   ("Parcial 2", 0.20),
