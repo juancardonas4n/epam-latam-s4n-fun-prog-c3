@@ -10,6 +10,8 @@ libraryDependencies += "org.typelevel" %% "cats-effect" %
                     "2.0.0"
 libraryDependencies += "org.scalatest" %% "scalatest" %
                     "3.2.11" % Test
+libraryDependencies += "org.typelevel" %% "cats-effect-testing-scalatest" %
+                    "1.4.0" % Test
 
 scalacOptions ++= Seq(
   "-Xfatal-warnings",
