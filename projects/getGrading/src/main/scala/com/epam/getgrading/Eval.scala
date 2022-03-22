@@ -12,7 +12,7 @@ case class Eval(evaluatedPercen:Double,
 object Eval {
   def apply():Eval = Eval(0.0,0.0,0.0,0.0,0,0)
 
-  def getGC(e:Eval,g:Grade):Eval = {
+  def fromGradeGetEval(e:Eval,g:Grade):Eval = {
     def aux(gg:(Option[Double],Double)):Eval = (e,gg) match {
       case (ee @ Eval(_,_,pne,_,ne,n),(None, w))    =>
         ee.copy(percenNotEvaluated = pne + w,

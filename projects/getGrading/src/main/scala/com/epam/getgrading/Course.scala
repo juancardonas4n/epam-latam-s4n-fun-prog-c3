@@ -57,9 +57,9 @@ object Course {
   def apply(name:String,
             creditNumber:Int,
             grades:Map[String,Grade]):EitherStateIO[Course] = {
-    if (isWeightGrade(grades) && sumMapWeight(grades).toInt != 1) {
-      val sum = sumMapWeight(grades).toInt
-      liftMsgError[Course](s"The sum of weights each course must be equals to 1 but $sum" )
+    val sum = sumMapWeight(grades)
+    if (isWeightGrade(grades) && (sum > 1.0 || sum < 1.0)) {
+      liftMsgError[Course](s"The sum of weights each course must be equals to 1.0 but $sum" )
     }
     else
       liftResult(CCourse(name, creditNumber, OnRun, grades))
@@ -83,7 +83,7 @@ object Course {
   }
 
   def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
-    val e = course.grades.foldLeft(Eval())((r,e) => getGC(r,e._2))
+    val e = course.grades.foldLeft(Eval())((r,e) => fromGradeGetEval(r,e._2))
     EitherT.liftF( IO { getFGC(e) } )
   }
 }

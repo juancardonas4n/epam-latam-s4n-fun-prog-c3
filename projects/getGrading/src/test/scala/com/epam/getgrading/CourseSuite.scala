@@ -4,8 +4,6 @@ import org.scalatest._
 import cats.effect.testing.scalatest.AsyncIOSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.freespec.AsyncFreeSpec
-// import flatspec._
-// import matchers._
 import cats.syntax.either
 import cats.data.State
 import cats.data.StateT
@@ -14,23 +12,29 @@ import cats.Monad
 import cats.Functor
 import cats.implicits._
 import cats.effect._
-// import cats.effect.testing.scalatest.AsyncIOSpec
 import cats.effect.{ExitCode, IO, IOApp}
 import cats.effect.IO._
 import cats.effect.implicits._
 import com.epam.getgrading.Utils._
 import com.epam.getgrading.Student
-import com.epam.getgrading.Student.{recordCourse}
+import com.epam.getgrading.Student.{recordCourse,recordGrade}
 import com.epam.getgrading.Course
 import com.epam.getgrading.Course._
+import com.epam.getgrading.Eval
+import com.epam.getgrading.Eval._
 import com.epam.getgrading.Grade
 import com.epam.getgrading.Grade._
 
-
-// class CourseSuite extends AnyFlatSpec with should.Matchers {
 class CourseSuite extends AsyncFreeSpec with AsyncIOSpec with Matchers {
+  val cST0270 =
+    Course("ST0270", 4,
+           Map("Parcial 1"     -> Grade("Parcial 1", 0.20),
+               "Parcial 2"     -> Grade("Parcial 2", 0.20),
+               "Parcial 3"     -> Grade("Parcial 3", 0.20),
+               "Seguimiento"   -> Grade("Seguimiento", 0.10),
+               "Trabajo final" -> Grade("Trabajo final",0.30)))
 
-  val cST0270 = 
+  val dcST0270 =
     Course("ST0270", 4,
            Map("Parcial 1"     -> Grade("Parcial 1", 0.20),
                "Parcial 2"     -> Grade("Parcial 2", 0.20),
@@ -38,57 +42,236 @@ class CourseSuite extends AsyncFreeSpec with AsyncIOSpec with Matchers {
                "Seguimiento"   -> Grade("Seguimiento", 0.10),
                "Trabajo final" -> Grade("Trabajo final",0.20)))
 
-  val cST0275 = 
+
+  val cST0275 =
     Course("ST0275", 5,
            Map("Parcial 1" -> Grade("Parcial 1", 0.25),
                "Parcial 2" -> Grade("Parcial 2", 0.25),
                "Seguimiento" -> Grade("Seguimiento", 0.20),
                "Trabajo final" -> Grade("Trabajo final", 0.30)))
 
-  def testRecordOneCourse:EitherStateIO[Unit] = for {
-    c <- cST0270
-    _ <- recordCourse(c)
-  } yield ()
+  def testRecordOneCourse:EitherStateIO[Unit] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+    } yield ()
 
-  def testRecordTwoCourses:EitherStateIO[Unit] = for {
-    c1 <- cST0270
-    _ <- recordCourse(c1)
-    c2 <- cST0275
-    _ <- recordCourse(c2)
-  } yield ()
+  def testRecordTwoCourses:EitherStateIO[Unit] =
+    for {
+      c1 <- cST0270
+      _ <- recordCourse(c1)
+      c2 <- cST0275
+      _ <- recordCourse(c2)
+    } yield ()
 
-  def launchIO(std:Student):IO[Int] = for {
-    r <- testRecordOneCourse.runS(std).value
-    rstd <- r match {
-      case Right(nstd) => IO { nstd.courses.size }
-      case Left(_)     => IO { 0  } 
-    }
-  } yield (rstd)
+  def testRecordOneCourseBadly:EitherStateIO[Unit] =
+    for {
+      c <- dcST0270
+      _ <- recordCourse(c)
+    } yield ()
 
+  def testRegisterOneGrade:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      e <- recordGrade("ST0270:Parcial 1", 2.1)
+    } yield e
 
-    "A course added to student" - {
-      "contains only one course" in {
-        launchIO(Student()).asserting(_ shouldBe 1)
+  def testRegisterTwoGrades:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      _ <- recordGrade("ST0270:Parcial 1", 2.1)
+      e <- recordGrade("ST0270:Parcial 2", 3.1)
+    } yield e
+
+  def testRegisterThreeGrades:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      _ <- recordGrade("ST0270:Parcial 1", 2.1)
+      _ <- recordGrade("ST0270:Parcial 2", 3.1)
+      e <- recordGrade("ST0270:Parcial 3", 4.1)
+    } yield e
+
+  def testRegisterFourGrades:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      _ <- recordGrade("ST0270:Parcial 1", 2.1)
+      _ <- recordGrade("ST0270:Parcial 2", 3.1)
+      _ <- recordGrade("ST0270:Parcial 3", 4.1)
+      e <- recordGrade("ST0270:Seguimiento", 5.0)
+    } yield e
+
+  def testRegisterFiveGrades:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      _ <- recordGrade("ST0270:Parcial 1", 2.1)
+      _ <- recordGrade("ST0270:Parcial 2", 3.1)
+      _ <- recordGrade("ST0270:Parcial 3", 4.1)
+      _ <- recordGrade("ST0270:Seguimiento", 5.0)
+      e <- recordGrade("ST0270:Trabajo final", 2.8)
+    } yield e
+
+  def testRegisterRepitedNameCourse:EitherStateIO[Unit] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      _ <- recordCourse(c)
+    } yield ()
+
+  def testRegisterBadGradeName:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      e <- recordGrade("ST0270:Evaluaciones", 2.1)
+    } yield e
+
+  def testRegisterBadGradeValue:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      e <- recordGrade("ST0270:Parcial 1", -1.0)
+    } yield e
+
+  def testRegisterBadGradeValue2:EitherStateIO[Eval] =
+    for {
+      c <- cST0270
+      _ <- recordCourse(c)
+      e <- recordGrade("ST0270:Parcial 1", 6.0)
+    } yield e
+
+  def launchIO[A,B](std:Student,
+                    test:EitherStateIO[B],
+                    f:Student => A):IO[A] =
+    for {
+      r <- test.runS(std).value
+      rstd <- r match {
+        case Right(nstd) => IO { f(nstd) }
+        case Left(_)     => IO { f(std)  }
       }
+    } yield (rstd)
+
+  def launchIOValue[A,B](std:Student,
+                         test:EitherStateIO[A],
+                         f:A => B,
+                         optValue:B):IO[B] =
+    for {
+      r <- test.runA(std).value
+      rstd <- r match {
+        case Right(nstd) => IO { f(nstd)  }
+        case Left(_)     => IO { optValue }
+      }
+    } yield (rstd)
+
+  def launchIOError[A](std:Student,
+                       test:EitherStateIO[A]):IO[Either[String,A]] =
+    for {
+      r <- test.runA(std).value
+    } yield r
+
+ "A course that was added to an student" - {
+   "contains only one course" in {
+     launchIO(Student(),
+              testRecordOneCourse,
+              ((s:Student) => s.courses.size)).asserting(_ shouldBe 1)
     }
+  }
+
+ "Two courses that were added to an student" - {
+   "contains two courses" in {
+     launchIO(Student(),
+              testRecordTwoCourses,
+              ((s:Student) => s.courses.size)).asserting(_ shouldBe 2)
+   }
+ }
+
+ "Register a grade in an specific course" - {
+   "obtain a posible grade" in {
+     val res = 2.1 * 0.2
+     launchIOValue(Student(),
+                   testRegisterOneGrade,
+                   ((e:Eval) => e.evaluatedGrade),
+                   -1.0).asserting(_ shouldBe res)
+   }
+ }
+
+ "Register two grades in an specific course" - {
+   "obtain a posible grade" in {
+     val res = 2.1 * 0.2 + 3.1 * 0.2
+     launchIOValue(Student(),
+                   testRegisterTwoGrades,
+                   ((e:Eval) => e.evaluatedGrade),
+                   -1.0).asserting(_ shouldBe res)
+   }
+ }
+
+ "Register three grades in an specific course" - {
+   "obtain a posible grade" in {
+     val res = 2.1 * 0.2 + 3.1 * 0.2 + 4.1 * 0.2
+     launchIOValue(Student(),
+                   testRegisterThreeGrades,
+                   ((e:Eval) => e.evaluatedGrade),
+                   -1.0).asserting(_ shouldBe res)
+   }
+ }
+
+ "Register four grades in an specific course" - {
+   "obtain a posible grade" in {
+     val res = 2.1 * 0.2 + 3.1 * 0.2 + 4.1 * 0.2 + 5.0 * 0.1
+     launchIOValue(Student(),
+                   testRegisterFourGrades,
+                   ((e:Eval) => e.evaluatedGrade),
+                   -1.0).asserting(_ shouldBe res)
+   }
+ }
+
+ "Register five grades in an specific course" - {
+   "obtain a posible grade" in {
+     val res = 2.1 * 0.2 + 3.1 * 0.2 + 4.1 * 0.2 +
+     5.0 * 0.1 + 2.8 * 0.3
+     launchIOValue(Student(),
+                   testRegisterFiveGrades,
+                   ((e:Eval) => e.evaluatedGrade),
+                   -1.0).asserting(_ shouldBe res)
+   }
+ }
+
+ "A bad course that was added to an student" - {
+   " is bad register" in {
+     launchIOError(Student(),
+                   testRecordOneCourseBadly).asserting(_.isLeft shouldBe true)
+    }
+  }
+
+ "A course will be grading with a bad name grade" - {
+   " is must fail" in {
+     launchIOError(Student(),
+                   testRegisterBadGradeName).asserting(_.isLeft shouldBe true)
+    }
+  }
+
+ "A course will be grading with a bad grade value < 0.0" - {
+   " is must fail" in {
+     launchIOError(Student(),
+                   testRegisterBadGradeValue).asserting(_.isLeft shouldBe true)
+    }
+  }
+
+ "A course will be grading with a bad grade value > 5.0" - {
+   " is must fail" in {
+     launchIOError(Student(),
+                   testRegisterBadGradeValue2).asserting(_.isLeft shouldBe true)
+    }
+  }
+
+ "A course will register two times " - {
+   " is must fail" in {
+     launchIOError(Student(),
+                   testRegisterRepitedNameCourse).asserting(_.isLeft shouldBe true)
+    }
+  }
+
 }
-
-//   "Two courses added to Student" should "contains two courses" in {
-//     val std = Student()
-//     val test = for {
-//       r <- testRecordTwoCourses.runS(std).value
-//       rstd <- r match {
-//         case Right(nstd) => IO { nstd }
-//         case Left(_)     => IO { std  } 
-//       }
-//       _ <- IO { println("This is running") }
-//     } yield (rstd.courses.size should be (3))
-//   }
-
-//   "Test course" should "this must failed" in {
-//     val x = 10
-//     x should be (10)
-//   }
-
-// }
-

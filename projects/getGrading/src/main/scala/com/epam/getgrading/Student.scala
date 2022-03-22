@@ -30,6 +30,17 @@ object Student {
     r <- if (f(idCG)) ift else iff
   } yield r
 
+  private def checkGradeValue(grade:Double,
+                              msg:String)(f:Double=>Boolean):
+  EitherStateIO[Unit] = for {
+    s <- StateT.get[ErrorOrIO,Student]
+
+    ift = liftResult[Unit]( () )
+    iff = liftMsgError[Unit](msg)
+
+    r <- if (f(grade)) ift else iff
+  } yield r
+
   def recordGrade(idCG:String,
                   grade:Double):EitherStateIO[Eval] = for {
     s <- StateT.get[ErrorOrIO,Student]
@@ -43,42 +54,37 @@ object Student {
       id => !(id.size == 1 || id.size > 3)
     }
 
+    _ <- checkGradeValue(grade,
+                         s"Grade value ${grade} is above 5.0 or below 0.0") {
+      gradeValue => gradeValue >= 0.0 && gradeValue <= 5.0
+    }
+
     rit = (c:Course) => for {
-      cr <- StateT.liftF[ErrorOrIO,
-                         Student,
-                         Course](grading(c,idCourseGrade(1),grade))
+      cr <- liftResult1[Course](grading(c,idCourseGrade(1),grade))
       _ <- StateT.modify[ErrorOrIO,
                          Student](_.copy(courses = cs + (cr.name -> cr)))
-      r <- StateT.liftF[ErrorOrIO,
-                        Student,
-                        Eval](getGradeCourse(cr))
+      r <- liftResult1[Eval](getGradeCourse(cr))
     } yield r
 
-    // rif = StateT.
-    // liftF[ErrorOrIO,
-    //       Student,
-    //         Eval](EitherT.
-    //               left[Eval](IO {
-    //                 s"Course ${idCourseGrade(0)} not found at registered courses"
-    //               } ))
     rif = liftMsgError[Eval](s"Course ${idCourseGrade(0)} not found at registered courses")
-    r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) else rif
+    r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) 
+         else rif
   } yield r
 
   def recordCourse(c:Course):EitherStateIO[Unit] = for {
     s <- StateT.get[ErrorOrIO,Student]
     cs = s.courses
 
-    rit = liftResult[Unit](s"Key $c.name already exists")
+    rit = liftMsgError[Unit](s"Key $c.name already exists")
 
     rif = for {
       _ <- StateT.modify[ErrorOrIO,
                          Student](_.copy(courses = cs +
                                          (c.name -> c)))
-      r_ <- liftResult[Unit]( () )
-    } yield r_
-    r <- if (cs.contains(c.name)) rit else rif
-  } yield r
+      r <- liftResult[Unit]( () )
+    } yield r
+    _ <- if (cs.contains(c.name)) rit else rif
+  } yield ()
 
   def addWeightedCourse(name:String,
                         nCredits:Int,
@@ -104,38 +110,4 @@ object Student {
   def exitApp:EitherStateIO[Boolean] = for {
       _ <- liftResult(println("The application is ending"))
   } yield false
-
-  // val cST0275 = Course("ST0275", 5, List(("Parcial 1", 0.25),
-  //                                 ("Parcial 2", 0.25),
-  //                                 ("Seguimiento", 0.20),
-  //                                 ("Trabajo final", 0.30)))
-
-  // def test:EitherState[Eval] = for {
-  //   c <- StateT.liftF[ErrorOr,
-  //                     Student,
-  //                     Course](cST0270)
-  //   _ <- recordCourse(c)
-  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
-  //   r <- recordGrade("ST0270:Parcial 2", 3.3)
-  // } yield r
-
-  // def test2:EitherState[Eval] = for {
-  //   c <- StateT.liftF[ErrorOr,
-  //                     Student,
-  //                     Course](cST0270)
-  //   _ <- recordCourse(c)
-  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
-  //   _ <- recordGrade("ST0270:Parcial 2", 3.3)
-  //   r <- recordGrade("ST0270:Parcial 3", 4.5)
-  // } yield r
-
-  // def test3:EitherState[Eval] = for {
-  //   c <- StateT.liftF[ErrorOr,
-  //                     Student,
-  //                     Course](cST0270)
-  //   _ <- recordCourse(c)
-  //   _ <- recordGrade("ST0270:Parcial 1", 3.1)
-  //   _ <- recordGrade("ST0270:Parcial 2", 3.3)
-  //   r <- recordGrade("ST0270:Practica Final", 4.5)
-  // } yield r
 }

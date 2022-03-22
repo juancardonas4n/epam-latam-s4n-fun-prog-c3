@@ -24,4 +24,9 @@ object Utils {
                  Student,
                  A](EitherT.liftF(IO { result } ))
 
+  def liftResult1[A](result:ErrorOrIO[A]):EitherStateIO[A] =
+    StateT.liftF[ErrorOrIO,
+                 Student,
+                 A](result)
+
 }

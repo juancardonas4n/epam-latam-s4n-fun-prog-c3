@@ -12,19 +12,26 @@ class CommandParser extends JavaTokenParsers {
   def command:Parser[EitherStateIO[Boolean]] =
     course | exit | grade | list | spaces
 
+  private def getGridQuotes(str:String) = {
+    val strSize = str.size
+    if (strSize > 3)
+      str.substring(1,str.size - 1)
+    else ""
+  }
+
   def course:Parser[EitherStateIO[Boolean]] =
     "add"~>stringLiteral~decimalNumber~gradings ^^
-  { case name~nCredits~gradings => addWeightedCourse(name,
+  { case name~nCredits~gradings => addWeightedCourse(getGridQuotes(name),
                                                      nCredits.toInt,
                                                      gradings) }
 
   def grade:Parser[EitherStateIO[Boolean]] =
     "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble }) ^^
-  { case name~grade => registerGrade(name,
+  { case name~grade => registerGrade(getGridQuotes(name),
                                      grade) }
 
   def list:Parser[EitherStateIO[Boolean]] =
-    "list"~>stringLiteral ^^ { case name => listCourse(name) }
+    "list"~>stringLiteral ^^ { case name => listCourse(getGridQuotes(name)) }
 
   def exit:Parser[EitherStateIO[Boolean]] =
     "exit" ^^ { case _ => exitApp }
@@ -34,8 +41,12 @@ class CommandParser extends JavaTokenParsers {
                                         case _          => Map() }
 
   def gradeElem:Parser[(String,Grade)] =
-    (stringLiteral<~":")~(number ^^ ((n) => ((s:String) => Grade(s,n)))
-   | gradings ^^ ((g) => ((s:String) => Grade(s,sumMapWeight(g),g)))) ^^
+    (stringLiteral<~":")~(number ^^
+                          ((n) => ((s:String) =>
+                            Grade(getGridQuotes(s),n)))
+   | gradings ^^
+                          ((g) => ((s:String) =>
+                            Grade(getGridQuotes(s),sumMapWeight(g),g)))) ^^
   { case s~f => (s,f(s)) }
 
   def number:Parser[Double] =
@@ -46,9 +57,9 @@ class CommandParser extends JavaTokenParsers {
 }
 
 object CommandParser extends CommandParser {
-  
+
   def parseCommand(str:String):EitherStateIO[Boolean] =
-    parseAll(command, str) match { 
+    parseAll(command, str) match {
       case Success(res,_) => res
       case Failure(msg,_) => liftMsgError(msg)
       case _              => liftMsgError("Parser: Unknow error")

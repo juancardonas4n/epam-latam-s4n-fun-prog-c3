@@ -12,6 +12,7 @@ final case class WeightedNote(name:String,
                               grade:Option[Double],
                               subGrades:Map[String,Grade],
                               weight:Double) extends Grade
+
 final case class NoWeightedNote(name:String,
                                 grade:Option[Double],
                                 subGrades:Map[String,Grade]) extends Grade
@@ -64,7 +65,7 @@ object Grade {
       case WeightedNote(_,_,_,_) => true
       case _                     => false
     }
-    !map.dropWhile(isWeightGradeAux(_)).isEmpty
+    !map.takeWhile(isWeightGradeAux(_)).isEmpty
   }
 
   def isNoWeightGrade(map:Map[String,Grade]):Boolean = {
