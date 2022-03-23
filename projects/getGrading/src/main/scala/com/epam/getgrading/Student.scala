@@ -1,7 +1,7 @@
 package com.epam.getgrading
 
 import com.epam.getgrading.Course.{apply,grading,getGradeCourse,course2String}
-import com.epam.getgrading.Eval
+import com.epam.getgrading.Eval.{eval2String}
 import com.epam.getgrading.Utils._
 import cats.syntax.either
 import cats.data.State
@@ -106,7 +106,7 @@ object Student {
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     eval <- recordGrade(name,grade.toDouble)
-    _ <- liftResult[Unit](println(s"${eval.evaluatedGrade}"))
+    _ <- liftResult[Unit](println(eval2String(eval)))
   } yield true
 
   def listCourse(name:String):

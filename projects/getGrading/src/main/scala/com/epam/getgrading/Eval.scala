@@ -39,5 +39,6 @@ object Eval {
     }
   }
 
-  def toString(e:Eval):String = ???
+  def eval2String(e:Eval):String = 
+    f"%% ${e.evaluatedPercen * 100}%3.0f Current grade: ${e.evaluatedGrade}%1.2f Next expected grade: ${e.expectedGrade}%1.2f"
 }
