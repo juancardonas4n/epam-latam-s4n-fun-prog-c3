@@ -1,6 +1,6 @@
 package com.epam.getgrading
 
-import com.epam.getgrading.Course.{apply,grading,getGradeCourse}
+import com.epam.getgrading.Course.{apply,grading,getGradeCourse,course2String}
 import com.epam.getgrading.Eval
 import com.epam.getgrading.Utils._
 import cats.syntax.either
@@ -12,6 +12,7 @@ import cats.Functor
 import cats.implicits._
 import cats.effect.IO
 import cats.effect.implicits._
+
 
 case class Student(courses:Map[String,Course])
 
@@ -54,6 +55,11 @@ object Student {
       id => !(id.size == 1 || id.size > 3)
     }
 
+    _ <- checkIdCourseWithFunction(idCourseGrade,
+                  s"Course id: ${idCourseGrade(0)} doesn't exist. Register it!") {
+      id => s.courses.contains(id(0))
+    }
+
     _ <- checkGradeValue(grade,
                          s"Grade value ${grade} is above 5.0 or below 0.0") {
       gradeValue => gradeValue >= 0.0 && gradeValue <= 5.0
@@ -66,7 +72,7 @@ object Student {
       r <- liftResult1[Eval](getGradeCourse(cr))
     } yield r
 
-    rif = liftMsgError[Eval](s"Course ${idCourseGrade(0)} not found at registered courses")
+    rif = liftMsgError[Eval](s"Course ${idCourseGrade(0)} and Grade ${idCourseGrade(1)} not found at registered courses")
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) 
          else rif
   } yield r
@@ -98,16 +104,24 @@ object Student {
   def registerGrade(name:String,
                     grade:Double):
   EitherStateIO[Boolean] = for {
-      eval <- recordGrade(name,grade.toDouble)
-      _ <- liftResult[Unit](println(s"${eval.evaluatedGrade}"))
+    s <- StateT.get[ErrorOrIO,Student]
+    eval <- recordGrade(name,grade.toDouble)
+    _ <- liftResult[Unit](println(s"${eval.evaluatedGrade}"))
   } yield true
 
   def listCourse(name:String):
   EitherStateIO[Boolean] = for {
-    _ <- liftResult(println("Not yet implemented"))
+    s <- StateT.get[ErrorOrIO,Student]
+    courses = s.courses
+    _ <- if (courses.contains(name)) 
+      for {
+        _ <- liftResult(println(course2String(courses(name))))
+      } yield ()
+        else 
+          liftMsgError(s"Course ${name} doesn't exits")
   } yield true
 
   def exitApp:EitherStateIO[Boolean] = for {
-      _ <- liftResult(println("The application is ending"))
+      _ <- liftResult(println("getGrading is ending"))
   } yield false
 }

@@ -1,6 +1,8 @@
 package com.epam.getgrading
 
 import com.epam.getgrading.Utils._
+import cats.effect.IO
+import cats.effect.implicits._
 
 sealed trait Grade {
   def name:String
@@ -41,9 +43,10 @@ object Grade {
                  weight)
 
   def setGrade(grade:Grade, actGrade:Double):ErrorOr[Grade] = {
-    def testGrade(grade:Grade):ErrorOr[Grade] =
-      if (grade.grade == None) Right(grade)
-      else Left(s"Grade: $grade.name already has note $grade.grade")
+    def testGrade(grade:Grade):ErrorOr[Grade] = grade.grade match {
+      case None => Right(grade)
+      case _    => Left(s"Grade: $grade.name already has note $grade.grade")
+    }
     for {
       g <- testGrade(grade)
       ng = g match {
@@ -83,5 +86,16 @@ object Grade {
       case _                                    => ???
     }
     m.foldLeft(0.0)((t,es) => t + sumMapWeightAux(es._2))
+  }
+
+  def grade2String(grade:Grade):String = grade match {
+    case WeightedNote(name,None,_,_)        =>
+      f"\t\t${name}\t*.**"
+    case WeightedNote(name,Some(grade),_,_) =>
+      f"\t\t${name}\t${grade}%1.2f"
+    case NoWeightedNote(name,None,_)        =>
+      f"\t\t${name}\t*.**"
+    case NoWeightedNote(name,Some(grade),_) =>
+      f"\t\t${name}\t${grade}%1.2f"
   }
 }

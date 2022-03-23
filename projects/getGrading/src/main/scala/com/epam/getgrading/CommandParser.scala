@@ -14,7 +14,7 @@ class CommandParser extends JavaTokenParsers {
 
   private def getGridQuotes(str:String) = {
     val strSize = str.size
-    if (strSize > 3)
+    if (strSize >= 3)
       str.substring(1,str.size - 1)
     else ""
   }
@@ -47,7 +47,7 @@ class CommandParser extends JavaTokenParsers {
    | gradings ^^
                           ((g) => ((s:String) =>
                             Grade(getGridQuotes(s),sumMapWeight(g),g)))) ^^
-  { case s~f => (s,f(s)) }
+  { case s~f => (getGridQuotes(s),f(s)) }
 
   def number:Parser[Double] =
     floatingPointNumber ^^ { _.toDouble }

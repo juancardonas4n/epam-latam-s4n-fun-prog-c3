@@ -1,7 +1,8 @@
 package com.epam.getgrading
 
 import com.epam.getgrading.Utils._
-import com.epam.getgrading.Grade._
+import com.epam.getgrading.Grade.{setGrade,isWeightGrade,
+                                  grade2String,sumMapWeight}
 import com.epam.getgrading.Eval._
 import cats.data.EitherT
 import cats.data.StateT
@@ -74,16 +75,26 @@ object Course {
         gp <- g
         ngp <- setGrade(gp, grade).toOption
       } yield ngp)
-      EitherT.liftF(course match {
-        case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
-      })
-    }
+      if (ngrades.size == course.grades.size)
+        EitherT.liftF(course match {
+          case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
+        })
+      else {
+        EitherT.left[Course](IO { s"Grade: $strGrade has been already registed " } )
+      } 
+    } 
     else
-      EitherT.left[Course](IO { s"Grade: $strGrade doesn't exists at Course ${course.name}" } )
+      EitherT.left[Course](IO { s"Course: $course Grade: $strGrade doesn't exists at Course ${course.name}" } )
   }
 
   def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
     val e = course.grades.foldLeft(Eval())((r,e) => fromGradeGetEval(r,e._2))
     EitherT.liftF( IO { getFGC(e) } )
+  }
+
+  def course2String(course:Course):String = course match {
+    case CCourse(name,creditNumber,state,grades) =>
+      s"Course: ${name} Credits: ${creditNumber} ${state}\n" +
+    grades.foldLeft("")((r,e) => r + grade2String(e._2) + "\n")
   }
 }
