@@ -16,54 +16,42 @@ import cats.implicits._
 import cats.effect.IO
 import cats.effect.implicits._
 
-
 case class Student(courses:Map[String,Course])
 
 object Student {
 
   def apply():Student = Student(Map[String,Course]())
 
-  private def checkIdCourseWithFunction(idCG:Array[String],
-                                        msg:String)(f:Array[String]=>Boolean):
+  private def checkWithFunction[A](idCG:A,
+                                   msg:String)(f:A=>Boolean):
   EitherStateIO[Unit] = for {
     s <- StateT.get[ErrorOrIO,Student]
 
-    ift = liftResult[Unit]( () )
-    iff = liftMsgError[Unit](msg)
-
-    r <- if (f(idCG)) ift else iff
-  } yield r
-
-  private def checkGradeValue(grade:Double,
-                              msg:String)(f:Double=>Boolean):
-  EitherStateIO[Unit] = for {
-    s <- StateT.get[ErrorOrIO,Student]
-
-    ift = liftResult[Unit]( () )
-    iff = liftMsgError[Unit](msg)
-
-    r <- if (f(grade)) ift else iff
+    r <- if (f(idCG))
+      liftResult[Unit]( () )
+         else
+      liftMsgError[Unit](msg)
   } yield r
 
   def recordGrade(idCG:String,
                   grade:Double):EitherStateIO[Eval] = for {
     s <- StateT.get[ErrorOrIO,Student]
-
-    cs:Map[String,Course] = s.courses
+    cs = s.courses
 
     idCourseGrade:Array[String] = idCG.split(":")
 
-    _ <- checkIdCourseWithFunction(idCourseGrade,
+    _ <- checkWithFunction(idCourseGrade,
                   s"idCourse CourseID:grade bad format $idCG") {
       id => !(id.size == 1 || id.size > 3)
     }
 
-    _ <- checkIdCourseWithFunction(idCourseGrade,
-                  s"Course id: ${idCourseGrade(0)} doesn't exist. Register it!") {
+    _ <- checkWithFunction(idCourseGrade,
+                  s"""Course id: ${idCourseGrade(0)} doesn't exist.
+                     | Register it!""".stripMargin.replaceAll("\n", " ")) {
       id => s.courses.contains(id(0))
     }
 
-    _ <- checkGradeValue(grade,
+    _ <- checkWithFunction(grade,
                          s"Grade value ${grade} is above 5.0 or below 0.0") {
       gradeValue => gradeValue >= 0.0 && gradeValue <= 5.0
     }
@@ -75,8 +63,11 @@ object Student {
       r <- liftResult1[Eval](getGradeCourse(cr))
     } yield r
 
-    rif = liftMsgError[Eval](s"Course ${idCourseGrade(0)} and Grade ${idCourseGrade(1)} not found at registered courses")
-    r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0))) 
+    rif = liftMsgError[Eval](s"""Course ${idCourseGrade(0)}
+                                | and Grade ${idCourseGrade(1)}
+                                | not found at registered
+                                | courses""".stripMargin.replaceAll("\n", " "))
+    r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0)))
          else rif
   } yield r
 
@@ -95,7 +86,6 @@ object Student {
     _ <- if (cs.contains(c.name)) rit else rif
   } yield ()
 
-
   def addWeightedCourse(name:String,
                         nCredits:Int,
                         map:Map[String,Grade]):
@@ -109,7 +99,7 @@ object Student {
                     grade:Double):
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
-    eval <- recordGrade(name,grade.toDouble) 
+    eval <- recordGrade(name,grade.toDouble)
     _ <- liftResult[Unit](println(eval2String(eval)))
   } yield true
 
@@ -117,12 +107,12 @@ object Student {
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     courses = s.courses
-    _ <- if (courses.contains(name)) 
+    _ <- if (courses.contains(name))
       for {
         _ <- liftResult(println(course2String(courses(name))))
       } yield ()
-        else 
-          liftMsgError(s"Course ${name} doesn't exits")
+        else
+      liftMsgError(s"Course ${name} doesn't exits")
   } yield true
 
   def exitApp:EitherStateIO[Boolean] = for {

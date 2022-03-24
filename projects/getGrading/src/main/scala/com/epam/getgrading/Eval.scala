@@ -53,5 +53,9 @@ object Eval {
   }
 
   def eval2String(e:Eval):String =
-    f"%%${e.evaluatedPercen * 100}%2.0f Accumulated Grade: ${e.evaluatedGrade}%1.2f Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f Next expected grade: ${e.expectedGrade}%1.2f"
+    f"""%%${e.evaluatedPercen * 100}%2.0f Accumulated Grade:
+       | ${e.evaluatedGrade}%1.2f
+       | Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f
+       | Next expected grade: ${e.expectedGrade}%1.2f
+       |""".stripMargin.replaceAll("\n", " ")
 }

@@ -28,7 +28,10 @@ object Course {
             grades:Map[String,Grade]):EitherStateIO[Course] = {
     val sum = sumMapWeight(grades)
     if (isWeightGrade(grades) && !equalsDouble(sum,1.0)) {
-      liftMsgError[Course](s"The sum of weights each course must be equals to 1.0 but $sum" )
+      liftMsgError[Course](s"""The sum of weights each
+                              |course must be
+                              |equals to 1.0
+                              |but $sum""".stripMargin.replaceAll("\n", " "))
     }
     else
       liftResult(CCourse(name, creditNumber, OnRun, grades))
@@ -48,11 +51,16 @@ object Course {
           case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
         })
       else {
-        EitherT.left[Course](IO { s"Grade: $strGrade has been already registed " } )
+        EitherT.left[Course](IO { s"""Grade: $strGrade
+                                     | has been already registed
+                                     | """.stripMargin.replaceAll("\n", " ") })
       }
     }
     else
-      EitherT.left[Course](IO { s"Course: $course Grade: $strGrade doesn't exists at Course ${course.name}" } )
+      EitherT.left[Course](IO { s"""Course: $course
+                                   |Grade: $strGrade doesn't exists at Course
+                                   | ${course.name}
+                                   |""".stripMargin.replaceAll("\n", " ") })
   }
 
   def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
