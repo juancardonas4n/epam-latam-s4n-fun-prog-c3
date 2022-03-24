@@ -24,42 +24,10 @@ final case class CCourse(name:String,
 
 object Course {
   def apply(name:String,
-            creditNumber:Int):Course =
-    CCourse(name, creditNumber, OnRun, Map[String,Grade]())
-
-  def apply(name:String,
-            creditNumber:Int,
-            grades:Set[String]):Course = {
-    val listGrades:Map[String,Grade] =
-      grades.foldLeft(Map[String,Grade]())((m:Map[String,Grade],
-                                            gradeName:String) =>
-                                              m + (gradeName ->
-                                                   Grade(gradeName)))
-    CCourse(name, creditNumber, OnRun, listGrades)
-  }
-
-  def apply(name:String,
-            creditNumber:Int,
-            grades:List[(String,Double)]):Either[String, Course] = {
-    val sum = grades.foldLeft(0.0)((r:Double,e:(String,Double)) =>
-      r + e._2)
-    if (sum.toInt != 1)
-      Left(s"The sum of weights each course must be equals to 1.0 but $sum")
-    else {
-      val listGrades:Map[String,Grade] =
-        grades.foldLeft(Map[String,Grade]())((m:Map[String,Grade],
-                                              grW:(String,Double)) =>
-                                                m + (grW._1 -> Grade(grW._1,
-                                                                     grW._2)))
-      Right(CCourse(name, creditNumber, OnRun, listGrades))
-    }
-  }
-
-  def apply(name:String,
             creditNumber:Int,
             grades:Map[String,Grade]):EitherStateIO[Course] = {
     val sum = sumMapWeight(grades)
-    if (isWeightGrade(grades) && (sum > 1.0 || sum < 1.0)) {
+    if (isWeightGrade(grades) && !equalsDouble(sum,1.0)) {
       liftMsgError[Course](s"The sum of weights each course must be equals to 1.0 but $sum" )
     }
     else
@@ -81,15 +49,15 @@ object Course {
         })
       else {
         EitherT.left[Course](IO { s"Grade: $strGrade has been already registed " } )
-      } 
-    } 
+      }
+    }
     else
       EitherT.left[Course](IO { s"Course: $course Grade: $strGrade doesn't exists at Course ${course.name}" } )
   }
 
   def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
-    val e = course.grades.foldLeft(Eval())((r,e) => fromGradeGetEval(r,e._2))
-    EitherT.liftF( IO { getFGC(e) } )
+    val ef = course.grades.foldLeft(Eval())((r,e) => fromGradeGetEval(r,e._2))
+    EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
   }
 
   def course2String(course:Course):String = course match {

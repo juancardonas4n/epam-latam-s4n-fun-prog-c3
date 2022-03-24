@@ -29,4 +29,10 @@ object Utils {
                  Student,
                  A](result)
 
+  def equalsWithEpsilon(a:Double,b:Double)(epsilon:Double):Boolean =
+    scala.math.abs(a - b) < epsilon
+
+  val equalsDouble = (a:Double,b:Double) =>
+    equalsWithEpsilon(a,b)(0.00001d)
+
 }

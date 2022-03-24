@@ -1,6 +1,7 @@
-package com.epam.getgrading
+  package com.epam.getgrading
 
 import com.epam.getgrading.Grade._
+import com.epam.getgrading.Utils._
 
 case class Eval(evaluatedPercen:Double,
                 evaluatedGrade:Double,
@@ -25,7 +26,7 @@ object Eval {
     aux(getGrade(g))
   }
 
-  def getFGC(eval:Eval):Eval = eval match {
+  def completeEvalExpectedValues(eval:Eval):Eval = eval match {
     case ceval @ Eval(_,_,pne,_,_,_)   if (pne == 0.0)              =>
       ceval
     case ceval @ Eval(ep,eg,pne,_,_,_) if (pne > 0.0 && pne <= 1.0) =>
@@ -39,6 +40,18 @@ object Eval {
     }
   }
 
-  def eval2String(e:Eval):String = 
-    f"%% ${e.evaluatedPercen * 100}%3.0f Current grade: ${e.evaluatedGrade}%1.2f Next expected grade: ${e.expectedGrade}%1.2f"
+  def setNextCourseState(curState:CourseState,
+                         e:Eval):CourseState = curState match {
+    case cs @ OnRun  => if (e.expectedGrade > 5.0)
+      Failed
+    else if (e.evaluatedGrade >= 3.0 &&
+             equalsDouble(e.evaluatedPercen,1.0))
+      Success
+    else
+      cs
+    case cs @ _ => cs
+  }
+
+  def eval2String(e:Eval):String =
+    f"%%${e.evaluatedPercen * 100}%2.0f Accumulated Grade: ${e.evaluatedGrade}%1.2f Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f Next expected grade: ${e.expectedGrade}%1.2f"
 }

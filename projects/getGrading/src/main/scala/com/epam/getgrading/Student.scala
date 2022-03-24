@@ -1,6 +1,9 @@
 package com.epam.getgrading
 
-import com.epam.getgrading.Course.{apply,grading,getGradeCourse,course2String}
+import com.epam.getgrading.Course.{apply,
+                                   grading,
+                                   getGradeCourse,
+                                   course2String}
 import com.epam.getgrading.Eval.{eval2String}
 import com.epam.getgrading.Utils._
 import cats.syntax.either
@@ -92,6 +95,7 @@ object Student {
     _ <- if (cs.contains(c.name)) rit else rif
   } yield ()
 
+
   def addWeightedCourse(name:String,
                         nCredits:Int,
                         map:Map[String,Grade]):
@@ -105,7 +109,7 @@ object Student {
                     grade:Double):
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
-    eval <- recordGrade(name,grade.toDouble)
+    eval <- recordGrade(name,grade.toDouble) 
     _ <- liftResult[Unit](println(eval2String(eval)))
   } yield true
 
