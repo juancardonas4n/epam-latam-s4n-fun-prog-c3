@@ -31,14 +31,18 @@ class CommandParser extends JavaTokenParsers {
                                      grade) }
 
   def list:Parser[EitherStateIO[Boolean]] =
-    "list"~>stringLiteral ^^ { case name => listCourse(getGridQuotes(name)) }
+    "list"~>stringLiteral ^^
+  { case name => listCourse(getGridQuotes(name)) }
 
   def exit:Parser[EitherStateIO[Boolean]] =
     "exit" ^^ { case _ => exitApp }
 
   def gradings:Parser[Map[String,Grade]]  =
-    "["~repsep(gradeElem, ",")~"]" ^^ { case "["~ms~"]" => Map() ++ ms
-                                        case _          => Map() }
+    "["~repsep(gradeElem, ",")~"]" ^^
+  {
+    case "["~ms~"]" => Map() ++ ms
+    case _          => Map()
+  }
 
   def gradeElem:Parser[(String,Grade)] =
     (stringLiteral<~":")~(number ^^
@@ -50,10 +54,12 @@ class CommandParser extends JavaTokenParsers {
   { case s~f => (getGridQuotes(s),f(s)) }
 
   def number:Parser[Double] =
-    floatingPointNumber ^^ { _.toDouble }
+    floatingPointNumber ^^
+  { _.toDouble }
 
   def spaces:Parser[EitherStateIO[Boolean]] =
-    """ *""".r ^^ { (x) => liftResult( true ) }
+    """ *""".r ^^
+  { (x) => liftResult( true ) }
 }
 
 object CommandParser extends CommandParser {

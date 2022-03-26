@@ -8,6 +8,8 @@ libraryDependencies += "org.scala-lang.modules" %%
                     "scala-parser-combinators" % "2.0.0"
 libraryDependencies += "org.typelevel" %% "cats-effect" %
                     "2.5.4"
+libraryDependencies += "org.typelevel" %% "paiges-core" %
+                    "0.4.2"
 libraryDependencies += "org.scalatest" %% "scalatest" %
                     "3.2.11" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest-freespec" %

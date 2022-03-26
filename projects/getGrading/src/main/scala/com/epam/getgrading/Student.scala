@@ -3,8 +3,11 @@ package com.epam.getgrading
 import com.epam.getgrading.Course.{apply,
                                    grading,
                                    getGradeCourse,
-                                   course2String}
-import com.epam.getgrading.Eval.{eval2String}
+                                   course2String,
+                                   course2Doc,
+                                   updateState}
+import com.epam.getgrading.Eval.{eval2String,
+                               setNextCourseState}
 import com.epam.getgrading.Utils._
 import cats.syntax.either
 import cats.data.State
@@ -47,7 +50,7 @@ object Student {
 
     _ <- checkWithFunction(idCourseGrade,
                   s"""Course id: ${idCourseGrade(0)} doesn't exist.
-                     | Register it!""".stripMargin.replaceAll("\n", " ")) {
+                     | Register it!""".stripMargin.replaceAll(eol, " ")) {
       id => s.courses.contains(id(0))
     }
 
@@ -57,16 +60,18 @@ object Student {
     }
 
     rit = (c:Course) => for {
-      cr <- liftResult1[Course](grading(c,idCourseGrade(1),grade))
+      newc <- liftResult1[Course](grading(c,idCourseGrade(1),grade))
+      eval <- liftResult1[Eval](getGradeCourse(newc))
+      ns = setNextCourseState(newc.state,eval)
+      newCState = updateState(newc,ns)
       _ <- StateT.modify[ErrorOrIO,
-                         Student](_.copy(courses = cs + (cr.name -> cr)))
-      r <- liftResult1[Eval](getGradeCourse(cr))
-    } yield r
+                         Student](_.copy(courses = cs + (newc.name -> newCState)))
+    } yield eval
 
     rif = liftMsgError[Eval](s"""Course ${idCourseGrade(0)}
                                 | and Grade ${idCourseGrade(1)}
                                 | not found at registered
-                                | courses""".stripMargin.replaceAll("\n", " "))
+                                | courses""".stripMargin.replaceAll(eol, " "))
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0)))
          else rif
   } yield r
@@ -100,6 +105,7 @@ object Student {
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     eval <- recordGrade(name,grade.toDouble)
+    // ns = setNextCourseState(s.courses(name).state,eval)
     _ <- liftResult[Unit](println(eval2String(eval)))
   } yield true
 
@@ -110,6 +116,7 @@ object Student {
     _ <- if (courses.contains(name))
       for {
         _ <- liftResult(println(course2String(courses(name))))
+        _ <- liftResult(println(course2Doc(courses(name)).render(80)))
       } yield ()
         else
       liftMsgError(s"Course ${name} doesn't exits")

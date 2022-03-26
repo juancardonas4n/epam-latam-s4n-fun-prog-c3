@@ -35,4 +35,5 @@ object Utils {
   val equalsDouble = (a:Double,b:Double) =>
     equalsWithEpsilon(a,b)(0.00001d)
 
+  val eol = sys.props("line.separator")
 }

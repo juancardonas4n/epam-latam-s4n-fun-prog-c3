@@ -1,6 +1,7 @@
 package com.epam.getgrading
 
 import com.epam.getgrading.Utils._
+import org.typelevel.paiges._
 import cats.effect.IO
 import cats.effect.implicits._
 
@@ -97,5 +98,20 @@ object Grade {
       f"\t\t${name}\t*.**"
     case NoWeightedNote(name,Some(grade),_) =>
       f"\t\t${name}\t${grade}%1.2f"
+  }
+
+  def grade2Doc(grade:Grade):Doc = {
+    val prefix = Doc.spaces(10)
+    val inner  = Doc.spaces(2)
+    grade match {
+    case WeightedNote(name,None,_,_)        =>
+      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
+    case WeightedNote(name,Some(grade),_,_) =>
+      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
+    case NoWeightedNote(name,None,_)        =>
+      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
+    case NoWeightedNote(name,Some(grade),_) =>
+      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
+    }
   }
 }
