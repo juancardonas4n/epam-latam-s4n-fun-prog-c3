@@ -2274,7 +2274,7 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 
 ##### Infografía - Algunas mónadas útiles: `Either`, `State`, `Io`
 
-<!-- TODO - Infograma - Algunas mónadas útiles: `Either`, `State`, `Io`-->
+<!-- TODO - Infograma - Algunas mónadas útiles: `Either`, `State`, `IO`-->
 
 ##### Vídeo - Aplicación `getGrading`
 
