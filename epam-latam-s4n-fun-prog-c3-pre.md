@@ -219,7 +219,7 @@
 
 #### Tiempo estimado:
 
-1 hora
+2 horas
 
 #### Ruta de aprendizaje:
 
@@ -237,11 +237,72 @@
 |                                                              |         [Notebook] Definición de objetos de compañía         |
 |                  -------------------------                   | ---------------------------------------------------------------- |
 |     Utilizar los objetos de compañía en contexto reales      |            **Aplicar y usar objetos de compañía**            |
-|                                                              | [Infografía]  ¿Qué son las mónadas y transformadores de mónadas ? |
-|                                                              | [Infograma] Algunas mónadas útiles: `Either`, `State`, `Io`  |
+|                                                              | [Infografía]  ¿Qué son las mónadas y transformadores de mónadas? |
+|                                                              |                   [Vídeo] Uso  de mónadas                    |
+|                                                              | [Infografía] Algunas mónadas útiles: `Option`, `Either`, `State`, `IO` |
 |                                                              |               [Vídeo] Aplicación `getGrading`                |
 |                                                              | [Captura de bandera] Modificación de la aplicación `getGrading` |
 |                                                              | [Vídeo] Retroalimentación de la modificación a la aplicación `getGrading` |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                                                              |                        **Evaluación**                        |
+|                                                              |                          **Cierre**                          |
+|                  -------------------------                   | ------------------------------------------------------------------------------ |
+
+### U5. Funciones de alto orden
+
+#### Objetivos
+
+##### Lograrás:
+
+* Definirás y aplicarás el concepto de listas
+* A comprender que las estructuras de datos algebraicas tienen comportamientos similares: como recorridos, transformaciones, filtrado, etc. que pueden ser parametrizados como funciones
+* Entenderás y utilizarás el concepto de combinatorios que permite crear bibliotecas funcionales
+
+##### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+* Objetos de compañía
+* Funciones currificadas
+* Funciones parciales
+
+##### Concretamente esperamos que aprendas a:
+
+* Definir funciones que tiene funciones como parámetros.
+* Definir una secuencia ordenada de items.
+* Manipular listas de forma completamente funcional.
+* Recorrer y manipular las listas a través de coincidencia de patrones.
+* Implementar funciones que retornan funciones.
+* Construir abstracciones que remuevan la duplicación de código.
+
+#### Tiempo estimado:
+
+3 horas
+
+#### Ruta de aprendizaje
+
+|                  *Objetivo de aprendizaje*                   |                  *Actividad de aprendizaje*                  |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        *Introducción*                        |                            [text]                            |
+|                                                              |                         [activacion]                         |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+|         Definirás y aplicarás el concepto de listas          | **¿Qué son las listas y por qué son prevalentes en la programación funcional?** |
+|                                                              |                 [Vídeo] Definición de listas                 |
+|                                                              |               [Notebook] Ejercicios con listas               |
+|                  -------------------------                   | ------------------------------------------------------------------- |
+| A comprender que las estructuras de datos algebraicas tienen comportamientos similares: como recorridos, transformaciones, filtrado, etc. que pueden ser parametrizados como funciones |               **Elemental mi querido Watson**                |
+|                                                              |             [Video] Un patrón recorre las listas             |
+|                                                              | [Notebook] Ejercicios de listas con funciones de alto orden  |
+|                  -------------------------                   | ---------------------------------------------------------------- |
+| Entenderás y utilizarás el concepto de combinatorios que permite crear bibliotecas funcionales |                     **2 x 3 x ... x n **                     |
+|                                                              |             [Infografía]  ¿Qué son combinadores?             |
+|                                                              | [Vídeo] Funciones de alto orden el secreto de la programación funcional |
+|                                                              | [Notebook] Combinadores, funciones de alto orden y otro tipos de datos algebraicos |
+|                                                              |                  [Vídeo] Parser combinators                  |
+|                                                              |     [Notebook] Algunos DSL básicos (configuración, JSON)     |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |
