@@ -1630,7 +1630,7 @@ El siguiente *Notebook* te permitirá nuevarmente interactuar con un tipo de dat
 
 En la siguiente figura se observa como se construye un tipo de dato recursivo, a partir de un tipo algebraico ya definido.
 
-![](./images/C3_M1_U3_IF3_D01_01.drawio.png)
+![](./images/C3_M1_U3_IF3_D01_01.png)
 
 Partiendo de la definición de `Digito` vamos a utilizarla para definir que es un tipo de dato `Numero`, que en el caso más simple (también llamado base) consta de un `Digito`, observe constructor de valor `D`; y que en el caso más complejo es un `Digito` seguido de un `Numero` (definición llamada recursiva), observe el constructor de valor `N`.
 
@@ -1859,7 +1859,7 @@ final case object Nodo(i:Int, ai:NArbol, ad:NArbol) extends NArbol
 
 > > Cuál de los siguiente representaciones del valor `arbol`representa correctamente siguiente el formato del código anterior<<
 
-![](./images/C3_M1_U3_EV_P01_D01.drawio.png)
+![](./images/C3_M1_U3_EV_P01_D01.png)
 
 ( ) A.
 
@@ -2049,7 +2049,7 @@ def concatenar(lst1:ListaInt,lst2:ListaInt):ListaInt = ???
 
 La idea es tomar un árbol cómo el que se ve en la siguiente figura
 
-![](./images/C3_M1_U3_EV_P01_D01.drawio.png)
+![](./images/C3_M1_U3_EV_P01_D01.png)
 
 Y convertirla en la siguiente lista
 
