@@ -1,0 +1,2 @@
+
+def leerEnt:IO[Int] = ???

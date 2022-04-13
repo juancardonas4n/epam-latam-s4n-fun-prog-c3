@@ -625,18 +625,18 @@ El nombre tipos de datos algebraicos te puede sonar extraño, en un mundo en el 
 
 Hemos hablado sobre *tipos de datos* en diferentes escenarios, pero ahora te hablaremos de manera informal .
 
-![](./images/U2-TDA_Los_tipos_basicos.jpg)
+![](./images/U2_TDA_Los_tipos_basicos.jpg)
 
-![](./images/U2-TDA_Los_tipos_basicos_coordenadas.jpg)
+![](./images/U2_TDA_Los_tipos_basicos_coordenadas.jpg)
 En la anterior figura puedes observar algo que ya conoces cómo es la asociación entre los tipos de datos con los conjuntos matemáticos.
 
 1. Básicamente, un tipo de dato es un conjunto y sus elementos son sus valores. Observarás que hay dos tipos de elementos.
 2. El primer elemento observado, es *el constructor de tipo* que nos sirve añadir un tipo nuevo al *sistema de tipos* y nombrarlo dentro del mismo.
 3. Y el segundo elemento observado lo identificas en los literales enteros que representan los valores del tipo de dato, estos literales son también conocidos como *constructores de valores*.
 
-![](./images/U2-TDA_Las_tuplas.jpg)
+![](./images/U2_TDA_Las_tuplas.jpg)
 
-![](./images/U2-TDA_Las_tuplas_coordenadas.jpg)
+![](./images/U2_TDA_Las_tuplas_coordenadas.jpg)
 
 En la figura anterior observas como se construye un tipo de dato, también llamadado *tipo de dato compuesto* o *tipo de dato definido por usuario*.
 
@@ -651,9 +651,9 @@ Aunque ya habíamos utilizado el *producto* para construir a las tuplas, existe 
 
 Esa diferenciación entre los tipos con un mismo cuerpo se puede lograr a través de los tipos de datos algebraicos y la siguiente imagen nos muestra como se puede hacer para crear un tipo `Coordenada` .
 
-![](./images/U2-TDA_Producto.jpg)
+![](./images/U2_TDA_Producto.jpg)
 
-![](./images/U2-TDA_Producto_coordenadas.jpg)
+![](./images/U2_TDA_Producto_coordenadas.jpg)
 
 1. Este *constructor de tipo* define el tipo `Coordenada`.
 2. Este *constructor de valor* define el mecanismo para poblar de valores al tipo `Coordenada`.
@@ -663,9 +663,9 @@ Esa diferenciación entre los tipos con un mismo cuerpo se puede lograr a travé
 
 La gráfica anterior mostró como definir un tipo de dato algebraico a través del *producto*. En la siguiente, vamos a mostrar como producir un tipo de dato algebraico utilizando la operación de *suma* (*unión*). Suponga que quiere tener un tipo que represente los tres colores básicos que se utilizan en las terminales.
 
-![](./images/U2-TDA_Suma.jpg)
+![](./images/U2_TDA_Suma.jpg)
 
-![](./images/U2-TDA_Suma_coordenadas.jpg)
+![](./images/U2_TDA_Suma_coordenadas.jpg)
 
 6. El tipo de dato `RGB` está definido por el *constructor de tipo*  **`sealed trait RBG`** (`RGB`) inicia la definifición, de forma que todas los alternativas de los valores estén incluidos dentro del "archivo". Y se procede a definir sus valores
 
@@ -990,13 +990,13 @@ En la siguientes imágenes tenemos la representación de dos tipos de datos:
 3. Los operadores `+`, `-`, `*`, `==`, `!=` entre otros, para el tipo de dato `Int` (La división no aparece definida por algunas propiedades, que no hablaremos ahora).
 4. Los operadores `+`, `-`, `*`, `==`, `!=` entre otros, para el tipo de dato `Double` (La división si aparece por que cumple ciertas propiedades, que no hablaremos ahora).
 
-![](./images/U2-TDA_Tipo_dato_Int.jpg)
+![](./images/U2_TDA_Tipo_dato_Int.jpg)
 
-![](./images/U2-TDA_Tipo_dato_Int_Coordenadas.jpg)
+![](./images/U2_TDA_Tipo_dato_Int_Coordenadas.jpg)
 
-![](./images/U2-TDA_Tipo_dato_Double.jpg)
+![](./images/U2_TDA_Tipo_dato_Double.jpg)
 
-![](./images/U2-TDA_Tipo_dato_Double_Coordenadas.jpg)
+![](./images/U2_TDA_Tipo_dato_Double_Coordenadas.jpg)
 
 Si comparamos los tipos del operador de `+` definido para enteros y para flotantes, estos son distintos, lo que en principio nos haría pensar que el lenguaje de programación ofrece dos operaciones de suma. Pero todos sabemos que en realidad se ofrece una única operación de suma, y no solo para estos dos tipos sino para otros tipos que requieran esta operación. Esa única operación de suma que se ofrece, se encuentra *sobrecargada* y sirve para cualquiera de los tipos que la requieran.
 
@@ -1023,9 +1023,9 @@ Cada tipo de dato que quiera pertenecer a una clasificación debe escribir la in
 
 Esta clasificación permite tener en Haskell una jerarquía de clasificaciones (también se tendrá en otros lenguajes como Scala) como vemos en la siguiente figura.
 
-![](./images/U2-TDA_jerarquia.jpg)
+![](./images/U2_TDA_jerarquia.jpg)
 
-![](./images/U2-TDA_jerarquia_Coordenadas.jpg)
+![](./images/U2_TDA_jerarquia_Coordenadas.jpg)
 
 1. La clase `Eq` una de las clases base de la jerarquía.
 2. Para que una tipo sea *instancia* de la clase `Ord` (Orden) esta debe pertenecer a la clase `Eq`
@@ -1428,14 +1428,14 @@ En primer lugar, repasaremos el manejo de polimorfismo, por sobrecarga de métod
 
 En la siguiente figura puedes observar un ejemplo del polimorfismo:
 
-<img src="./images/U3-IF1-D01-Integrar.png" title="" alt="" data-align="center">
+<img src="./images/U3_IF1_D01_Integrar.png" title="" alt="" data-align="center">
 
 * Implementación. Se observa el modelo del polimorfismo donde las clases `B`y `C` son subclases de la clase `A`. Donde cada subclase implementa de forma directa el método `d`de forma distinta.
 * Ejecución. No se puede crear instancias directamente  de un `trait` ó `interface`, porque son abstractas, pero si podemos crear instancias de las subclases (`B` ó `C`) y hacerlas instancias de la superclase `A`. Esto se observa en la ejecución del código donde se crea un ejemplar de `B` (ó `C`) como un valor de tipo `A`llamado `unA` y al invocar el método `d` puedes observar que se invoca en cada uno de los dos casos con el código definido para el método de la subclase.
 
 En la siguiente figura, observas una implementación un poco diferente, porque en este caso la clase abstracta `A`deja una implementación por omisión del método `d`,  así que las correspondientes subclases deben sobre-escribir dicho método, si así lo requieren.
 
-![](./images/U3-IF1-D02-Integrar.png)
+![](./images/U3_IF1_D02_Integrar.png)
 
 * Implementación. En este caso la clase `A` tiene implementado un método `d`, lo que permite que sus subclases puedan sobre-escribirlo. En este caso ambas subclases : `B` y `C`, lo harán anteponiendo el constructor `override` para indicar que dicho método sobre-escribirá. En caso contrario, se tomará siempre el método de la super-clase (`A`), cuando se realice una ejecución polimórfica, como se muestra a continuación.
 * Ejecutar.  Cómo ya es de tu conocimiento, no puedes crear instancias directamente  de un `trait` ó `interface`. Igual, que lo hiciste anteriormente, puedes crear instancias de las subclases (`B` ó `C`) y hacerlas instancias de la super-clase `A` cómo lo puedes al observar el código de la ejecución en la imagen, donde se crean diferentes instancias de `A` llamada `unA`, pero de diferentes sub-clases, y al invocar el método `d` se invoca el correspondiente método implementado.
@@ -1443,14 +1443,14 @@ En la siguiente figura, observas una implementación un poco diferente, porque e
 ###### Polimorfismo en tipos de datos algebraicos
 
 Hablemos ahora como utilizar la recursión estructural a partir de los tipos de datos algebraicos utilizando el concepto de polimorfismo. En la siguiente figura se observa una definición de un tipo de dato algebraico `A` con su correspondientes constructor de valor `B`. El `trait` `A`tiene un método *abstracto* `e` que retorna un valor de tipo `F`. Por lo tanto, `B` debe implementarlo de forma que el resultado que produzca debe ser tipo `F`.
-![](images/U3-IF2-D01-Integrar.png)
+![](images/U3_IF2_D01_Integrar.png)
 `B` utiliza producto en los valores de tipo `C` y `D`, por lo tanto el método `e` debe utilizar los métodos de los tipos `C` y `D` para obtener un valor de tipo `F`, en la figura se sugiere utilizar del parámetro `c` de tipo `C` un método que obtenga un valor de tipo `F` ($c.toF$), de forma idéntica se sugiere con el parámetro `d` de tipo `D` ($d.ToF$) y ahora esos valores puede ser combinados a través de un operador $\oplus_F$ del tipo `F`.
 
 Te preguntarás: Si el tipo de dato algebraico es construido por medio de la operación de *suma*, ¿cómo aplicar el polimorfismo en dicho caso?
 
 Bien, para ello observa la siguiente imagen, en ella observarás como se construye el tipo `A`, que tiene definido un método abstracto `f` y se tiene dos valores (`B` y `C`) construidos por medio de la operación *suma* y que también debe implementar (*sobrecargar*) dicho método.
 
-![](./images/U3-IF2-D02-Integrar.png)
+![](./images/U3_IF2_D02_Integrar.png)
 
 La implementación de cada método dependerá de la estructura interna del tipo. Por ejemplo, para el tipo `B` este tomará una función que recorra la estructura y la transforme en un valor de tipo `F`: $\uparrow()_B$, lo mismo pasa en la implementación para el tipo `C`:  $\uparrow()_C$. En cada uno de los caso en función del programador realizar dicha transformación.
 
@@ -1630,7 +1630,7 @@ El siguiente *Notebook* te permitirá nuevarmente interactuar con un tipo de dat
 
 En la siguiente figura se observa como se construye un tipo de dato recursivo, a partir de un tipo algebraico ya definido.
 
-![](./images/C3-M1-U3-IF3-D01-01.drawio.png)
+![](./images/C3_M1_U3_IF3_D01_01.drawio.png)
 
 Partiendo de la definición de `Digito` vamos a utilizarla para definir que es un tipo de dato `Numero`, que en el caso más simple (también llamado base) consta de un `Digito`, observe constructor de valor `D`; y que en el caso más complejo es un `Digito` seguido de un `Numero` (definición llamada recursiva), observe el constructor de valor `N`.
 
@@ -1859,7 +1859,7 @@ final case object Nodo(i:Int, ai:NArbol, ad:NArbol) extends NArbol
 
 > > Cuál de los siguiente representaciones del valor `arbol`representa correctamente siguiente el formato del código anterior<<
 
-![](./images/C3-M1-U3-EV-P01-D01.drawio.png)
+![](./images/C3_M1_U3_EV_P01_D01.drawio.png)
 
 ( ) A.
 
@@ -2049,7 +2049,7 @@ def concatenar(lst1:ListaInt,lst2:ListaInt):ListaInt = ???
 
 La idea es tomar un árbol cómo el que se ve en la siguiente figura
 
-![](./images/C3-M1-U3-EV-P01-D01.drawio.png)
+![](./images/C3_M1_U3_EV_P01_D01.drawio.png)
 
 Y convertirla en la siguiente lista
 
@@ -2173,7 +2173,7 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 Para comprender que son los objetos de compañía vamos a realizar un acercamiento para indicar de donde ellos posiblemente proviene y para ello iniciaremos con los patrones de diseño, en particular observaremos dos de ellos que son construidos a través de los objetos de compañía.
 
-![](./images/C3-M2-U4-IF01-D01-01.png)
+![](./images/C3_M2_U4_IF01_D01_01.png)
 
 
 
@@ -2186,13 +2186,13 @@ Estos patrones nos interesa porque a través de ellos podemos explicar el origen
 
 En la siguiente figura se observa la estructura UML del patrón *Singleton*. El propósito de este patrón es la de garantizar un única existencia de una instancia de la clase que implemente dicho patrón.  La mayoría de los lenguajes de programación orientado a objetos el constructor de clase al ser público permite crear un número ilimitado de instancias y el diseño presentado en el diagrama UML nos muestra que esto lo podemos lograr, en primer lugar por el constructor de esta clase es privado, tenemos una única `instancia` que es global y que no puede acceder directamente, sino a través del método `obtInstancia()` que tiene como función retorna `instancia`así siempre habrá una sola instancia y no puede ser cambiada hasta que el programa termine. 
 
-![](./images/C3-M2-U4-IF01-D01-02.png)
+![](./images/C3_M2_U4_IF01_D01_02.png)
 
 
 
 El método de fabricación se muestra en la siguiente figura. En ella, se observan dos jerarquías de clases, la primera es la jerarquía de la interface `Producto`, esta representa una familia de productos que se desea instanciar;  la segunda es la jerarquía de la interface  `Creador` que establece un mecanismo para crear instancias de `Producto` a través del  `metodoDeFabrica()`, pero aquí este método es *abstracto* por lo tanto se debe implementar a través de `CreadorConcreto` que establece a través del método *sobrecargado* `metodoDeFabrica()`que `ProductoConcreto` se quiere instanciar. Así el propósito de este patrón permite tener un método estándar para crear un objeto, delegando esa tarea a las subclases de `CreadorConcreto`. La idea es permitir construir de forma simple instancias que pueden resultar en un momento dado complejas debido al manejo de los constructores originales en la jerarquía de `Producto`.
 
-![](./images/C3-M2-U4-IF01-D01-03.png)
+![](./images/C3_M2_U4_IF01_D01_03.png)
 
 Estos dos patrones están relacionados con la creación de instancias, el primero crear un único elemento y el otro con la forma de crear instancias de forma simple, ocultando las complejidades de la creación y facilitando a los usuarios de estas clases la creación de `Producto`. 
 
@@ -2270,15 +2270,59 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 
 ##### Infografía - ¿Qué son las mónadas y los transformadores de mónadas?
 
-<!-- TODO - Infograma - ¿Qué son las mónadas y transformadores de mónadas? -->
+Todo empieza con los tipos de datos, recordemos que cada tipo de dato es un conjunto:
 
-##### Infografía - Algunas mónadas útiles: `Either`, `State`, `Io`
+![Tipo de dato](./images/C3_M2_U4_IF02_D01_01.png)
 
-<!-- TODO - Infograma - Algunas mónadas útiles: `Either`, `State`, `IO`-->
+Muchos lenguajes de programación tienen tipos de datos definidos como por ejemplo en Scala: `Int`, `Double`, `Char`, `Boolean`, `String` entre otros y a través de la definición de tipos de datos algebraicos: Unión y producto podemos definir nuevos tipos de datos. Una excelente ayuda para definir los tipos de datos es utilizar la parametrización, indicando que alguno de los valores para un tipo algebraicos puede ser cualquier tipo, y esto se obtiene al utilizar dichos parámetros dentro de la definición de tipos por ejemplo: `Array[A]`donde `A`es un parámetro que puede ser cualquier tipo. Pero observamos que un tipo de dato se define por los valores que lo componen y por las funciones que lo transforma, como por ejemplo en el tipo `Int` su valores son enteros: `0`, `234`, `-598`, entre otros; y sus funciones son las conocidas: `+`, `-`, `*`, etc. 
+
+Los tipos son herramientas muy poderosas a la hora de programar, pero puede serlo mucho más y por ello vamos a observar cómo lograr esto con las mónadas. En primer lugar, una mónada es un concepto que permite contener: cero, uno o más valores de un tipo especifico. Es decir, podemos observar que una mónada se comporta como un contenedor, es decir almacena valores de un tipo determinado, algunos autores indican que las mónadas son un envoltorio. (*wrapper*).  Pero las mónadas no solo almacena los valores, sino que permite mantener un contexto para dichos valores. ¿Qué es ese contexto? Existen varios tipos de mónadas y cada tipo de mónada maneja un contexto específico, por ejemplo una mónada nos podría indicar que nuestras operaciones han fallado o no, o que requerimos mantener una información oculta, o que nos interesa mantener un estado específico o que nos interesa mantener un registro de los eventos relevantes en un momento determinado, eso extra es el contexto que mantiene una mónada más los valores del tipo que mantienen la mónada.
+
+![Mónada](./images/C3_M2_U4_IF02_D01_02.png)
+
+Cualquiera podría concluir que entonces una mónada es un objeto, puesto que tiene un estado y operaciones que pueden interactúar con dicho estado. No, una mónada es diferente a un objeto, porque el objeto no controla quién lo usa y cuándo lo usa; la mónada controla quién y cómo es usada, determinada no por el valor contenido, sino por el contexto y adicionalmente, esto puede ser extensible.
+
+Cómo la mónada controla quién y cuando, requiere de un mecanismo especial para guarda un valor (o valores) de un tipo. Para ello, existe una función denominada dependiendo del lenguaje: `unit`, `pure`, `return`, etc. En la siguiente figura se observa cómo actúa dicha operación: toma un valor y lo guarda dentro de la mónada (para efectos prácticos ese valor o valores permanecerán allí y debe ser transformado allí mismo.).
+
+![Función `union`](./images/C3_M2_U4_IF02_D01_03.png)
+
+La función `union` toma un valor del mundo exterior y lo guarda dentro de la mónada, todo dependiendo del contexto. Ahora, una vez teniendo un valor (cero o varios valores) dentro de la mónada queremos opera dentro de ella, se debe utilizar funciones que trabajen sobre los valores de la mónada y existe una función que permite tomar una mónada, una función que toma un valor del tipo de la mónada y la transforma. Dicha operación se llama `bind` (`>>=`) y se observa en la siguiente figura:
+
+![Operación `bind`](./images/C3_M2_U4_IF02_D01_04.png)
+
+La función `bind` define un  proceso, que permite transformar el valor almacenado dentro de la mónada, dependiendo del contexto en otro valor diferente. La operación `bind`permite obtener el valor de la primera monada, pasarla por la función `f` y convertirlo en un resultado de tipo mónada, pero con el valor cambiado dependiendo del contexto.
+
+Entonces las mónadas representan un contexto (la mónada misma), un contenedor que permite almacenar cero, uno o varios valores dependiendo del tipo de dato que contiene la monada y el contexto, más una forma de transforma una monada, creando así proceso que puede ser asegurado que se comportará idénticamente con los mismo valores de entrada, algo muy importante dentro de la programación función.
+
+¿Pero qué pasa si se quiere más de un contexto? Aquí surgen los transformadores de monadas, que permite apilar los contextos de dos ó más mónadas en un mecanismo donde expone la mónada que se encuentra en la parte superior pero garantizando que el contexto (o los contextos internos) se mantienen. La característica más relevante de esta pila de mónadas, es que también es una mónada. Y se puede utilizar las operaciones de `union` y `bind` en la nueva mónada. Si una operación sucede a nivel de la mónada más interna esta debe ser subida o levantada a través de una función generalmente identificada como `lift`.
+
+![Mónada transformer](./images/C3_M2_U4_IF02_D01_05.png)
+
+##### Vídeo - Uso de mónadas
+
+[Vídeo - Uso de mónadas](./videos/ready_pre_edition/EPAM-LATAM-FP-C3-M2-U4-V3-P01-Docente.mp4)
+
+##### Infografía - Algunas mónadas útiles:  `Either`, `State`, `Io`
+
+###### Mónada Either
+
+Representa un contexto que recibe procesos que pueden o no fallar, sino fallan continúan hasta encontrar una falla, si lo hacen, no continúa el proceso.
+
+![](./images/C3_M2_U4_IF03_D01_01.png)
+
+###### Mónada State
+
+ Describe una computación que mantiene un estado.
+
+![](./images/C3_M2_U4_IF03_D01_02.png)
+
+###### Mónada IO
+
+Aunque Scala es un lenguaje de programación híbrido que permite la coexistencia de programación funcional pura e impura, es importante mantener nuestros programas en el lado puro. Pero, es de todos conocidos que la entrada y salida por naturaleza es lleno de efectos colaterales, por lo tanto pertenece al mundo impuro, la pregunta que surge: ¿Qué hacer? Es aquí donde las mónadas permite manejar ese comportamiento de forma tal que sigamos en el mundo funcional. 
+
+![](./images/C3_M2_U4_IF03_D01_03.png)
 
 ##### Vídeo - Aplicación `getGrading`
-
-<!-- TODO - Aplicación -  `getGrading` -->
 
 <!-- TODO - Vídeo - `getGrading` -->
 
@@ -2319,8 +2363,7 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 * [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)
 * [Scala companinon objects are not singlenton](https://stackoverflow.com/questions/49686734/scala-companion-objects-are-not-singleton)
 * [Demystifying the monad in scala](https://medium.com/free-code-camp/demystifying-the-monad-in-scala-cc716bb6f534)
-* []()
 
 ##### EPAM - Insights
 
-<!-- EPAM - Insights -->	
+<!-- TODO - EPAM - Insights -->	

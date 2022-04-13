@@ -27,14 +27,11 @@ object Student {
 
   private def checkWithFunction[A](idCG:A,
                                    msg:String)(f:A=>Boolean):
-  EitherStateIO[Unit] = for {
-    s <- StateT.get[ErrorOrIO,Student]
-
-    r <- if (f(idCG))
-      liftResult[Unit]( () )
-         else
-      liftMsgError[Unit](msg)
-  } yield r
+  EitherStateIO[Unit] = StateT.liftF[ErrorOrIO,Student,Unit](
+      EitherT.cond[IO](
+        f(idCG),
+        (),
+        msg))
 
   def recordGrade(idCG:String,
                   grade:Double):EitherStateIO[Eval] = for {
@@ -105,7 +102,6 @@ object Student {
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     eval <- recordGrade(name,grade.toDouble)
-    // ns = setNextCourseState(s.courses(name).state,eval)
     _ <- liftResult[Unit](println(eval2String(eval)))
   } yield true
 

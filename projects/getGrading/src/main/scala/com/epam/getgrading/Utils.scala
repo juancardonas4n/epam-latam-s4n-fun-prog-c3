@@ -8,10 +8,10 @@ import cats.effect.implicits._
 
 object Utils {
 
-  type Error = String
-  type ErrorOr[A] = Either[Error,A]
-  type ErrorOrIO[A] = EitherT[IO,Error,A]
-  type EitherState[A] = StateT[ErrorOr,Student,A]
+  type Error            = String
+  type ErrorOr[A]       = Either[Error,A]
+  type ErrorOrIO[A]     = EitherT[IO,Error,A]
+  type EitherState[A]   = StateT[ErrorOr,Student,A]
   type EitherStateIO[A] = StateT[ErrorOrIO,Student,A]
 
   def liftMsgError[A](msg:String):EitherStateIO[A] =
