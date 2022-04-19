@@ -64,29 +64,29 @@ object Grade {
     case NoWeightedNote(_,None,_) => (None,1.0)
   }
 
-  def isWeightGrade(map:Map[String,Grade]):Boolean = {
-    def isWeightGradeAux(elem:(String,Grade)) = elem._2 match {
+  def isWeightedGrade(map:Map[String,Grade]):Boolean = {
+    def isWeightedGradeAux(elem:(String,Grade)) = elem._2 match {
       case WeightedNote(_,_,_,_) => true
       case _                     => false
     }
-    !map.takeWhile(isWeightGradeAux(_)).isEmpty
+    !map.takeWhile(isWeightedGradeAux(_)).isEmpty
   }
 
-  def isNoWeightGrade(map:Map[String,Grade]):Boolean = {
-    def isNoWeightGradeAux(elem:(String,Grade)) = elem._2 match {
+  def isNoWeightedGrade(map:Map[String,Grade]):Boolean = {
+    def isNoWeightedGradeAux(elem:(String,Grade)) = elem._2 match {
       case NoWeightedNote(_,_,_) => true
       case _                     => false
     }
-    !map.dropWhile(isNoWeightGradeAux(_)).isEmpty
+    !map.dropWhile(isNoWeightedGradeAux(_)).isEmpty
   }
 
-  def sumMapWeight(m:Map[String,Grade]):Double = {
-    def sumMapWeightAux(g:Grade):Double = g match {
+  def sumMapWeighted(m:Map[String,Grade]):Double = {
+    def sumMapWeightedAux(g:Grade):Double = g match {
       case WeightedNote(_,_,mp,w) if mp.isEmpty => w
-      case WeightedNote(_,_,mp,_)               => sumMapWeight(mp)
+      case WeightedNote(_,_,mp,_)               => sumMapWeighted(mp)
       case _                                    => ???
     }
-    m.foldLeft(0.0)((t,es) => t + sumMapWeightAux(es._2))
+    m.foldLeft(0.0)((t,es) => t + sumMapWeightedAux(es._2))
   }
 
   def grade2String(grade:Grade):String = grade match {

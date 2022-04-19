@@ -2,9 +2,9 @@ package com.epam.getgrading
 
 import com.epam.getgrading.Utils._
 import com.epam.getgrading.Grade.{setGrade,
-                                  isWeightGrade,
+                                  isWeightedGrade,
                                   grade2String,
-                                  sumMapWeight,
+                                  sumMapWeighted,
                                   grade2Doc}
 import com.epam.getgrading.Eval._
 import org.typelevel.paiges._
@@ -30,8 +30,8 @@ object Course {
   def apply(name:String,
             creditNumber:Int,
             grades:Map[String,Grade]):EitherStateIO[Course] = {
-    val sum = sumMapWeight(grades)
-    if (isWeightGrade(grades) && !equalsDouble(sum,1.0)) {
+    lazy val sum = sumMapWeighted(grades)
+    if (isWeightedGrade(grades) && !equalsDouble(sum,1.0)) {
       liftMsgError[Course](s"""The sum of weights each
                               |course must be
                               |equals to 1.0

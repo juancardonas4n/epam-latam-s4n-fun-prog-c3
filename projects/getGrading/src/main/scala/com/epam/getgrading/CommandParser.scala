@@ -20,10 +20,12 @@ class CommandParser extends JavaTokenParsers {
   }
 
   def course:Parser[EitherStateIO[Boolean]] =
-    "add"~>stringLiteral~decimalNumber~gradings ^^
-  { case name~nCredits~gradings => addWeightedCourse(getGridQuotes(name),
-                                                     nCredits.toInt,
-                                                     gradings) }
+    "add"~>stringLiteral~decimalNumber~(weightedGradings
+                                        | noWeightedGradings) ^^
+  { case name~nCredits~gradings =>
+    addWeightedCourse(getGridQuotes(name),
+                      nCredits.toInt,
+                      gradings) }
 
   def grade:Parser[EitherStateIO[Boolean]] =
     "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble }) ^^
@@ -37,23 +39,31 @@ class CommandParser extends JavaTokenParsers {
   def exit:Parser[EitherStateIO[Boolean]] =
     "exit" ^^ { case _ => exitApp }
 
-  def gradings:Parser[Map[String,Grade]]  =
-    "["~repsep(gradeElem, ",")~"]" ^^
-  {
-    case "["~ms~"]" => Map() ++ ms
-    case _          => Map()
-  }
+  def weightedGradings:Parser[Map[String,Grade]]  =
+    "["~>repsep(weightedGradeElem, ",")<~"]" ^^ (Map() ++ _)
 
-  def gradeElem:Parser[(String,Grade)] =
-    (stringLiteral<~":")~(number ^^
+  def weightedGradeElem:Parser[(String,Grade)] =
+    (stringLiteral<~":")~(doubleNumber ^^
                           ((n) => ((s:String) =>
                             Grade(getGridQuotes(s),n)))
-   | gradings ^^
+   | weightedGradings ^^
                           ((g) => ((s:String) =>
-                            Grade(getGridQuotes(s),sumMapWeight(g),g)))) ^^
+                            Grade(getGridQuotes(s),sumMapWeighted(g),g)))) ^^
   { case s~f => (getGridQuotes(s),f(s)) }
 
-  def number:Parser[Double] =
+  def noWeightedGradings:Parser[Map[String,Grade]] =
+    "{"~>repsep(noWeightedGradeElem, ",")<~"}" ^^ (Map() ++ _)
+
+  def noWeightedGradeElem:Parser[(String,Grade)] =
+    stringLiteral~opt(":"~>noWeightedGradings) ^^
+  { case s~o =>
+    o match {
+      case Some(m) => (s, Grade(s,m))
+      case None    => (s, Grade(s))
+    }
+ }
+
+  def doubleNumber:Parser[Double] =
     floatingPointNumber ^^
   { _.toDouble }
 
