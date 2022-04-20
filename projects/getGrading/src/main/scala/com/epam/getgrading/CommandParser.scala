@@ -23,9 +23,9 @@ class CommandParser extends JavaTokenParsers {
     "add"~>stringLiteral~decimalNumber~(weightedGradings
                                         | noWeightedGradings) ^^
   { case name~nCredits~gradings =>
-    addWeightedCourse(getGridQuotes(name),
-                      nCredits.toInt,
-                      gradings) }
+    addCourse(getGridQuotes(name),
+              nCredits.toInt,
+              gradings) }
 
   def grade:Parser[EitherStateIO[Boolean]] =
     "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble }) ^^
@@ -56,11 +56,13 @@ class CommandParser extends JavaTokenParsers {
 
   def noWeightedGradeElem:Parser[(String,Grade)] =
     stringLiteral~opt(":"~>noWeightedGradings) ^^
-  { case s~o =>
+  { case s~o => {
+    val name = getGridQuotes(s)
     o match {
-      case Some(m) => (s, Grade(s,m))
-      case None    => (s, Grade(s))
+      case Some(m) => (name, Grade(name,m))
+      case None    => (name, Grade(name))
     }
+  }
  }
 
   def doubleNumber:Parser[Double] =

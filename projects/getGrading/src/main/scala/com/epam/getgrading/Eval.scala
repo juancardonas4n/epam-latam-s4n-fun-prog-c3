@@ -1,42 +1,45 @@
-  package com.epam.getgrading
+package com.epam.getgrading
 
 import com.epam.getgrading.Grade._
 import com.epam.getgrading.Utils._
+import org.typelevel.paiges._
 
 case class Eval(evaluatedPercen:Double,
                 evaluatedGrade:Double,
                 percenNotEvaluated:Double,
                 expectedGrade:Double,
                 notEvaluated:Int,
-                evaluated:Int)
+                evaluated:Int,
+                total:Int)
 
 object Eval {
-  def apply():Eval = Eval(0.0,0.0,0.0,0.0,0,0)
+  def apply():Eval = Eval(0.0,0.0,0.0,0.0,0,0,0)
+  def apply(total:Int):Eval = Eval(0.0,0.0,0.0,0.0,total,0,total)
 
   def fromGradeGetEval(e:Eval,g:Grade):Eval = {
     def aux(gg:(Option[Double],Double)):Eval = (e,gg) match {
-      case (ee @ Eval(_,_,pne,_,ne,n),(None, w))    =>
+      case (ee @ Eval(_,_,pne,_,ne,n,_),(None, w))    =>
         ee.copy(percenNotEvaluated = pne + w,
                 notEvaluated = n + 1)
-      case (ee @ Eval(ep,eg,_,_,_,n),(Some(gp), w)) =>
+      case (ee @ Eval(ep,eg,_,_,_,n,_),(Some(gp), w)) =>
         ee.copy(evaluatedPercen = ep + w,
                 evaluatedGrade = eg + gp,
                 evaluated = n + 1)
     }
-    aux(getGrade(g))
+    aux(getGrade(g,e.total))
   }
 
   def completeEvalExpectedValues(eval:Eval):Eval = eval match {
-    case ceval @ Eval(_,_,pne,_,_,_)   if (pne == 0.0)              =>
+    case ceval @ Eval(_,_,pne,_,_,_,_)   if (pne == 0.0)              =>
       ceval
-    case ceval @ Eval(ep,eg,pne,_,_,_) if (pne > 0.0 && pne <= 1.0) =>
+    case ceval @ Eval(ep,eg,pne,_,_,_,_) if (pne > 0.0 && pne <= 1.0) =>
       eval.copy(expectedGrade = if (eg >= 3.0) 0.0 else (3.0 - eg) / pne)
-    case ceval @ Eval(ep,eg,pne,_,ne,e) => {
-        val n = ne + e
-        val ag = eg / e
-        val nep = ne / n
-        ceval.copy(expectedGrade = if (ag >= 3.0) 0.0 else (3.0 - eg) / nep,
-                   percenNotEvaluated = nep)
+    case ceval @ Eval(ep,eg,pne,_,ne,e,_)                             => {
+      val n = ne + e
+      val ag = eg / e
+      val nep = ne / n
+      ceval.copy(expectedGrade = if (ag >= 3.0) 0.0 else (3.0 - eg) / nep,
+                 percenNotEvaluated = nep)
     }
   }
 
@@ -52,10 +55,12 @@ object Eval {
     case cs @ _ => cs
   }
 
-  def eval2String(e:Eval):String =
-    f"""%%${e.evaluatedPercen * 100}%2.0f Accumulated Grade:
-       | ${e.evaluatedGrade}%1.2f
-       | Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f
-       | Next expected grade: ${e.expectedGrade}%1.2f
-       |""".stripMargin.replaceAll("\n", " ")
+  def eval2Doc(e:Eval):Doc =
+    Doc.text(f"%%${e.evaluatedPercen * 100}%2.0f") +
+  Doc.space +
+  Doc.text(f"Accumulated Grade: ${e.evaluatedGrade}%1.2f") +
+  Doc.space +
+  Doc.text(f"Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f") +
+  Doc.space +
+  Doc.text(f"Next expected grade: ${e.expectedGrade}%1.2f")
 }

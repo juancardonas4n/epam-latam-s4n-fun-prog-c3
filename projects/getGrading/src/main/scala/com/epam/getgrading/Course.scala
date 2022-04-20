@@ -5,6 +5,7 @@ import com.epam.getgrading.Grade.{setGrade,
                                   isWeightedGrade,
                                   grade2String,
                                   sumMapWeighted,
+                                  sumMapElems,
                                   grade2Doc}
 import com.epam.getgrading.Eval._
 import org.typelevel.paiges._
@@ -46,43 +47,70 @@ object Course {
     case c @ CCourse(_,_,_,_) => c.copy(state = newState)
   }
 
+  // def grading(course:Course,
+  //             strGrade:String,
+  //             grade:Double):ErrorOrIO[Course] = {
+
+  //   if (course.grades.contains(strGrade)) {
+  //     val ngrades = course.grades.updatedWith(strGrade)(g => for {
+  //       gp <- g
+  //       ngp <- setGrade(gp, grade).toOption
+  //     } yield ngp)
+  //     if (ngrades.size == course.grades.size)
+  //       EitherT.liftF(course match {
+  //         case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
+  //       })
+  //     else {
+  //       EitherT.left[Course](IO { s"""Grade: $strGrade
+  //                                    | has been already registed
+  //                                    | """.stripMargin.replaceAll(eol, " ") })
+  //     }
+  //   }
+  //   else
+  //     EitherT.left[Course](IO { s"""Course: $course
+  //                                  |Grade: $strGrade doesn't exists at Course
+  //                                  | ${course.name}
+  //                                  |""".stripMargin.replaceAll(eol, " ") })
+  // }
+
   def grading(course:Course,
               strGrade:String,
-              grade:Double):ErrorOrIO[Course] = {
-
-    if (course.grades.contains(strGrade)) {
-      val ngrades = course.grades.updatedWith(strGrade)(g => for {
+              grade:Double):ErrorOrIO[Course] = for {
+    _ <- EitherT.cond[IO] (
+      grade >= 0.0 && grade <= 5.0,
+      (),
+      s"""Incorrect grade value $grade
+      |Grade must be a value between 0.0 and 5.0
+      |""".stripMargin.replaceAll(eol, " ")
+    )
+    ngrades <- EitherT.cond[IO] (
+      course.grades.contains(strGrade),
+      course.grades.updatedWith(strGrade)(g => for {
         gp <- g
         ngp <- setGrade(gp, grade).toOption
-      } yield ngp)
-      if (ngrades.size == course.grades.size)
-        EitherT.liftF(course match {
-          case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
-        })
-      else {
-        EitherT.left[Course](IO { s"""Grade: $strGrade
-                                     | has been already registed
-                                     | """.stripMargin.replaceAll(eol, " ") })
-      }
-    }
-    else
-      EitherT.left[Course](IO { s"""Course: $course
-                                   |Grade: $strGrade doesn't exists at Course
-                                   | ${course.name}
-                                   |""".stripMargin.replaceAll(eol, " ") })
-  }
-
-
+      } yield ngp),
+      s"""Course: $course
+      |Grade: $strGrade doesn't exists at Course
+      | ${course.name}
+      |""".stripMargin.replaceAll(eol, " "))
+    ncourse <- EitherT.cond[IO] (
+      ngrades.size == course.grades.size,
+      course match {
+          case c @ CCourse(_,_,_,_) => c.copy(grades = ngrades)
+      },
+      s"""Course: $course
+      |Grade: $strGrade doesn't exists at Course
+      | ${course.name}
+      |""".stripMargin.replaceAll(eol, " "))
+  } yield ncourse
 
   def getGradeCourse(course:Course):ErrorOrIO[Eval] = {
-    val ef = course.grades.foldLeft(Eval())((r,e) => fromGradeGetEval(r,e._2))
+    val initEval =
+      if (isWeightedGrade(course.grades))
+        Eval()
+      else Eval(sumMapElems(course.grades))
+    val ef = course.grades.foldLeft(initEval)((r,e) => fromGradeGetEval(r,e._2))
     EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
-  }
-
-  def course2String(course:Course):String = course match {
-    case CCourse(name,creditNumber,state,grades) =>
-      s"Course: ${name} Credits: ${creditNumber} Status: ${state}" +
-    eol + grades.foldLeft("")((r,e) => r + grade2String(e._2) + eol)
   }
 
   def course2Doc(course:Course):Doc = course match {

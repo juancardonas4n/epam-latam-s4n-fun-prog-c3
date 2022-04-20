@@ -3,11 +3,10 @@ package com.epam.getgrading
 import com.epam.getgrading.Course.{apply,
                                    grading,
                                    getGradeCourse,
-                                   course2String,
                                    course2Doc,
                                    updateState}
-import com.epam.getgrading.Eval.{eval2String,
-                               setNextCourseState}
+import com.epam.getgrading.Eval.{eval2Doc,
+                                 setNextCourseState}
 import com.epam.getgrading.Utils._
 import cats.syntax.either
 import cats.data.State
@@ -51,18 +50,14 @@ object Student {
       id => s.courses.contains(id(0))
     }
 
-    _ <- checkWithFunction(grade,
-                         s"Grade value ${grade} is above 5.0 or below 0.0") {
-      gradeValue => gradeValue >= 0.0 && gradeValue <= 5.0
-    }
-
     rit = (c:Course) => for {
       newc <- liftResult1[Course](grading(c,idCourseGrade(1),grade))
       eval <- liftResult1[Eval](getGradeCourse(newc))
       ns = setNextCourseState(newc.state,eval)
       newCState = updateState(newc,ns)
       _ <- StateT.modify[ErrorOrIO,
-                         Student](_.copy(courses = cs + (newc.name -> newCState)))
+                         Student](_.copy(courses = cs +
+                                         (newc.name -> newCState)))
     } yield eval
 
     rif = liftMsgError[Eval](s"""Course ${idCourseGrade(0)}
@@ -88,9 +83,9 @@ object Student {
     _ <- if (cs.contains(c.name)) rit else rif
   } yield ()
 
-  def addWeightedCourse(name:String,
-                        nCredits:Int,
-                        map:Map[String,Grade]):
+  def addCourse(name:String,
+                nCredits:Int,
+                map:Map[String,Grade]):
   EitherStateIO[Boolean] = for {
     c <- Course(name,nCredits,map)
     _ <- recordCourse(c)
@@ -101,8 +96,8 @@ object Student {
                     grade:Double):
   EitherStateIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
-    eval <- recordGrade(name,grade.toDouble)
-    _ <- liftResult[Unit](println(eval2String(eval)))
+    eval <- recordGrade(name,grade)
+    _ <- liftResult[Unit](println(eval2Doc(eval).render(80)))
   } yield true
 
   def listCourse(name:String):
@@ -111,8 +106,9 @@ object Student {
     courses = s.courses
     _ <- if (courses.contains(name))
       for {
-        _ <- liftResult(println(course2String(courses(name))))
         _ <- liftResult(println(course2Doc(courses(name)).render(80)))
+        eval <- liftResult1[Eval](getGradeCourse(courses(name)))
+        _ <- liftResult[Unit](println(eval2Doc(eval).render(80)))
       } yield ()
         else
       liftMsgError(s"Course ${name} doesn't exits")

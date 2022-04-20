@@ -57,11 +57,16 @@ object Grade {
     } yield ng
   }
 
-  def getGrade(g:Grade):(Option[Double],Double) = g match {
+  def setGrade(grade:Grade, actGrade:Int):ErrorOr[Grade] = ???
+
+  def getGrade(g:Grade,total:Int):(Option[Double],Double) = g match {
     case WeightedNote(_,None,_,w)     => (None,w)
     case WeightedNote(_,Some(gp),_,w) => (Some(gp*w),w)
-    case NoWeightedNote(_,Some(gp),_) => (Some(gp),1.0)
-    case NoWeightedNote(_,None,_) => (None,1.0)
+    case NoWeightedNote(_,Some(gp),_) => {
+      val w = 1.0/total.toDouble
+      (Some(gp*w),w)
+    }
+    case NoWeightedNote(_,None,_)     => (None,1.0/total.toDouble)
   }
 
   def isWeightedGrade(map:Map[String,Grade]):Boolean = {
@@ -87,6 +92,15 @@ object Grade {
       case _                                    => ???
     }
     m.foldLeft(0.0)((t,es) => t + sumMapWeightedAux(es._2))
+  }
+
+  def sumMapElems(m:Map[String,Grade]):Int = {
+    def sumMapElemsAux(g:Grade):Int = g match {
+      case NoWeightedNote(_,_,mp) if mp.isEmpty => 1
+      case NoWeightedNote(_,_,mp)               => sumMapElems(mp)
+      case _                                    => ???
+    }
+    m.foldLeft(0)((t,es) => t + sumMapElemsAux(es._2))
   }
 
   def grade2String(grade:Grade):String = grade match {
