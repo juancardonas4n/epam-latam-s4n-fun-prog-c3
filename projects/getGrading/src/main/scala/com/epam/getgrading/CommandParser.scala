@@ -21,7 +21,9 @@ class CommandParser extends JavaTokenParsers {
 
   def course:Parser[EitherStateIO[Boolean]] =
     "add"~>stringLiteral~decimalNumber~(weightedGradings
-                                        | noWeightedGradings) ^^
+                                        | noWeightedGradings
+                                        // | pointedGradings // Keep commented
+                                      ) ^^
   { case name~nCredits~gradings =>
     addCourse(getGridQuotes(name),
               nCredits.toInt,
@@ -68,6 +70,10 @@ class CommandParser extends JavaTokenParsers {
   def doubleNumber:Parser[Double] =
     floatingPointNumber ^^
   { _.toDouble }
+
+  def intNumber:Parser[Int] = 
+    decimalNumber ^^
+  { _.toInt }
 
   def spaces:Parser[EitherStateIO[Boolean]] =
     """ *""".r ^^

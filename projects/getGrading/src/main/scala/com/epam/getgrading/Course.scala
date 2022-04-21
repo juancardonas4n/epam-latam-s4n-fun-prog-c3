@@ -3,7 +3,6 @@ package com.epam.getgrading
 import com.epam.getgrading.Utils._
 import com.epam.getgrading.Grade.{setGrade,
                                   isWeightedGrade,
-                                  grade2String,
                                   sumMapWeighted,
                                   sumMapElems,
                                   grade2Doc}
