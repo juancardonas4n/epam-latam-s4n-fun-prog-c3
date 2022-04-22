@@ -2125,7 +2125,13 @@ Gran parte de la programación funcional se basa en el uso de TDA recursivos y d
 
 #### Introducción
 
-<!-- TODO - Introducción -->
+Si nos has seguido hasta ahora en los cursos de programación funcional, tienes un concepto claro de dos elementos que la programación funcional debe tener: el uso de *funciones puras* sobre *datos inmutables*. Sobre el primero hemos hablado bastante y seguiremos insistiendo durante este y demás cursos de programación funcional. El segundo concepto, datos inmutables, es un concepto que como el primero causa extrañeza a los programadores imperativos más avezados, como quien nos lee. 
+
+Pero el mayor problema es como desarrollar nuestro código alrededor de este concepto de datos inmutables, cuando estamos enseñados a tomar una estructura de datos, como un registro o una clase y modificarla a través de los métodos asociados o funciones específicamente diseñadas para ello. Los tipos de datos inmutables requiere de un [idioma](https://en.wikipedia.org/wiki/Programming_idiom#:~:text=A%20programming%20idiom%20or%20code,more%20programming%20languages%20or%20libraries.) específico que nos permite construir versiones modificadas de nuestros datos originales. Este idioma comenzó a ser observado cuando comenzamos a trabajar con los tipos de datos algebraicos que gracias al soporte dado por el lenguaje de programación Scala podemos trabajar de forma que dicha estructura no puede ser modificada, pero esto no esta completo, porque se requiere de una familia de funciones que nos permita tomar los tipos de datos algebraicos y producir nuevas versiones, es aquí donde surgen los objetos de compañía, cómo un mecanismo para asociar a un tipo de dato algebraico un conjunto de funciones que en primer lugar nos permita crear nuevos valores de un tipo a través de método de fabricación ([*Factory Method*](https://es.wikipedia.org/wiki/Factory_Method_(patr%C3%B3n_de_dise%C3%B1o))), cómo también de funciones que crean nuevas versiones de tipos de datos algebraicos.
+
+En esta unidad aprenderá no sólo acerca de los *Objetos de compañía*, sino también de su relación con las *Clases de compañía*, cómo utilizar las tipos de datos algebraicos por medio de objetos de compañía y también de forma práctica aprenderás a utilizarlos dentro de ejemplos muchos más reales.
+
+¡Comencemos!
 
 ##### Guía del curso
 
@@ -2237,7 +2243,9 @@ Hemos observado la relación de los objetos de compañía con los diferentes tip
 
 Esto nos permitirá entender la forma que se aplicará la programación funcional a través de dos elementos los tipos de datos y las funciones que operan sobre estos,  donde los primeros serán tipos de dato algebraicos que se definirán a través de los `trait`s y sus correspondientes implementaciones de `case class`es y `case object`s, mientras que las segundas estarán definidas en los objetos de compañía como métodos.
 
-<!-- TODO - Notebook - Añadir enlace de mybinder.com -->
+```
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/juancardonas4n/epam-latam-s4n-fun-prog-c3/HEAD?labpath=notebooks%2Fels4n-fp-c3-m2-u4-nb-01.ipynb)
+```
 
 ###### Pregunta - Notebook - Definición de objetos de compañía
 
@@ -2332,7 +2340,64 @@ Aunque Scala es un lenguaje de programación híbrido que permite la coexistenci
 
 ##### Captura de bandera - Modificación de la aplicación `getGrading`
 
-<!-- TODO - Captura de bandera - Texto - Modificación de la aplicación `getGrading` -->
+Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de notas: la notas con peso (`WeightedGrade`) y notas sin peso (`NoWeightedGrade`). Vamos ampliar a  `getGrading` introduciendo el tipo de nota basada en puntos. Por ejemplo, tenemos un `Curso` que tiene 5 evaluaciones distintas cada una de ellas discriminadas así: 
+
+| **Evaluación** | **Puntos** esperados |
+| :------------: | :------------------: |
+|    `Nota 1`    |          35          |
+|    `Nota 2`    |          46          |
+|    `Nota 3`    |          17          |
+|    `Nota 4`    |          18          |
+|    `Nota 5`    |          39          |
+|     Total      |         155          |
+
+El curso cuenta con un total de 155 puntos. Cada evaluación reportada lo hará desde 0 puntos hasta los puntos máximos por evaluación, por ejemplo para reportar la `Nota 1` se hará entre 0 y 35 puntos, supongamos que el estudiante obtiene 29 puntos por la `Nota 1`. Pero al final como se determina que un estudiante ha pasado el curso, para ello se tomará en cuenta los puntos totales y los puntos de cada evaluación para obtener una nota en el rango de 0.0 a 5.0 como se han obtenido con las evaluaciones anteriores (`WeightedGrade`  y `NoWeightedGrade`).
+
+En el siguiente cuadro mostraremos como se computan las notas a través de puntos y como se obtiene el resultado final.
+
+| **Evaluación** | **Puntos** esperados | **Porcentual** | Puntos obtenidos | **Nota traducida** | **Nota porcentual** |
+| :------------: | :------------------: | :------------: | :--------------: | :----------------: | :-----------------: |
+|    `Nota 1`    |          35          |  $\sim$0.2258  |        30        |     $\sim$4.29     |     $\sim$0.97      |
+|    `Nota 2`    |          46          |  $\sim$0.2968  |        36        |     $\sim$3.91     |     $\sim$1.16      |
+|    `Nota 3`    |          17          |  $\sim$0.1097  |        12        |     $\sim$3.53     |     $\sim$0.39      |
+|    `Nota 4`    |          18          |  $\sim$0.1161  |        18        |     $\sim$5.00     |     $\sim$0.58      |
+|    `Nota 5`    |          39          |  $\sim$0.2516  |        18        |     $\sim$2.31     |     $\sim$0.58      |
+|    `Total`     |         155          |   $\sim$1.0    |                  |                    |        ~3.68        |
+
+ El valor de las tercera columna (**Porcentual**) se obtiene dividiendo el valor de los **Puntos esperados** por el total de puntos: $35/188\sim0.2258$ (Observe que el resultado tiene más cifras decimales, por ello el símbolo $\sim$). El valor de quinta columna (**Nota traducida**) se obtiene dividiendo los **Puntos obtenidos** por los **Puntos esperados** y multiplicando por valor de $5.0$: $30/35*5.0\sim4.29$ y el valor de sexta columna (**Notas porcentual**) se obtiene multiplicando **Porcentual** por **Nota traducida**: $0.2258*4.29\sim3.68$. Por lo tanto, se puede observar que con los puntos obtenidos se ha pasado el curso.
+
+En el siguiente ejemplo, vamos a ver un escenario donde la persona no pasó el curso. Por ejemplo, tenemos un `Curso` que tiene 4 evaluaciones distintas cada una de ellas discriminadas así: 
+
+| **Evaluación** | **Puntos** esperados |
+| :------------: | :------------------: |
+|    `Eval 1`    |          21          |
+|    `Eval 2`    |          32          |
+|    `Eval 3`    |          36          |
+|    `Eval 4`    |          40          |
+|     Total      |         129          |
+
+El curso cuenta con un total de 129 puntos. Ahora miremos la siguiente interacción del supuesto alumno.
+
+
+
+| **Evaluación** | **Puntos** esperados | **Porcentual** | Puntos obtenidos | **Nota traducida** | **Nota porcentual** |
+| :------------: | :------------------: | :------------: | :--------------: | :----------------: | :-----------------: |
+|    `Eval 1`    |          21          |  $\sim$0.1628  |        18        |     $\sim$4.29     |     $\sim$0.70      |
+|    `Eval 2`    |          32          |  $\sim$0.2480  |        16        |     $\sim$2.50     |     $\sim$0,62      |
+|    `Eval 3`    |          36          |  $\sim$0.2791  |        15        |     $\sim$2.08     |     $\sim$0.58      |
+|    `Eval 4`    |          40          |  $\sim$0.3101  |        22        |     $\sim$2.75     |     $\sim$0.85      |
+|    `Total`     |         129          |   $\sim$1.0    |                  |                    |        ~2.75        |
+
+El resultado final es $2.75$ por lo tanto no alcanzó a la cifra esperada de $3.00$, por tanto perdió este curso.
+
+Vamos a implementar la evaluación por notas por puntos. En este caso vamos hacer los siguiente cambios en la estructura de la aplicación. La idea es modificar únicamente el fichero de código fuente `Grade.scala`, con una pequeña modificación en `CommandParser.scala`que nos permite recibir un curso con puntos y sus correspondientes notas.
+
+1. Añadir el `case class` `PointedGrade`que debe tener los siguientes campos: `name:String`, `grade:Option[Double]`, `subGrades:Map[String,Grade]`, `maxPoints:Double`, `pointsGraded:Option[Double]`. Estos dos últimos campos determina el máximo número de puntos y los puntos obtenidos respectivamente.
+2. Módificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener. Esto para futuros ejercicios.
+3. Modifique las siguiente lista de métodos.
+4. En el fichero `CommandParser.scala` quitar los comentarios en la funciones: `course` y `grade`. Esto para habilitar la lectura desde la línea de comandos del registro de nuevos cursos que reciban notas por puntos y sus notas.
+5. Descargue el siguiente fichero.
+6. Una vez obtenido realice la instalación de la biblioteca y ejercute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
 
 <!-- TODO - Captura de bandera - Programa de verificación - Modificación de la aplicación `getGrading` -->
 

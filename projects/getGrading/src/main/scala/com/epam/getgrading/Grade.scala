@@ -6,7 +6,6 @@ import cats.effect.IO
 import cats.effect.implicits._
 import scala.Numeric.Implicits._
 
-
 sealed trait Grade {
   def name:String
   def grade:Option[Double]
@@ -14,13 +13,13 @@ sealed trait Grade {
 }
 
 final case class WeightedGrade(name:String,
-                              grade:Option[Double],
-                              subGrades:Map[String,Grade],
-                              weight:Double) extends Grade 
+                               grade:Option[Double],
+                               subGrades:Map[String,Grade],
+                               weight:Double) extends Grade
 
 final case class NoWeightedGrade(name:String,
-                                grade:Option[Double],
-                                subGrades:Map[String,Grade]) extends Grade 
+                                 grade:Option[Double],
+                                 subGrades:Map[String,Grade]) extends Grade
 
 object Grade {
   def apply(name:String):Grade =
@@ -49,7 +48,7 @@ object Grade {
     grade.grade match {
       case None => Right( () )
       case _    => Left(s"Grade: $grade.name already has note $grade.grade")
-      }
+    }
 
   def setGrade(grade:Grade, actGrade:Double):ErrorOr[Grade] = {
     for {
@@ -109,15 +108,15 @@ object Grade {
     val prefix = Doc.spaces(10)
     val inner  = Doc.spaces(2)
     grade match {
-    case WeightedGrade(name,None,_,_)                 =>
+      case WeightedGrade(name,None,_,_)                 =>
       prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
-    case WeightedGrade(name,Some(grade),_,_)          =>
+      case WeightedGrade(name,Some(grade),_,_)          =>
       prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
-    case NoWeightedGrade(name,None,_)                 =>
+      case NoWeightedGrade(name,None,_)                 =>
       prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
-    case NoWeightedGrade(name,Some(grade),_)          =>
+      case NoWeightedGrade(name,Some(grade),_)          =>
       prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
-    case _                                            => ???
+      case _                                            => ???
     }
   }
 }
