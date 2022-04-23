@@ -4,22 +4,74 @@ import com.epam.getgrading.Utils._
 import org.typelevel.paiges._
 import cats.effect.IO
 import cats.effect.implicits._
-import scala.Numeric.Implicits._
 
-sealed trait Grade {
+trait Grade {
   def name:String
   def grade:Option[Double]
   def subGrades:Map[String,Grade]
+  def testGrade:ErrorOr[Unit] = this.grade match {
+    case None => Right( () )
+    case _    => Left(s"Grade: $grade.name already has note $grade.grade")
+  }
+  def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade]
+  def getGrade(total:Double):(Option[Double],Double)
+  def grade2Doc:Doc
+  def getWeight:Double
 }
 
 final case class WeightedGrade(name:String,
                                grade:Option[Double],
                                subGrades:Map[String,Grade],
-                               weight:Double) extends Grade
+                               weight:Double) extends Grade {
+  def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade] = for {
+    _ <- testGrade
+    ng = this.copy(grade = Some(newGradeValue))
+  } yield ng
+
+  def getGrade(total:Double):(Option[Double],Double) = {
+    val w = this.weight
+    this.grade match {
+      case None     => (None, w)
+      case Some(gp) => (Some(gp*w), w)
+    }
+  }
+  def grade2Doc:Doc = {
+    val prefix = Doc.spaces(10)
+    val inner  = Doc.spaces(2)
+    prefix + Doc.text(f"${name}%-20s") + inner +
+    (this.grade match {
+      case None         => Doc.text("*.**")
+      case Some(grade)  => Doc.text(f"${grade}%1.2f")
+    })
+  }
+  def getWeight = weight
+}
 
 final case class NoWeightedGrade(name:String,
                                  grade:Option[Double],
-                                 subGrades:Map[String,Grade]) extends Grade
+                                 subGrades:Map[String,Grade]) extends Grade {
+  def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade] = for {
+    _ <- testGrade
+    ng = this.copy(grade = Some(newGradeValue))
+  } yield ng
+  def getGrade(total:Double):(Option[Double],Double) = {
+    val w = 1.0 / total
+    this.grade match {
+      case None     => (None, w)
+      case Some(gp) => (Some(gp*w),w)
+    }
+  }
+  def grade2Doc:Doc = {
+    val prefix = Doc.spaces(10)
+    val inner  = Doc.spaces(2)
+    prefix + Doc.text(f"${name}%-20s") + inner +
+    (this.grade match {
+      case None         => Doc.text("*.**")
+      case Some(grade)  => Doc.text(f"${grade}%1.2f")
+    })
+  }
+  def getWeight = 1.0
+}
 
 object Grade {
   def apply(name:String):Grade =
@@ -44,32 +96,6 @@ object Grade {
                   map,
                   weight)
 
-  private def testGrade(grade:Grade):ErrorOr[Unit] =
-    grade.grade match {
-      case None => Right( () )
-      case _    => Left(s"Grade: $grade.name already has note $grade.grade")
-    }
-
-  def setGrade(grade:Grade, actGrade:Double):ErrorOr[Grade] = {
-    for {
-      _ <- testGrade(grade)
-      ng = grade match {
-        case wn  @ WeightedGrade(_,_,_,_)  => wn.copy(grade = Some(actGrade))
-        case nwn @ NoWeightedGrade(_,_,_)  => nwn.copy(grade = Some(actGrade))
-      }
-    } yield ng
-  }
-
-  def getGrade(g:Grade,total:Int):(Option[Double],Double) = g match {
-    case WeightedGrade(_,None,_,w)       => (None,w)
-    case WeightedGrade(_,Some(gp),_,w)   => (Some(gp*w),w)
-    case NoWeightedGrade(_,None,_)       => (None,1.0/total.toDouble)
-    case NoWeightedGrade(_,Some(gp),_)   => {
-      val w = 1.0/total.toDouble
-      (Some(gp*w),w)
-    }
-  }
-
   def isWeightedGrade(map:Map[String,Grade]):Boolean = {
     def isWeightedGradeAux(elem:(String,Grade)) = elem._2 match {
       case WeightedGrade(_,_,_,_) => true
@@ -78,45 +104,13 @@ object Grade {
     !map.takeWhile(isWeightedGradeAux(_)).isEmpty
   }
 
-  def isNoWeightedGrade(map:Map[String,Grade]):Boolean = {
-    def isNoWeightedGradeAux(elem:(String,Grade)) = elem._2 match {
-      case NoWeightedGrade(_,_,_) => true
-      case _                      => false
-    }
-    !map.dropWhile(isNoWeightedGradeAux(_)).isEmpty
-  }
 
-  def sumMapWeighted(m:Map[String,Grade]):Double = {
-    def sumMapWeightedAux(g:Grade):Double = g match {
-      case WeightedGrade(_,_,mp,w) if mp.isEmpty => w
-      case WeightedGrade(_,_,mp,_)               => sumMapWeighted(mp)
-      case _                                    => ???
+  def sumWeights(m:Map[String,Grade]):Double = {
+    def sumWeightsAux(g:Grade):Double = {
+      val mp = g.subGrades
+      if (mp.isEmpty) g.getWeight
+      else sumWeights(mp)
     }
-    m.foldLeft(0.0)((t,es) => t + sumMapWeightedAux(es._2))
-  }
-
-  def sumMapElems(m:Map[String,Grade]):Int = {
-    def sumMapElemsAux(g:Grade):Int = g match {
-      case NoWeightedGrade(_,_,mp) if mp.isEmpty    => 1
-      case NoWeightedGrade(_,_,mp)                  => sumMapElems(mp)
-      case _                                        => ???
-    }
-    m.foldLeft(0)((t,es) => t + sumMapElemsAux(es._2))
-  }
-
-  def grade2Doc(grade:Grade):Doc = {
-    val prefix = Doc.spaces(10)
-    val inner  = Doc.spaces(2)
-    grade match {
-      case WeightedGrade(name,None,_,_)                 =>
-      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
-      case WeightedGrade(name,Some(grade),_,_)          =>
-      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
-      case NoWeightedGrade(name,None,_)                 =>
-      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text("*.**")
-      case NoWeightedGrade(name,Some(grade),_)          =>
-      prefix + Doc.text(f"${name}%-20s") + inner + Doc.text(f"${grade}%1.2f")
-      case _                                            => ???
-    }
+    m.foldLeft(0.0)((t,es) => t + sumWeightsAux(es._2))
   }
 }

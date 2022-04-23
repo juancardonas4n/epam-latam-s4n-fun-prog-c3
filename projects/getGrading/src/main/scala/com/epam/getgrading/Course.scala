@@ -1,11 +1,10 @@
 package com.epam.getgrading
 
 import com.epam.getgrading.Utils._
-import com.epam.getgrading.Grade.{setGrade,
-                                  isWeightedGrade,
-                                  sumMapWeighted,
-                                  sumMapElems,
-                                  grade2Doc}
+import com.epam.getgrading.Grade.{
+  isWeightedGrade,
+  sumWeights
+}
 import com.epam.getgrading.Eval._
 import org.typelevel.paiges._
 import cats.data.EitherT
@@ -30,7 +29,7 @@ object Course {
   def apply(name:String,
             creditNumber:Int,
             grades:Map[String,Grade]):EitherStateIO[Course] = {
-    lazy val sum = sumMapWeighted(grades)
+    lazy val sum = sumWeights(grades)
     if (isWeightedGrade(grades) && !equalsDouble(sum,1.0)) {
       liftMsgError[Course](s"""The sum of weights each
                               |course must be
@@ -86,7 +85,7 @@ object Course {
       course.grades.contains(strGrade),
       course.grades.updatedWith(strGrade)(g => for {
         gp <- g
-        ngp <- setGrade(gp, grade).toOption
+        ngp <- gp.updateWithGradeValue(grade).toOption
       } yield ngp),
       s"""Course: $course
       |Grade: $strGrade doesn't exists at Course
@@ -107,7 +106,7 @@ object Course {
     val initEval =
       if (isWeightedGrade(course.grades))
         Eval()
-      else Eval(sumMapElems(course.grades))
+      else Eval(sumWeights(course.grades).toInt) // Eval(sumMapElems(course.grades))
     val ef = course.grades.foldLeft(initEval)((r,e) => fromGradeGetEval(r,e._2))
     EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
   }
@@ -121,7 +120,7 @@ object Course {
     Doc.space + Doc.spaces(10) + Doc.text("_" * 20) +
     Doc.spaces(2) + Doc.text("_" * 4) +
     Doc.line +
-    grades.foldLeft(Doc.empty)((r,e) => r + grade2Doc(e._2) + Doc.line) +
+    grades.foldLeft(Doc.empty)((r,e) => r + e._2.grade2Doc + Doc.line) +
     Doc.line
   }
 }

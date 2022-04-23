@@ -50,7 +50,7 @@ class CommandParser extends JavaTokenParsers {
                             Grade(getGridQuotes(s),n)))
    | weightedGradings ^^
                           ((g) => ((s:String) =>
-                            Grade(getGridQuotes(s),sumMapWeighted(g),g)))) ^^
+                            Grade(getGridQuotes(s),sumWeights(g),g)))) ^^
   { case s~f => (getGridQuotes(s),f(s)) }
 
   def noWeightedGradings:Parser[Map[String,Grade]] =

@@ -26,7 +26,7 @@ object Eval {
                 evaluatedGrade = eg + gp,
                 evaluated = n + 1)
     }
-    aux(getGrade(g,e.total))
+    aux(g.getGrade(e.total.toDouble))
   }
 
   def completeEvalExpectedValues(eval:Eval):Eval = eval match {

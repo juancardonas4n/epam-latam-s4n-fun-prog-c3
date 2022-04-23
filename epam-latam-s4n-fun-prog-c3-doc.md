@@ -2415,11 +2415,17 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 #### Cierre
 
-<!-- TODO - Cierre -->
+Esta unidad has encontrado como utilizar los tipos de datos algebraicos (TDA)  a través de los objetos de compañía, ya que estos te permite hacer dos usos importantes, el primero como una método de fabrica de objetos a través de método `apply`, lo que te facilita la construcción específica de los diferentes TDA ocultado los detalles específicos de cada tipo de dato algebraico (`case object` ó `case class`) y ofreciendo un conjunto de métodos de fabrica homogéneo.
+
+El segundo uso de los objetos de compañía es ofrecer un módulo donde se muestras los servicios representados como funciones (métodos dentro del objeto de compañía) y teniendo al `trait`  asociado como *tipo fundamental* manipulado a través de dicho servicio (ofrecido por el objeto de compañía), teniendo en cuenta que los TDAs son *inmutables*.
+
+Otro aspecto de esta unidad fue el énfasis de observar como aplicar TDA y objetos de compañía para implementar un solución de un proyecto `getGrading` que tiene mucha funcionalidad de los proyectos reales. 
+
+La unidad también ha sembrado una semilla en temas que ampliaremos en cursos siguientes cómo: Monoides, Aplicativos y Mónadas. Fundamentales para desarrollar proyecto realmente funcionales.
+
+ 
 
 ##### ¿Quieres saber más?
-
-<!-- TODO - ¿Quieres saber más? - ¡Podar! -->
 
 * [Patrón de diseño - Wikipedia](https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o)
 * [Scala Singleton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
