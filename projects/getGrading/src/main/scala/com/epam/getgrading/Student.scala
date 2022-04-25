@@ -44,6 +44,12 @@ object Student {
       id => !(id.size == 1 || id.size > 3)
     }
 
+    // _ <- StateT.liftF[ErrorOrIO,Student,Unit](
+    //   EitherT.cond[IO](
+    //     !(idCourseGrade.size == 1 || idCourseGrade.size > 3),
+    //     (),
+    //     s"idCourse CourseID:grade bad format $idCG"))
+
     _ <- checkWithFunction(idCourseGrade,
                   s"""Course id: ${idCourseGrade(0)} doesn't exist.
                      | Register it!""".stripMargin.replaceAll(eol, " ")) {
