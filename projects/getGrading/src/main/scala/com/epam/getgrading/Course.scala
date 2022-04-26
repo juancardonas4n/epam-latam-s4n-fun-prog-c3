@@ -111,6 +111,22 @@ object Course {
     EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
   }
 
+  def recordCourse(c:Course):EitherStateIO[Unit] = for {
+    s <- StateT.get[ErrorOrIO,Student]
+    cs = s.courses
+
+    rit = liftMsgError[Unit](s"Key $c.name already exists")
+
+    rif = for {
+      _ <- StateT.modify[ErrorOrIO,
+                         Student](_.copy(courses = cs +
+                                         (c.name -> c)))
+      r <- liftResult[Unit]( () )
+    } yield r
+    _ <- if (cs.contains(c.name)) rit else rif
+  } yield ()
+
+
   def course2Doc(course:Course):Doc = course match {
     case CCourse(name,creditNumber,state,grades) =>
       Doc.text("Course:") + Doc.space + Doc.text(s"${name}") +

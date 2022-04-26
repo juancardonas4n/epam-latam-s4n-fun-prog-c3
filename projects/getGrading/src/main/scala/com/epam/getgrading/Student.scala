@@ -4,6 +4,7 @@ import com.epam.getgrading.Course.{apply,
                                    grading,
                                    getGradeCourse,
                                    course2Doc,
+                                   recordCourse,
                                    updateState}
 import com.epam.getgrading.Eval.{eval2Doc,
                                  setNextCourseState}
@@ -74,20 +75,20 @@ object Student {
          else rif
   } yield r
 
-  def recordCourse(c:Course):EitherStateIO[Unit] = for {
-    s <- StateT.get[ErrorOrIO,Student]
-    cs = s.courses
+  // def recordCourse(c:Course):EitherStateIO[Unit] = for {
+  //   s <- StateT.get[ErrorOrIO,Student]
+  //   cs = s.courses
 
-    rit = liftMsgError[Unit](s"Key $c.name already exists")
+  //   rit = liftMsgError[Unit](s"Key $c.name already exists")
 
-    rif = for {
-      _ <- StateT.modify[ErrorOrIO,
-                         Student](_.copy(courses = cs +
-                                         (c.name -> c)))
-      r <- liftResult[Unit]( () )
-    } yield r
-    _ <- if (cs.contains(c.name)) rit else rif
-  } yield ()
+  //   rif = for {
+  //     _ <- StateT.modify[ErrorOrIO,
+  //                        Student](_.copy(courses = cs +
+  //                                        (c.name -> c)))
+  //     r <- liftResult[Unit]( () )
+  //   } yield r
+  //   _ <- if (cs.contains(c.name)) rit else rif
+  // } yield ()
 
   def addCourse(name:String,
                 nCredits:Int,

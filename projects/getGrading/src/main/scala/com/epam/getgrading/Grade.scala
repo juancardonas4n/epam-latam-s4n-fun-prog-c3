@@ -19,12 +19,15 @@ trait Grade {
   def getWeight:Double
 }
 
+import com.epam.getgrading.Grade._
+
 final case class WeightedGrade(name:String,
                                grade:Option[Double],
                                subGrades:Map[String,Grade],
                                weight:Double) extends Grade {
   def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade] = for {
     _ <- testGrade
+    _ <- testGradeRange(newGradeValue)
     ng = this.copy(grade = Some(newGradeValue))
   } yield ng
 
@@ -52,6 +55,7 @@ final case class NoWeightedGrade(name:String,
                                  subGrades:Map[String,Grade]) extends Grade {
   def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade] = for {
     _ <- testGrade
+    _ <- testGradeRange(newGradeValue)
     ng = this.copy(grade = Some(newGradeValue))
   } yield ng
   def getGrade(total:Double):(Option[Double],Double) = {
@@ -112,5 +116,14 @@ object Grade {
       else sumWeights(mp)
     }
     m.foldLeft(0.0)((t,es) => t + sumWeightsAux(es._2))
+  }
+
+  def testGradeRange(grade:Double):ErrorOr[Unit] = {
+    if (grade > 5.0 || grade < 0.0)
+      Left(s"""Incorrect grade value $grade
+           |Grade must be a value between 0.0 and 5.0
+           |""".stripMargin.replaceAll(eol, " "))
+    else 
+      Right( () )
   }
 }

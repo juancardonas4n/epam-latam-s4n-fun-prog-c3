@@ -1,7 +1,6 @@
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / organization := "com.epam"
 
-
 libraryDependencies += "org.typelevel" %% "cats-core" %
                     "2.3.0"
 libraryDependencies += "org.scala-lang.modules" %%

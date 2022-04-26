@@ -58,20 +58,31 @@ class CommandParser extends JavaTokenParsers {
 
   def noWeightedGradeElem:Parser[(String,Grade)] =
     stringLiteral~opt(":"~>noWeightedGradings) ^^
-  { case s~o => {
-    val name = getGridQuotes(s)
-    o match {
-      case Some(m) => (name, Grade(name,m))
-      case None    => (name, Grade(name))
-    }
+  { case s~o => { val name = getGridQuotes(s)
+                 o match {
+                   case Some(m) => (name, Grade(name,m))
+                   case None    => (name, Grade(name))
+                 }
+               }
   }
- }
+
+  def pointedGradings:Parser[Map[String,Grade]] =
+    "("~>repsep(pointedGradeElem, ",")<~")" ^^ (Map() ++ _)
+
+  def pointedGradeElem:Parser[(String,Grade)] =
+    (stringLiteral<~":")~(intNumber ^^
+                          ((n) => ((s:String) =>
+                            Grade(getGridQuotes(s),n)))
+    | pointedGradings ^^
+                          ((g) => ((s:String) =>
+                            Grade(getGridQuotes(s),sumWeights(g).toInt,g)))) ^^
+  { case s~f => (getGridQuotes(s),f(s)) }
 
   def doubleNumber:Parser[Double] =
     floatingPointNumber ^^
   { _.toDouble }
 
-  def intNumber:Parser[Int] = 
+  def intNumber:Parser[Int] =
     decimalNumber ^^
   { _.toInt }
 
