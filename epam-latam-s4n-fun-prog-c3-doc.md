@@ -2411,7 +2411,67 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 #### Evaluación 
 
-<!-- TODO - Evaluación -->
+1.
+
+> > Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
+
+( ) A. `object`.
+
+(X) B. `apply`.
+
+( ) C. `case object`
+
+( ) D. `case class`.
+
+[explanation]
+El método de llama `apply`cuando este método se encuentra dentro de un objeto de compañía, permite definir un métod de fábrica, de forma que cuando se utiliza el nombre del objeto de compañía este inmediatamente invocará a al método `apply`que tenga la misma firma (o *signature*) a los parámetros invocados.
+[explanation]
+
+2.
+
+> > Cuál es la principal diferencia entre la definición de una `case class` y `case object`<<
+
+( ) A. El primero es una clase de compañía, mientras el segundo es un objeto de compañía.
+
+( ) B. Ambos representan tipos de datos algebraicos, el primero es representado por la operación unión ($\cup$), mientras que el segundo es representado por la operación producto cartesiano ($\times$).
+
+( ) C. El primero representa una clase para el lenguaje Scala, el segundo es una forma avanzada del constructor `new`.
+
+(X) D. Tipos de datos algebraicos, el primer con un conjunto de valores dependiendo de los tipos definidos, mientras que el segundo representa un único valor.
+
+[explanation]
+Ambos son formas de representar tipos de datos algebraicos, que son inmutables. El `case class`define un conjunto de valores a través de los parámetros del contructor de la clase y del tipo propio, el segundo define un único valor. Por lo tanto, el primero define un conjunto de valores y el segundo define un único valor.
+[explanation]
+
+3.
+
+> > Es la mónada un tipo de dato<<
+
+( ) Verdadero.
+
+(X) Falso.
+
+[explanation] 
+La mónada es un abstracción que representa un comportamiento y un contexto donde debe ser aplicado, son algunos tipos de datos específicos que siguen ese comportamiento esperado y un contexto cuando deben aplicarse. 
+[explanation]
+
+4.
+
+> > Qué es el contexto dentro de una mónada<<
+
+( ) A.
+
+( ) B.
+
+( ) C.
+
+( ) D.
+
+[explanation] 
+
+[explanation]
+
+<!-- TODO - Evaluación - Faltan 5 puntos de 8: 37.5% Hecho, Falta 62.5% -->
 
 #### Cierre
 
