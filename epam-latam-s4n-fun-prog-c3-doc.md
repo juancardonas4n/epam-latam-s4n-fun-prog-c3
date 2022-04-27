@@ -2239,7 +2239,7 @@ Los objetos de compañía crean una única instancia por lo tanto implementan el
 
 ##### Notebook - Definición de objetos de compañía
 
-Hemos observado la relación de los objetos de compañía con los diferentes tipos de clases de compañía (como `class`es y `case class`es), en este **Notebook* vamos aplicar las diferentes formas de uso de los objetos de compañía en cuatros casos como: objetos únicos (*Singleton*), puntos de entrada de programa, métodos de fabricación (*factory methods*), objetos de compañía como módulos que contienen métodos y valores. 
+Hemos observado la relación de los objetos de compañía con los diferentes tipos de clases de compañía (como `class`es y `case class`es), en este **Notebook** vamos aplicar las diferentes formas de uso de los objetos de compañía en cuatros casos como: objetos únicos (*Singleton*), puntos de entrada de programa, métodos de fabricación (*factory methods*), objetos de compañía como módulos que contienen métodos y valores. 
 
 Esto nos permitirá entender la forma que se aplicará la programación funcional a través de dos elementos los tipos de datos y las funciones que operan sobre estos,  donde los primeros serán tipos de dato algebraicos que se definirán a través de los `trait`s y sus correspondientes implementaciones de `case class`es y `case object`s, mientras que las segundas estarán definidas en los objetos de compañía como métodos.
 
@@ -2457,21 +2457,93 @@ La mónada es un abstracción que representa un comportamiento y un contexto don
 
 4.
 
-> > Qué es el contexto dentro de una mónada<<
+> > Un ejemplo de contexto dentro de Mónada<<
 
-( ) A.
+[X] A. Contador de un programa
 
-( ) B.
+[X] B. Una división de dos enteros 
 
-( ) C.
+[X] C. Una consulta en una base de datos 
 
-( ) D.
+[ ] D. Operación de suma de enteros
 
 [explanation] 
 
+Opción A es válida, en esta opción se encuentra un contador, es decir un valor que incrementa a través de tiempo, algo que no se puede hacer dentro de la programación funcional directamente, pero a través de la mónada de Estado se puede hacer este tipo de operación. Opción B es válida, es una operación que puede falla en el caso que el denominador de una división sea cero por lo tanto esto también esta representa una computación que puede fallar, este es otro contexto de las mónadas. Opción C es válida, una consulta a una base de datos puede traer cero o más resultados, por lo tanto es similar a la computación de una lista es un contexto de mónada. La opción D no es válida, porque esta es cómputo que no falla, esta definida dentro de los enteros y siempre tendrá éxito por lo tanto no es un contexto de mónada.
+
 [explanation]
 
-<!-- TODO - Evaluación - Faltan 5 puntos de 8: 37.5% Hecho, Falta 62.5% -->
+5.
+
+> > Un patrón de diseño que implementan los objetos de compañía además del método de fabrica (*factory method*) es<<
+
+(X) A. Único (*Singleton*)
+
+( ) B. Visitante (*Visitor*) 
+
+( ) C. Estrategía (*Strategy*)
+
+( ) D. Fabrica de clases (*Class Factory*)
+
+[explanation] 
+
+Los objetos de compañía facilitan la construcción y el uso de dos patrones de diseño: *factory method* y *singleton*.
+
+[explanation]
+
+6.
+
+> > En qué son comunes las mónadas `Either` y `Option`<<
+
+( ) A. Representa un computación que genera cero o más resultados
+
+( ) B. Representa el estado de un computación
+
+( ) C. Representa operaciones de entrada y salida
+
+(X) D. Representa una computación que pude fallar
+
+[explanation] 
+
+Ambas representan un computación que puede fallar o no.
+
+[explanation]
+
+7.
+
+> > En qué difieren las mónadas `Either` y `Option`<<
+
+( ) A. `Option`es especifica para los tipos de datos primitivos en Scala mientras que `Either`funciona para cualquier tipo
+
+( ) B. `Option` cuando no falla solo permite un solo resultado, mientras que `Either`permite por lo menos dos resultados.
+
+( ) C. `Either` es la versión de transformadores de mónadas de `Option`
+
+(X) D. Ambos `Option` y `Either`representan una computación que puede fallar, pero `Either` puede llevar información sobre el error de falla.
+
+[explanation] 
+
+`Option` representa una computación que indica que puede o no fallar, como lo es también `Either`, la diferencia radica que `Either` puede guardar la información de porqué fallo cuando una falla sucede.
+
+[explanation]
+
+8.
+
+> > Cuándo un *objeto de compañía* se utiliza como un módulo su objetivo principal es<<
+
+( ) A. Servir como fabrica para instancias de los TDA
+
+( ) B. Crear instancias únicas de los TDA
+
+( ) C. Definir los datos que compone un TDA creado a través de producto cartesiano.
+
+(X) D. Para implementar el servicio que ofrece TDA  a través de funciones puras.
+
+[explanation] 
+
+Otra de las funciones de los objetos de compañía es servir cómo módulo donde se guardan las funciones que "manipulan" los TDA y así ofrecer el servicio que implementa un TDA específico.
+
+[explanation]
 
 #### Cierre
 

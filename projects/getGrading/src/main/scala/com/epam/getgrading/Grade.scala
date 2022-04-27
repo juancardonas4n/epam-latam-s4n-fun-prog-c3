@@ -108,7 +108,6 @@ object Grade {
     !map.takeWhile(isWeightedGradeAux(_)).isEmpty
   }
 
-
   def sumWeights(m:Map[String,Grade]):Double = {
     def sumWeightsAux(g:Grade):Double = {
       val mp = g.subGrades
@@ -123,7 +122,7 @@ object Grade {
       Left(s"""Incorrect grade value $grade
            |Grade must be a value between 0.0 and 5.0
            |""".stripMargin.replaceAll(eol, " "))
-    else 
+    else
       Right( () )
   }
 }
