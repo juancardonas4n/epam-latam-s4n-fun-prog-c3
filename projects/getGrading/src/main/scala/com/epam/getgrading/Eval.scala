@@ -55,6 +55,12 @@ object Eval {
     case cs @ _ => cs
   }
 
+  private def computeExpectedPoints(e:Eval):Int = {
+    val remainPoints = e.total * e.percenNotEvaluated
+    val fac = e.expectedGrade / 5.0
+    (remainPoints * fac).toInt
+  }
+
   def eval2Doc(e:Eval):Doc =
     Doc.text(f"%%${e.evaluatedPercen * 100}%2.0f") +
   Doc.space +
@@ -62,5 +68,9 @@ object Eval {
   Doc.space +
   Doc.text(f"Current Grade: ${e.evaluatedGrade / e.evaluatedPercen}%1.2f") +
   Doc.space +
-  Doc.text(f"Next expected grade: ${e.expectedGrade}%1.2f")
+  (if (e.total < 11) Doc.text(f"Next expected grade: ${e.expectedGrade}%1.2f")
+   else 
+     Doc.text(f"""Expected remain points to obtain:
+                 | ${computeExpectedPoints(e)}%02d""".stripMargin.
+              replaceAll(eol, " ")))
 }
