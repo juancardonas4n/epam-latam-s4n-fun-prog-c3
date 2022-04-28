@@ -2336,6 +2336,32 @@ Aunque Scala es un lenguaje de programación híbrido que permite la coexistenci
 
 ###### Preguntas - Vídeo - Aplicación `getGrading`
 
+1. El proyecto se compone de diferentes clases 
+
+>> Cuáles son las que representan las entidades principales del proyecto<<
+
+[ ] `Main`
+[X] `Student`
+[X] `Course`
+[X] `Grade`
+
+[explanation]
+Las clases `Student` la raíz del proyecto, luego cada curso (`Course`) está identificado por un nombre. Cada curso (`Course`) identifica sus notas respectivas a través de un nombre. Estas son los componentes principales del proyecto.
+[explanation]
+
+2. Los objetos de compañía fueron diseñados para ajustarse a dos patrones de programación importantes.
+
+>> Cuáles son<<
+
+[ ] *Class Factory*
+[X] *Method Factory*
+[ ] *Visitor*
+[X] *Singleton*
+
+[explanation]
+Los objetos de compañía crean una única instancia por lo tanto implementan el patrón *Singleton* y a través de la implementación del método `apply` permiten la tener un mecanismo de creación de instancias de las clase de compañía por lo tanto implementa el patron *Method Factory*.
+[explanation]
+
 <!-- TODO - Pregunta - Vídeo - Aplicación `getGrading` -->
 
 ##### Captura de bandera - Modificación de la aplicación `getGrading`
