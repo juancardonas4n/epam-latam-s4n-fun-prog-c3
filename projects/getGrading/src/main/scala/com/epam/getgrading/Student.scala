@@ -45,12 +45,6 @@ object Student {
       id => !(id.size == 1 || id.size > 3)
     }
 
-    // _ <- StateT.liftF[ErrorOrIO,Student,Unit](
-    //   EitherT.cond[IO](
-    //     !(idCourseGrade.size == 1 || idCourseGrade.size > 3),
-    //     (),
-    //     s"idCourse CourseID:grade bad format $idCG"))
-
     _ <- checkWithFunction(idCourseGrade,
                   s"""Course id: ${idCourseGrade(0)} doesn't exist.
                      | Register it!""".stripMargin.replaceAll(eol, " ")) {
@@ -74,21 +68,6 @@ object Student {
     r <- if (cs.contains(idCourseGrade(0))) rit(cs(idCourseGrade(0)))
          else rif
   } yield r
-
-  // def recordCourse(c:Course):EitherStateIO[Unit] = for {
-  //   s <- StateT.get[ErrorOrIO,Student]
-  //   cs = s.courses
-
-  //   rit = liftMsgError[Unit](s"Key $c.name already exists")
-
-  //   rif = for {
-  //     _ <- StateT.modify[ErrorOrIO,
-  //                        Student](_.copy(courses = cs +
-  //                                        (c.name -> c)))
-  //     r <- liftResult[Unit]( () )
-  //   } yield r
-  //   _ <- if (cs.contains(c.name)) rit else rif
-  // } yield ()
 
   def addCourse(name:String,
                 nCredits:Int,

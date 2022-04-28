@@ -30,7 +30,8 @@ class CommandParser extends JavaTokenParsers {
               gradings) }
 
   def grade:Parser[EitherStateIO[Boolean]] =
-    "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble }) ^^
+    "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble } |
+                             intNumber ^^ { _.toDouble } ) ^^
   { case name~grade => registerGrade(getGridQuotes(name),
                                      grade) }
 
