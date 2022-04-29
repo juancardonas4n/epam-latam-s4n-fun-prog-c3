@@ -2360,9 +2360,7 @@ Las clases `Student` la raíz del proyecto, luego cada curso (`Course`) está id
 
 [explanation]
 Los objetos de compañía crean una única instancia por lo tanto implementan el patrón *Singleton* y a través de la implementación del método `apply` permiten la tener un mecanismo de creación de instancias de las clase de compañía por lo tanto implementa el patron *Method Factory*.
-[explanation]
-
-<!-- TODO - Pregunta - Vídeo - Aplicación `getGrading`  -->
+[explanation]																											
 
 ##### Captura de bandera - Modificación de la aplicación `getGrading`
 

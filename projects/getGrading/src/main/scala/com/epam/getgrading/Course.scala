@@ -28,7 +28,7 @@ final case class CCourse(name:String,
 object Course {
   def apply(name:String,
             creditNumber:Int,
-            grades:Map[String,Grade]):EitherStateIO[Course] = {
+            grades:Map[String,Grade]):StateEitherIO[Course] = {
     lazy val sum = sumWeights(grades)
     if (isWeightedGrade(grades) && !equalsDouble(sum,1.0)) {
       liftMsgError[Course](s"""The sum of weights each
@@ -44,32 +44,6 @@ object Course {
                   newState:CourseState):Course = course match {
     case c @ CCourse(_,_,_,_) => c.copy(state = newState)
   }
-
-  // def grading(course:Course,
-  //             strGrade:String,
-  //             grade:Double):ErrorOrIO[Course] = {
-
-  //   if (course.grades.contains(strGrade)) {
-  //     val ngrades = course.grades.updatedWith(strGrade)(g => for {
-  //       gp <- g
-  //       ngp <- setGrade(gp, grade).toOption
-  //     } yield ngp)
-  //     if (ngrades.size == course.grades.size)
-  //       EitherT.liftF(course match {
-  //         case c @ CCourse(_,_,_,_) => IO { c.copy(grades = ngrades) }
-  //       })
-  //     else {
-  //       EitherT.left[Course](IO { s"""Grade: $strGrade
-  //                                    | has been already registed
-  //                                    | """.stripMargin.replaceAll(eol, " ") })
-  //     }
-  //   }
-  //   else
-  //     EitherT.left[Course](IO { s"""Course: $course
-  //                                  |Grade: $strGrade doesn't exists at Course
-  //                                  | ${course.name}
-  //                                  |""".stripMargin.replaceAll(eol, " ") })
-  // }
 
   def grading(course:Course,
               strGrade:String,
@@ -111,7 +85,7 @@ object Course {
     EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
   }
 
-  def recordCourse(c:Course):EitherStateIO[Unit] = for {
+  def recordCourse(c:Course):StateEitherIO[Unit] = for {
     s <- StateT.get[ErrorOrIO,Student]
     cs = s.courses
 
@@ -125,7 +99,6 @@ object Course {
     } yield r
     _ <- if (cs.contains(c.name)) rit else rif
   } yield ()
-
 
   def course2Doc(course:Course):Doc = course match {
     case CCourse(name,creditNumber,state,grades) =>

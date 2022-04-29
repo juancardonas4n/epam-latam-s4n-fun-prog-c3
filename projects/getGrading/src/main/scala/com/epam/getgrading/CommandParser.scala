@@ -9,7 +9,7 @@ import scala.util.parsing.combinator._
 import scala.sys.exit
 
 class CommandParser extends JavaTokenParsers {
-  def command:Parser[EitherStateIO[Boolean]] =
+  def command:Parser[StateEitherIO[Boolean]] =
     course | exit | grade | list | spaces
 
   private def getGridQuotes(str:String) = {
@@ -19,7 +19,7 @@ class CommandParser extends JavaTokenParsers {
     else ""
   }
 
-  def course:Parser[EitherStateIO[Boolean]] =
+  def course:Parser[StateEitherIO[Boolean]] =
     "add"~>stringLiteral~decimalNumber~(weightedGradings
                                         | noWeightedGradings
                                         // | pointedGradings // Keep commented
@@ -29,17 +29,17 @@ class CommandParser extends JavaTokenParsers {
               nCredits.toInt,
               gradings) }
 
-  def grade:Parser[EitherStateIO[Boolean]] =
+  def grade:Parser[StateEitherIO[Boolean]] =
     "grade"~>stringLiteral~( floatingPointNumber ^^ { _.toDouble } |
                              intNumber ^^ { _.toDouble } ) ^^
   { case name~grade => registerGrade(getGridQuotes(name),
                                      grade) }
 
-  def list:Parser[EitherStateIO[Boolean]] =
+  def list:Parser[StateEitherIO[Boolean]] =
     "list"~>stringLiteral ^^
   { case name => listCourse(getGridQuotes(name)) }
 
-  def exit:Parser[EitherStateIO[Boolean]] =
+  def exit:Parser[StateEitherIO[Boolean]] =
     "exit" ^^ { case _ => exitApp }
 
   def weightedGradings:Parser[Map[String,Grade]]  =
@@ -87,14 +87,14 @@ class CommandParser extends JavaTokenParsers {
     decimalNumber ^^
   { _.toInt }
 
-  def spaces:Parser[EitherStateIO[Boolean]] =
+  def spaces:Parser[StateEitherIO[Boolean]] =
     """ *""".r ^^
   { (x) => liftResult( true ) }
 }
 
 object CommandParser extends CommandParser {
 
-  def parseCommand(str:String):EitherStateIO[Boolean] =
+  def parseCommand(str:String):StateEitherIO[Boolean] =
     parseAll(command, str) match {
       case Success(res,_) => res
       case Failure(msg,_) => liftMsgError(msg)

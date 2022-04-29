@@ -11,20 +11,19 @@ object Utils {
   type Error            = String
   type ErrorOr[A]       = Either[Error,A]
   type ErrorOrIO[A]     = EitherT[IO,Error,A]
-  type EitherState[A]   = StateT[ErrorOr,Student,A]
-  type EitherStateIO[A] = StateT[ErrorOrIO,Student,A]
+  type StateEitherIO[A] = StateT[ErrorOrIO,Student,A]
 
-  def liftMsgError[A](msg:String):EitherStateIO[A] =
+  def liftMsgError[A](msg:String):StateEitherIO[A] =
     StateT.liftF[ErrorOrIO,
                  Student,
                  A](EitherT.left[A](IO { msg } ))
 
-  def liftResult[A](result:A):EitherStateIO[A] =
+  def liftResult[A](result:A):StateEitherIO[A] =
     StateT.liftF[ErrorOrIO,
                  Student,
                  A](EitherT.liftF(IO { result } ))
 
-  def liftResult1[A](result:ErrorOrIO[A]):EitherStateIO[A] =
+  def liftResult1[A](result:ErrorOrIO[A]):StateEitherIO[A] =
     StateT.liftF[ErrorOrIO,
                  Student,
                  A](result)

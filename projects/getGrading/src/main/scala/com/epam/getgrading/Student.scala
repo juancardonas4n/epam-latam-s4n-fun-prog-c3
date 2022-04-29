@@ -27,14 +27,14 @@ object Student {
 
   private def checkWithFunction[A](idCG:A,
                                    msg:String)(f:A=>Boolean):
-  EitherStateIO[Unit] = StateT.liftF[ErrorOrIO,Student,Unit](
+  StateEitherIO[Unit] = StateT.liftF[ErrorOrIO,Student,Unit](
       EitherT.cond[IO](
         f(idCG),
         (),
         msg))
 
   def recordGrade(idCG:String,
-                  grade:Double):EitherStateIO[Eval] = for {
+                  grade:Double):StateEitherIO[Eval] = for {
     s <- StateT.get[ErrorOrIO,Student]
     cs = s.courses
 
@@ -72,7 +72,7 @@ object Student {
   def addCourse(name:String,
                 nCredits:Int,
                 map:Map[String,Grade]):
-  EitherStateIO[Boolean] = for {
+  StateEitherIO[Boolean] = for {
     c <- Course(name,nCredits,map)
     _ <- recordCourse(c)
     _ <- liftResult(println(s"Course $name registed"))
@@ -80,14 +80,14 @@ object Student {
 
   def registerGrade(name:String,
                     grade:Double):
-  EitherStateIO[Boolean] = for {
+  StateEitherIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     eval <- recordGrade(name,grade)
     _ <- liftResult[Unit](println(eval2Doc(eval).render(80)))
   } yield true
 
   def listCourse(name:String):
-  EitherStateIO[Boolean] = for {
+  StateEitherIO[Boolean] = for {
     s <- StateT.get[ErrorOrIO,Student]
     courses = s.courses
     _ <- if (courses.contains(name))
@@ -100,7 +100,7 @@ object Student {
       liftMsgError(s"Course ${name} doesn't exits")
   } yield true
 
-  def exitApp:EitherStateIO[Boolean] = for {
+  def exitApp:StateEitherIO[Boolean] = for {
       _ <- liftResult(println("getGrading is ending"))
   } yield false
 }
