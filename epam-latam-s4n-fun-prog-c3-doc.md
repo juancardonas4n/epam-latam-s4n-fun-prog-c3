@@ -2141,7 +2141,7 @@ En esta unidad aprenderá no sólo acerca de los *Objetos de compañía*, sino t
 
 ###### Lograrás
 
-* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados
+* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados.
 * Utilizar los objetos de compañía a través de funciones.
 
 ###### Lo que debes saber:
@@ -2273,8 +2273,97 @@ En este **Notebook** has observado los diferentes usos de los objetos de compañ
 
 Esta separación nos permitirá definir los servicios que se ofrecen para los TDA, puesto que el servicio serán un conjunto de funciones que trabajen sobre dichos datos inmutables, lo que más adelante nos permitirá diseñar en base a este modelo una programación más eficiente y confiable.
 
+#### Evaluación
 
-#### Aplicar y usar objetos de compañía
+1.
+
+> > Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
+
+( ) A. `object`.
+
+(X) B. `apply`.
+
+( ) C. `case object`
+
+( ) D. `case class`.
+
+[explanation]
+El método de llama `apply`cuando este método se encuentra dentro de un objeto de compañía, permite definir un métod de fábrica, de forma que cuando se utiliza el nombre del objeto de compañía este inmediatamente invocará a al método `apply`que tenga la misma firma (o *signature*) a los parámetros invocados.
+[explanation]
+
+2.
+
+> > Cuál es la principal diferencia entre la definición de una `case class` y `case object`<<
+
+( ) A. El primero es una clase de compañía, mientras el segundo es un objeto de compañía.
+
+( ) B. Ambos representan tipos de datos algebraicos, el primero es representado por la operación unión ($\cup$), mientras que el segundo es representado por la operación producto cartesiano ($\times$).
+
+( ) C. El primero representa una clase para el lenguaje Scala, el segundo es una forma avanzada del constructor `new`.
+
+(X) D. Tipos de datos algebraicos, el primer con un conjunto de valores dependiendo de los tipos definidos, mientras que el segundo representa un único valor.
+
+[explanation]
+Ambos son formas de representar tipos de datos algebraicos, que son inmutables. El `case class`define un conjunto de valores a través de los parámetros del contructor de la clase y del tipo propio, el segundo define un único valor. Por lo tanto, el primero define un conjunto de valores y el segundo define un único valor.
+[explanation]
+
+3.
+
+> > Un patrón de diseño que implementan los objetos de compañía además del método de fabrica (*factory method*) es<<
+
+(X) A. Único (*Singleton*)
+
+( ) B. Visitante (*Visitor*) 
+
+( ) C. Estrategía (*Strategy*)
+
+( ) D. Fabrica de clases (*Class Factory*)
+
+[explanation] 
+
+Los objetos de compañía facilitan la construcción y el uso de dos patrones de diseño: *factory method* y *singleton*.
+
+[explanation]
+
+4.
+
+> > Cuándo un *objeto de compañía* se utiliza como un módulo su objetivo principal es<<
+
+( ) A. Servir como fabrica para instancias de los TDA
+
+( ) B. Crear instancias únicas de los TDA
+
+( ) C. Definir los datos que compone un TDA creado a través de producto cartesiano.
+
+(X) D. Para implementar el servicio que ofrece TDA  a través de funciones puras.
+
+[explanation] 
+
+Otra de las funciones de los objetos de compañía es servir cómo módulo donde se guardan las funciones que "manipulan" los TDA y así ofrecer el servicio que implementa un TDA específico.
+
+[explanation]
+
+#### Cierre
+
+##### ¿Quieres saber más?
+
+##### EPAM - Insights
+
+### U5. Aplicar y usar objetos de compañía
+
+#### Introducción
+
+##### Guía del curso
+
+##### Objetivos de la unidad
+
+###### Lograrás
+
+###### Lo que debes saber:
+
+###### Concretamente esperamos que aprendas a :
+
+###### Ruta de aprendizaje
 
 ##### Infografía - ¿Qué son las mónadas y los transformadores de mónadas?
 
@@ -2437,38 +2526,6 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 1.
 
-> > Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
-
-( ) A. `object`.
-
-(X) B. `apply`.
-
-( ) C. `case object`
-
-( ) D. `case class`.
-
-[explanation]
-El método de llama `apply`cuando este método se encuentra dentro de un objeto de compañía, permite definir un métod de fábrica, de forma que cuando se utiliza el nombre del objeto de compañía este inmediatamente invocará a al método `apply`que tenga la misma firma (o *signature*) a los parámetros invocados.
-[explanation]
-
-2.
-
-> > Cuál es la principal diferencia entre la definición de una `case class` y `case object`<<
-
-( ) A. El primero es una clase de compañía, mientras el segundo es un objeto de compañía.
-
-( ) B. Ambos representan tipos de datos algebraicos, el primero es representado por la operación unión ($\cup$), mientras que el segundo es representado por la operación producto cartesiano ($\times$).
-
-( ) C. El primero representa una clase para el lenguaje Scala, el segundo es una forma avanzada del constructor `new`.
-
-(X) D. Tipos de datos algebraicos, el primer con un conjunto de valores dependiendo de los tipos definidos, mientras que el segundo representa un único valor.
-
-[explanation]
-Ambos son formas de representar tipos de datos algebraicos, que son inmutables. El `case class`define un conjunto de valores a través de los parámetros del contructor de la clase y del tipo propio, el segundo define un único valor. Por lo tanto, el primero define un conjunto de valores y el segundo define un único valor.
-[explanation]
-
-3.
-
 > > Es la mónada un tipo de dato<<
 
 ( ) Verdadero.
@@ -2479,7 +2536,7 @@ Ambos son formas de representar tipos de datos algebraicos, que son inmutables. 
 La mónada es un abstracción que representa un comportamiento y un contexto donde debe ser aplicado, son algunos tipos de datos específicos que siguen ese comportamiento esperado y un contexto cuando deben aplicarse. 
 [explanation]
 
-4.
+2.
 
 > > Un ejemplo de contexto dentro de Mónada<<
 
@@ -2497,25 +2554,7 @@ Opción A es válida, en esta opción se encuentra un contador, es decir un valo
 
 [explanation]
 
-5.
-
-> > Un patrón de diseño que implementan los objetos de compañía además del método de fabrica (*factory method*) es<<
-
-(X) A. Único (*Singleton*)
-
-( ) B. Visitante (*Visitor*) 
-
-( ) C. Estrategía (*Strategy*)
-
-( ) D. Fabrica de clases (*Class Factory*)
-
-[explanation] 
-
-Los objetos de compañía facilitan la construcción y el uso de dos patrones de diseño: *factory method* y *singleton*.
-
-[explanation]
-
-6.
+3.
 
 > > En qué son comunes las mónadas `Either` y `Option`<<
 
@@ -2533,7 +2572,7 @@ Ambas representan un computación que puede fallar o no.
 
 [explanation]
 
-7.
+4.
 
 > > En qué difieren las mónadas `Either` y `Option`<<
 
@@ -2551,23 +2590,7 @@ Ambas representan un computación que puede fallar o no.
 
 [explanation]
 
-8.
 
-> > Cuándo un *objeto de compañía* se utiliza como un módulo su objetivo principal es<<
-
-( ) A. Servir como fabrica para instancias de los TDA
-
-( ) B. Crear instancias únicas de los TDA
-
-( ) C. Definir los datos que compone un TDA creado a través de producto cartesiano.
-
-(X) D. Para implementar el servicio que ofrece TDA  a través de funciones puras.
-
-[explanation] 
-
-Otra de las funciones de los objetos de compañía es servir cómo módulo donde se guardan las funciones que "manipulan" los TDA y así ofrecer el servicio que implementa un TDA específico.
-
-[explanation]
 
 #### Cierre
 
