@@ -1,0 +1,210 @@
+# Aplicación `getGrading`
+
+* Dominio la aplicación `getGrading`
+* Dominio del contexto
+* Tipo `Course`
+* Tipo `Grade`
+* Tipo auxiliar: `CommandParser`
+* Tipo auxiliar: `Utils`
+* Tipo auxiliar: `Eval`
+* Inicio de aplicación: `Main`
+* Cierre
+
+---
+
+# Dominio de la  aplicación `getGrading`
+
+![Diagrama de la aplicación `getGrading`](./images/C3_M2_U4_V04_App_getGrading_01.png)
+
+---
+
+# Dominio del contexto
+
+* Monadas transformers
+* ![Dominio del contexto](./images/C3_M2_U4_V04_App_getGrading_02.png)
+
+
+---
+
+# Dominio del contexto
+
+* ![Dominio del contexto](./images/C3_M2_U4_V04_App_getGrading_03.png)
+
+
+---
+
+# Tipo `Student`
+
+* Servicios
+  * Método fabrica
+  * `addCourse`
+  * `registerGrade`
+  * `listCourse`
+  * `exitApp`
+
+---
+
+# Tipo `Course`
+
+* Servicios:
+  * Métodos fabrica
+  * `updateState`
+  * `grading`
+  * `getGradeCourse`
+  * `recordCourse`
+  * `course2Doc`
+
+---
+
+# Tipo `Grade`
+
+* Comportamiento:
+  * `testGrade`
+  * `updateWithGradeValue`
+  * `grade2Doc`
+  * `getWeight`
+
+---
+
+# Tipo `Grade` (2)
+
+* Servicios:
+  * Métodos de fabrica
+  * `isWeightedGrade`
+  * `sumWeights`
+  * `testGradeRange`
+
+---
+
+# Tipo Auxiliar: `CommandParser`
+
+* Es interpretador que procesa los comandos de usuario
+
+```.bnf
+parser ::= course | grade | list | exit
+course ::= "add" String Int (weightedGradings |
+                             noweightedGradings |
+                             pointedGradings)
+grade  ::= "grade" String (Double | Int)
+list   ::= "list"  String
+exit   ::= "exit"
+weightedGradings ::=
+   "[" weightedelem ("," weightedelem)* "]"
+weightedElem  ::= String ":" (Double | weightedGradings)
+noweightedGradings ::=
+   "{" noweightedelem ("," noweightedelem)* "}"
+noweightedElem ::= String (":" weightedGradings)?
+pointedGradings ::=
+   "(" pointedElem ("," pointedElem)* "]"
+pointedElem ::= String ":" (Int | pointedGradings)
+```
+
+---
+
+# Tipo auxiliar: `Utils`
+
+* Es un object (Módulo)
+* Son un conjunto de alias:
+
+```scala
+  type Error            = String
+  type ErrorOrIO[A]     = EitherT[IO,Error,A]
+  type StateEitherIO[A] = StateT[ErrorOrIO,Student,A]
+```
+
+---
+
+# Tipo auxiliar: `Utils`
+
+```scala
+  def liftResult[A](result:A):StateEitherIO[A] =
+    StateT.liftF[ErrorOrIO,
+                 Student,
+                 A](EitherT.liftF(IO { result } ))
+
+  def liftResult1[A](result:ErrorOrIO[A]):StateEitherIO[A] =
+    StateT.liftF[ErrorOrIO,
+                 Student,
+                 A](result)
+```
+
+---
+
+# Tipo auxiliar: `CourseState`
+
+```scala
+package com.epam.getgrading
+
+sealed trait CourseState
+
+final case object OnRun    extends CourseState
+final case object Success  extends CourseState
+final case object Failed   extends CourseState
+final case object Canceled extends CourseState
+
+```
+
+---
+
+# Tipo auxiliar: `Eval`
+
+
+* Porcentaje evaluado: `evaluatedPercen:Double`
+* Nota evaluada: `evaluatedGrade:Double`
+* Porcentaje no evaluado: `percenNotEvaluated:Double`
+* Nota esperada: `expectedGrade:Double`
+* Elementos no evaluados: `notEvaluated:Int`
+* Elementos evaluados: `evaluated:Int`
+* Total elementos a evaluar: `total:Int`
+
+---
+
+# Inicio de aplicación: `Main`
+
+```scala
+object Main extends IOApp {
+...
+  override def run(args: List[String]):IO[ExitCode] =
+    for {
+      _ <- IO { println("Get greading starting...") }
+      _ <- program(Student())
+    } yield ExitCode.Success
+...
+}
+```
+
+---
+
+# Inicio de aplicación: `Main`
+
+```scala
+  def program(std:Student):IO[Unit] = for {
+    _    <- promptGetReading
+    line <- readLine
+    r    <- parseCommand(line).run(std).value
+    _    <- r match {
+      case Right((nxtStd,nextIter)) =>
+        if (nextIter) program(nxtStd) else unit
+      case Left(msg)                =>
+        for {
+          _ <- printError(msg)
+          _ <- program(std)
+        } yield ()
+    }
+  } yield ()
+```
+
+---
+
+# Cierre
+
+* Se aplica un modelo funcional.
+* Cada **Data Type** (`Student`, `Course`, `Grade`) está dividido:
+  * Información inmutable (TDA)
+  * Servicios (Monádicos y no monádicos)
+  * Factory Methods
+  * Módulos
+* Módulos auxiliares.
+  * Interpretador
+  * Tipos y alias de tipos
+  * Interacción con el mundo exterior
