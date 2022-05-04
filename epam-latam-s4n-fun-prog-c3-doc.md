@@ -2277,7 +2277,7 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 
 1.
 
-> > Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
+>> Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
 
 ( ) A. `object`.
 
@@ -2289,7 +2289,7 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 
 [explanation]
 El método de llama `apply`cuando este método se encuentra dentro de un objeto de compañía, permite definir un métod de fábrica, de forma que cuando se utiliza el nombre del objeto de compañía este inmediatamente invocará a al método `apply`que tenga la misma firma (o *signature*) a los parámetros invocados.
-[explanation]
+[explanation]	
 
 2.
 
@@ -2343,9 +2343,58 @@ Otra de las funciones de los objetos de compañía es servir cómo módulo donde
 
 [explanation]
 
+5.
+
+> > Cómo maneja el compilador la creación de los objetos de compañía<<
+
+(X) A. Se crean dos ficheros (archivos) de tipo ` .class` diferentes para el objecto y su objeto de compañía.
+
+( ) B. Se crea un fichero (archivo) que contiene el objecto y su objeto de compañía.
+
+( ) C. Se crean dos ficheros (archivos) fuentes (`.scala`), el primero para el objecto y el otro para el objeto de compañía.
+
+( ) D. El compilador crea un fichero (archivo) de tipo `.class` donde se almacenan el objecto y el objeto de compañía.
+
+[explanation] 
+
+El compilador toma el archivo fuente (`.scala`) y genera dos ficheros de tipo `.class` uno que contiene el objeto y el otro que contiene el objeto de compañía.
+
+[explanation]
+
+6.
+
+> > Cúal es el objetivo del patrón singlenton<<
+
+( ) A. Garantizar la instanciación simple de objetos complejos.
+
+( ) B. Garantizar el manejo de múltiples comportamientos por parte de cada una de las instancias.
+
+(X) C. Garantizar que solo se crea un instancia de un tipo específico.
+
+( ) D. Garantizar que solo que reciben parámetros de un tipo específico para la instanciación de un objeto.
+
+[explanation] 
+
+El objetivo del patrón *singlenton* es la garantizar al instanciación única de un elemento de un tipo específico.
+
+[explanation]
+
 #### Cierre
 
+Esta unidad has encontrado como utilizar los tipos de datos algebraicos (TDA)  a través de los objetos de compañía, ya que estos te permite hacer dos usos importantes, el primero como un método de fabrica de objetos a través de método `apply`, lo que te facilita la construcción específica de los diferentes TDA ocultado los detalles específicos de cada tipo de dato algebraico (`case object` ó `case class`) y ofreciendo un conjunto de métodos de fabrica homogéneo.
+
+El segundo uso de los objetos de compañía es ofrecer un módulo donde se muestras los servicios representados como funciones (métodos dentro del objeto de compañía) y teniendo al `trait`  asociado como *tipo fundamental* manipulado a través de dicho servicio (ofrecido por el objeto de compañía), teniendo en cuenta que los TDAs son *inmutables*.
+
+Esto en conjunto permite la construcción de aplicaciones funcionales, pero, para llegar a ello debemos primero ver como construirla utilizando un mecanismo extra que nos permite a través de las funciones implementar el comportamiento que tiene muchos programas funcionales. Te invitamos a que nos acompañes en el siguiente curso.
+
 ##### ¿Quieres saber más?
+
+* [Patrón de diseño - Wikipedia](https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o)
+* [Scala Singleton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
+* [Scala Singleton and Companion objects and Advantages](https://www.linkedin.com/pulse/scala-singleton-companion-objects-advantages-swastik-mohanty)
+* [Singlenton Objects](https://docs.scala-lang.org/tour/singleton-objects.html)
+* [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)
+* [Scala companinon objects are not singlenton](https://stackoverflow.com/questions/49686734/scala-companion-objects-are-not-singleton)
 
 ##### EPAM - Insights
 
@@ -2364,6 +2413,8 @@ Otra de las funciones de los objetos de compañía es servir cómo módulo donde
 ###### Concretamente esperamos que aprendas a :
 
 ###### Ruta de aprendizaje
+
+#### Mónadas y mónadas transformers
 
 ##### Infografía - ¿Qué son las mónadas y los transformadores de mónadas?
 
@@ -2419,6 +2470,8 @@ Aunque Scala es un lenguaje de programación híbrido que permite la coexistenci
 
 ![](./images/C3_M2_U4_IF03_D01_03.png)
 
+#### Aplicación `getGrading`
+
 ##### Vídeo - Aplicación `getGrading`
 
 <!-- TODO - Vídeo - `getGrading` -->
@@ -2451,7 +2504,7 @@ Las clases `Student` la raíz del proyecto, luego cada curso (`Course`) está id
 Los objetos de compañía crean una única instancia por lo tanto implementan el patrón *Singleton* y a través de la implementación del método `apply` permiten la tener un mecanismo de creación de instancias de las clase de compañía por lo tanto implementa el patron *Method Factory*.
 [explanation]																											
 
-##### Captura de bandera - Modificación de la aplicación `getGrading`
+#### Captura de bandera - Modificación de la aplicación `getGrading`
 
 Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de notas: la notas con peso (`WeightedGrade`) y notas sin peso (`NoWeightedGrade`). Vamos ampliar a  `getGrading` introduciendo el tipo de nota basada en puntos. Por ejemplo, tenemos un `Curso` que tiene 5 evaluaciones distintas cada una de ellas discriminadas así: 
 
@@ -2594,9 +2647,7 @@ Ambas representan un computación que puede fallar o no.
 
 #### Cierre
 
-Esta unidad has encontrado como utilizar los tipos de datos algebraicos (TDA)  a través de los objetos de compañía, ya que estos te permite hacer dos usos importantes, el primero como una método de fabrica de objetos a través de método `apply`, lo que te facilita la construcción específica de los diferentes TDA ocultado los detalles específicos de cada tipo de dato algebraico (`case object` ó `case class`) y ofreciendo un conjunto de métodos de fabrica homogéneo.
 
-El segundo uso de los objetos de compañía es ofrecer un módulo donde se muestras los servicios representados como funciones (métodos dentro del objeto de compañía) y teniendo al `trait`  asociado como *tipo fundamental* manipulado a través de dicho servicio (ofrecido por el objeto de compañía), teniendo en cuenta que los TDAs son *inmutables*.
 
 Otro aspecto de esta unidad fue el énfasis de observar como aplicar TDA y objetos de compañía para implementar un solución de un proyecto `getGrading` que tiene mucha funcionalidad de los proyectos reales. 
 
