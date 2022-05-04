@@ -200,8 +200,7 @@
 
 ##### Lograrás:
 
-* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados
-* Utilizar los objetos de compañía a través de funciones.
+* Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados.
 
 ##### Lo que debes saber:
 
@@ -215,7 +214,6 @@
 
 * Entender patrones de diseño básicos: *singleton* y *factories*
 * Definir los objetos de compañía.
-* Utilizar los objetos de compañía en contexto reales.
 
 #### Tiempo estimado:
 
@@ -236,19 +234,55 @@
 |                                                              |                **TDA y objetos de compañía**                 |
 |                                                              |         [Notebook] Definición de objetos de compañía         |
 |                  -------------------------                   | ---------------------------------------------------------------- |
-|     Utilizar los objetos de compañía en contexto reales      |            **Aplicar y usar objetos de compañía**            |
-|                                                              | [Infografía]  ¿Qué son las mónadas y transformadores de mónadas? |
-|                                                              |                   [Vídeo] Uso  de mónadas                    |
-|                                                              | [Infografía] Algunas mónadas útiles: `Option`, `Either`, `State`, `IO` |
-|                                                              |               [Vídeo] Aplicación `getGrading`                |
-|                                                              | [Captura de bandera] Modificación de la aplicación `getGrading` |
-|                                                              | [Vídeo] Retroalimentación de la modificación a la aplicación `getGrading` |
-|                  -------------------------                   | ------------------------------------------------------------------------------ |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |
 |                  -------------------------                   | ------------------------------------------------------------------------------ |
 
-### U5. Funciones de alto orden
+### U5. Aplicar y usar objetos de compañía
+
+#### Objetivos
+
+##### Lograrás:
+
+* Utilizar los objetos de compañía a través de funciones.
+
+##### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+* Definición de los objetos de compañía.
+
+##### Concretamente esperamos que aprendas a:
+
+* Utilizar los objetos de compañía en contexto reales.
+
+#### Tiempo estimado:
+
+2 horas
+
+#### Ruta de aprendizaje:
+
+|              *Objetivo de aprendizaje*              |                  *Actividad de aprendizaje*                  |
+| :-------------------------------------------------: | :----------------------------------------------------------: |
+|                   *Introducción*                    |                            [text]                            |
+|                                                     |                         [activacion]                         |
+|              -------------------------              | ------------------------------------------------------------------- |
+| Utilizar los objetos de compañía en contexto reales |            **Aplicar y usar objetos de compañía**            |
+|                                                     | [Infografía]  ¿Qué son las mónadas y transformadores de mónadas? |
+|                                                     |                   [Vídeo] Uso  de mónadas                    |
+|                                                     | [Infografía] Algunas mónadas útiles: `Option`, `Either`, `State`, `IO` |
+|                                                     |               [Vídeo] Aplicación `getGrading`                |
+|                                                     | [Captura de bandera] Modificación de la aplicación `getGrading` |
+|                                                     | [Vídeo] Retroalimentación de la modificación a la aplicación `getGrading` |
+|              -------------------------              | ------------------------------------------------------------------------------ |
+|                                                     |                        **Evaluación**                        |
+|                                                     |                          **Cierre**                          |
+|              -------------------------              | ------------------------------------------------------------------------------ |
+
+### U6. Funciones de alto orden
 
 #### Objetivos
 
@@ -271,14 +305,7 @@
 
 ##### Concretamente esperamos que aprendas a:
 
-* Definir funciones que tiene funciones como parámetros.
-* Definir una secuencia ordenada de items.
-* Manipular listas de forma completamente funcional.
-* Recorrer y manipular las listas a través de coincidencia de patrones.
-* Implementar funciones que retornan funciones.
-* Construir abstracciones que remuevan la duplicación de código.
-
-#### Tiempo estimado:
+* ​		Tiempo estimado:
 
 3 horas
 

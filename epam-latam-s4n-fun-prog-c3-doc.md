@@ -2142,7 +2142,6 @@ En esta unidad aprenderá no sólo acerca de los *Objetos de compañía*, sino t
 ###### Lograrás
 
 * Comprender y utilizar los objetos de compañía dentro de tus tipos de datos algebraicos, facilitando la instanciación de los mismos a través de constructores especializados.
-* Utilizar los objetos de compañía a través de funciones.
 
 ###### Lo que debes saber:
 
@@ -2408,11 +2407,34 @@ Esto en conjunto permite la construcción de aplicaciones funcionales, pero, par
 
 ###### Lograrás
 
+* Utilizar los objetos de compañía a través de funciones.
+
 ###### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+* Definición de los objetos de compañía.
 
 ###### Concretamente esperamos que aprendas a :
 
+* Utilizar los objetos de compañía en contexto reales.
+
 ###### Ruta de aprendizaje
+
+* Fundamentos
+  * Mónadas y mónadas tranformes
+  * Mónadas específicas:
+    * Mónada `Either`
+    * Mónada `State`
+    * Mónada `IO`
+* Prácticas
+  * Aplicación `getGradding`
+  * Captura de bandera
+* Evaluación
+* Cierre
 
 #### Mónadas y mónadas transformers
 
@@ -2668,3 +2690,41 @@ La unidad también ha sembrado una semilla en temas que ampliaremos en cursos si
 ##### EPAM - Insights
 
 <!-- TODO - EPAM - Insights -->	
+
+### U6. Funciones de alto orden
+
+#### Introducción
+
+##### Guía del curso
+
+##### Objetivos de la unidad
+
+###### Lograrás
+
+* Definirás y aplicarás el concepto de listas
+* A comprender que las estructuras de datos algebraicas tienen comportamientos similares: como recorridos, transformaciones, filtrado, etc. que pueden ser parametrizados como funciones
+* Entenderás y utilizarás el concepto de combinatorios que permite crear bibliotecas funcionales
+
+###### Lo que debes saber:
+
+* El concepto de programación funcional.
+* Definición de funciones puras.
+* Funciones como valores.
+* Tipos de datos algebraicos.
+* Tipos de datos algebraicos recursivos.
+* Objetos de compañía
+* Funciones currificadas
+* Funciones parciales
+
+###### Concretamente esperamos que aprendas a:
+
+* Definir funciones que tiene funciones como parámetros.
+* Definir una secuencia ordenada de items.
+* Manipular listas de forma completamente funcional.
+* Recorrer y manipular las listas a través de coincidencia de patrones.
+* Implementar funciones que retornan funciones.
+* Construir abstracciones que remuevan la duplicación de código.
+
+###### Ruta de aprendizaje
+
+#### 
