@@ -2403,6 +2403,8 @@ Esto en conjunto permite la construcción de aplicaciones funcionales, pero, par
 
 ##### Guía del curso
 
+![](./images/Map_Beta_Scala_03_U0.gif)
+
 ##### Objetivos de la unidad
 
 ###### Lograrás
@@ -2494,9 +2496,19 @@ Aunque Scala es un lenguaje de programación híbrido que permite la coexistenci
 
 #### Aplicación `getGrading`
 
+##### Introducción - Aplicación `getGrading`
+
+Vamos a implementar una aplicación que permite a un estudiante, mantener la información de la estructura de notas de cada curso 
+
+<!-- TODO - Introducción getGrading -->
+
+##### Infografía - Estructura de la aplicación `getGrading`
+
+<!-- TODO - Infografía - Estructura de la aplicación getGrading -->
+
 ##### Vídeo - Aplicación `getGrading`
 
-<!-- TODO - Vídeo - `getGrading` -->
+<!-- TODO - Vídeo Aplicación getGrading -->
 
 ###### Preguntas - Vídeo - Aplicación `getGrading`
 
@@ -2524,7 +2536,9 @@ Las clases `Student` la raíz del proyecto, luego cada curso (`Course`) está id
 
 [explanation]
 Los objetos de compañía crean una única instancia por lo tanto implementan el patrón *Singleton* y a través de la implementación del método `apply` permiten la tener un mecanismo de creación de instancias de las clase de compañía por lo tanto implementa el patron *Method Factory*.
-[explanation]																											
+[explanation]
+
+<!-- TODO - Revisar las preguntas -->																									
 
 #### Captura de bandera - Modificación de la aplicación `getGrading`
 
@@ -2665,11 +2679,9 @@ Ambas representan un computación que puede fallar o no.
 
 [explanation]
 
-
+<!-- TODO - Completar preguntas: 4/7 Completo: 57.14% Falta: 42.86% -->
 
 #### Cierre
-
-
 
 Otro aspecto de esta unidad fue el énfasis de observar como aplicar TDA y objetos de compañía para implementar un solución de un proyecto `getGrading` que tiene mucha funcionalidad de los proyectos reales. 
 
@@ -2679,13 +2691,9 @@ La unidad también ha sembrado una semilla en temas que ampliaremos en cursos si
 
 ##### ¿Quieres saber más?
 
-* [Patrón de diseño - Wikipedia](https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o)
-* [Scala Singleton and Companion Objects](https://www.geeksforgeeks.org/scala-singleton-and-companion-objects/#:~:text=In%20Scala%2C%20a%20singleton%20object,object%20to%20access%20this%20method.)
-* [Scala Singleton and Companion objects and Advantages](https://www.linkedin.com/pulse/scala-singleton-companion-objects-advantages-swastik-mohanty)
-* [Singlenton Objects](https://docs.scala-lang.org/tour/singleton-objects.html)
-* [Scala Singlenton and Companion Object](https://www.javatpoint.com/scala-singleton-and-companion-object)
-* [Scala companinon objects are not singlenton](https://stackoverflow.com/questions/49686734/scala-companion-objects-are-not-singleton)
 * [Demystifying the monad in scala](https://medium.com/free-code-camp/demystifying-the-monad-in-scala-cc716bb6f534)
+
+<!-- TODO - ¿Quieres saber más? Buscar más preguntas -->
 
 ##### EPAM - Insights
 
