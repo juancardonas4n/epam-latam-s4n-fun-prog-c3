@@ -2401,6 +2401,10 @@ Esto en conjunto permite la construcción de aplicaciones funcionales, pero, par
 
 #### Introducción
 
+El objetivo con este y otros cursos de programación funcional, es incorporar y desarrollar habilidades para desarrollar software completamente funcional. En esta unidad, seguiremos este camino, pero de forma más práctica de forma que te mostraremos la manera de construir una aplicación completamente funcional, manejaremos la entrada y salida de forma que nos permita garantizar que la *transparencia funcional* se mantenga. También, manejaremos la forma de manejar computaciones que fallen y computaciones que requieran un estado, ejemplos de *efectos colaterales* que debe ser admitidos dentro de una aplicación funcional, pero este caso lo integraremos a través de las **Mónadas**, definiendo el concepto y mostrando algunas ejemplares de mónadas muy útiles. 
+
+Para lograr una aplicación completamente funcional, además de utilizar las mónadas como un contexto de ejecución, haremos un acercamiento a un diseño basado de DDD (Domain-Driven Design), donde a través de los tipos de datos algebraicos construiremos nuestro dominio y a través de los métodos (funciones) suministrados por los respectivos objetos de compañía se ofrecerán los respectivos servicios que un DDD requiere.
+
 ##### Guía del curso
 
 ![](./images/Map_Beta_Scala_03_U0.gif)
@@ -2438,29 +2442,31 @@ Esto en conjunto permite la construcción de aplicaciones funcionales, pero, par
 * Evaluación
 * Cierre
 
+**Tiempo estimado:** 2 horas y media.
+
 #### Mónadas y mónadas transformers
 
 ##### Infografía - ¿Qué son las mónadas y los transformadores de mónadas?
 
 Todo empieza con los tipos de datos, recordemos que cada tipo de dato es un conjunto:
 
-![Tipo de dato](./images/C3_M2_U4_IF02_D01_01.png)
+![Tipo de dato](./images/C3_M2_U5_IF01_D01_01.png)
 
 Muchos lenguajes de programación tienen tipos de datos definidos como por ejemplo en Scala: `Int`, `Double`, `Char`, `Boolean`, `String` entre otros y a través de la definición de tipos de datos algebraicos: Unión y producto podemos definir nuevos tipos de datos. Una excelente ayuda para definir los tipos de datos es utilizar la parametrización, indicando que alguno de los valores para un tipo algebraicos puede ser cualquier tipo, y esto se obtiene al utilizar dichos parámetros dentro de la definición de tipos por ejemplo: `Array[A]`donde `A`es un parámetro que puede ser cualquier tipo. Pero observamos que un tipo de dato se define por los valores que lo componen y por las funciones que lo transforma, como por ejemplo en el tipo `Int` su valores son enteros: `0`, `234`, `-598`, entre otros; y sus funciones son las conocidas: `+`, `-`, `*`, etc. 
 
 Los tipos son herramientas muy poderosas a la hora de programar, pero puede serlo mucho más y por ello vamos a observar cómo lograr esto con las mónadas. En primer lugar, una mónada es un concepto que permite contener: cero, uno o más valores de un tipo especifico. Es decir, podemos observar que una mónada se comporta como un contenedor, es decir almacena valores de un tipo determinado, algunos autores indican que las mónadas son un envoltorio. (*wrapper*).  Pero las mónadas no solo almacena los valores, sino que permite mantener un contexto para dichos valores. ¿Qué es ese contexto? Existen varios tipos de mónadas y cada tipo de mónada maneja un contexto específico, por ejemplo una mónada nos podría indicar que nuestras operaciones han fallado o no, o que requerimos mantener una información oculta, o que nos interesa mantener un estado específico o que nos interesa mantener un registro de los eventos relevantes en un momento determinado, eso extra es el contexto que mantiene una mónada más los valores del tipo que mantienen la mónada.
 
-![Mónada](./images/C3_M2_U4_IF02_D01_02.png)
+![Mónada](./images/C3_M2_U5_IF01_D01_02.png)
 
 Cualquiera podría concluir que entonces una mónada es un objeto, puesto que tiene un estado y operaciones que pueden interactúar con dicho estado. No, una mónada es diferente a un objeto, porque el objeto no controla quién lo usa y cuándo lo usa; la mónada controla quién y cómo es usada, determinada no por el valor contenido, sino por el contexto y adicionalmente, esto puede ser extensible.
 
 Cómo la mónada controla quién y cuando, requiere de un mecanismo especial para guarda un valor (o valores) de un tipo. Para ello, existe una función denominada dependiendo del lenguaje: `unit`, `pure`, `return`, etc. En la siguiente figura se observa cómo actúa dicha operación: toma un valor y lo guarda dentro de la mónada (para efectos prácticos ese valor o valores permanecerán allí y debe ser transformado allí mismo.).
 
-![Función `union`](./images/C3_M2_U4_IF02_D01_03.png)
+![Función `union`](./images/C3_M2_U5_IF01_D01_03.png)
 
 La función `union` toma un valor del mundo exterior y lo guarda dentro de la mónada, todo dependiendo del contexto. Ahora, una vez teniendo un valor (cero o varios valores) dentro de la mónada queremos opera dentro de ella, se debe utilizar funciones que trabajen sobre los valores de la mónada y existe una función que permite tomar una mónada, una función que toma un valor del tipo de la mónada y la transforma. Dicha operación se llama `bind` (`>>=`) y se observa en la siguiente figura:
 
-![Operación `bind`](./images/C3_M2_U4_IF02_D01_04.png)
+![Operación `bind`](./images/C3_M2_U5_IF01_D01_04.png)
 
 La función `bind` define un  proceso, que permite transformar el valor almacenado dentro de la mónada, dependiendo del contexto en otro valor diferente. La operación `bind`permite obtener el valor de la primera monada, pasarla por la función `f` y convertirlo en un resultado de tipo mónada, pero con el valor cambiado dependiendo del contexto.
 
@@ -2468,7 +2474,7 @@ Entonces las mónadas representan un contexto (la mónada misma), un contenedor 
 
 ¿Pero qué pasa si se quiere más de un contexto? Aquí surgen los transformadores de monadas, que permite apilar los contextos de dos ó más mónadas en un mecanismo donde expone la mónada que se encuentra en la parte superior pero garantizando que el contexto (o los contextos internos) se mantienen. La característica más relevante de esta pila de mónadas, es que también es una mónada. Y se puede utilizar las operaciones de `union` y `bind` en la nueva mónada. Si una operación sucede a nivel de la mónada más interna esta debe ser subida o levantada a través de una función generalmente identificada como `lift`.
 
-![Mónada transformer](./images/C3_M2_U4_IF02_D01_05.png)
+![Mónada transformer](./images/C3_M2_U5_IF01_D01_05.png)
 
 ##### Vídeo - Uso de mónadas
 
@@ -2480,31 +2486,37 @@ Entonces las mónadas representan un contexto (la mónada misma), un contenedor 
 
 Representa un contexto que recibe procesos que pueden o no fallar, sino fallan continúan hasta encontrar una falla, si lo hacen, no continúa el proceso.
 
-![](./images/C3_M2_U4_IF03_D01_01.png)
+![](./images/C3_M2_U5_IF03_D01_01.png)
 
 ###### Mónada State
 
  Describe una computación que mantiene un estado.
 
-![](./images/C3_M2_U4_IF03_D01_02.png)
+![](./images/C3_M2_U5_IF03_D01_02.png)
 
 ###### Mónada IO
 
 Aunque Scala es un lenguaje de programación híbrido que permite la coexistencia de programación funcional pura e impura, es importante mantener nuestros programas en el lado puro. Pero, es de todos conocidos que la entrada y salida por naturaleza es lleno de efectos colaterales, por lo tanto pertenece al mundo impuro, la pregunta que surge: ¿Qué hacer? Es aquí donde las mónadas permite manejar ese comportamiento de forma tal que sigamos en el mundo funcional. 
 
-![](./images/C3_M2_U4_IF03_D01_03.png)
+![](./images/C3_M2_U5_IF03_D01_03.png)
 
 #### Aplicación `getGrading`
 
 ##### Introducción - Aplicación `getGrading`
 
-Vamos a implementar una aplicación que permite a un estudiante, mantener la información de la estructura de notas de cada curso 
+Si recordamos nuestra vida como estudiantes, en particular en nuestra época universitaria, un tema recurrente que nos pasaba al final del semestre era la nota que deberíamos obtener en la última evaluación de un curso. Lo sé, muchos de ustedes fueron excelente estudiantes y tal vez eso no les preocupó, pero le hablo aquellos estudiantes que fuimos del promedio. Siempre al final del semestre preocupados, recordando los porcentajes, notas obtenidas y computando a través complicadas fórmulas, cuál debería ser el valor de la siguiente nota para poder descansar tranquilos.
 
-<!-- TODO - Introducción getGrading -->
+La aplicación llamada `getGrading` le permite registrar a un estudiante sus cursos, y en cada curso le permite registrar al estudiante las evaluaciones que hacen parten del mismo curso, teniendo en cuenta que se puede registrar dos tipos de evaluaciones: evaluaciones con porcentajes y evaluaciones que se evaluarán a través de su promedio. Un curso solo puede tener un tipo específico. Además de registrar los cursos, la aplicación permite registrar cada nota obtenida por cada evaluación y en cada registro suministra al estudiante la información sobre el estado actual de la materia. Aunque, la aplicación le permite al estudiante preguntar por el estado actual de un curso, obteniendo las notas registradas más el estado actual del curso.
+
+La aplicación `getGrading` no es todavía una aplicación internacional que permite manejar los diferentes tipos de evaluaciones y formas de asignar notas, esta diseñada para **Colombia** en particular en el área universitaria donde las notas  se registrar con valores entre $0.0$ y $5.0$, donde la primera es la nota mínima y la segunda la máxima, y una nota (y un curso) se toma como aceptada cuando su valor es $3.0$. 
+
+Miremos la estructura y su diseño para comprender más la aplicación.
 
 ##### Infografía - Estructura de la aplicación `getGrading`
 
-<!-- TODO - Infografía - Estructura de la aplicación getGrading -->
+Observemos en la siguiente imagen la estructura de la aplicación.
+
+
 
 ##### Vídeo - Aplicación `getGrading`
 
@@ -2597,15 +2609,16 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 1. Añadir el `case class` `PointedGrade`que debe tener los siguientes campos: `name:String`, `grade:Option[Double]`, `subGrades:Map[String,Grade]`, `maxPoints:Double`, `pointsGraded:Option[Double]`. Estos dos últimos campos determina el máximo número de puntos y los puntos obtenidos respectivamente.
 2. Módificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener. Esto para futuros ejercicios.
 3. Modifique las siguiente lista de métodos.
-4. En el fichero `CommandParser.scala` quitar los comentarios en la funciones: `course` y `grade`. Esto para habilitar la lectura desde la línea de comandos del registro de nuevos cursos que reciban notas por puntos y sus notas.
-5. Descargue el siguiente fichero.
-6. Una vez obtenido realice la instalación de la biblioteca y ejercute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
+   1. En el fichero `CommandParser.scala` quitar los comentarios en la funciones: `course` y `grade`. Esto para habilitar la lectura desde la línea de comandos del registro de nuevos cursos que reciban notas por puntos y sus notas.
+
+4. Descargue el siguiente fichero.
+5. Una vez obtenido realice la instalación de la biblioteca y ejercute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
 
 <!-- TODO - Captura de bandera - Programa de verificación - Modificación de la aplicación `getGrading` -->
 
 ##### Vídeo - Retroalimentación de la modificación a la aplicación `getGrading`
 
-<!-- TODO - Vídeo - Retroalimentación de la modificación a la aplicación `getGrading` Total preguntas: 2. Hechas: 0. Faltanes: 2: Porcentaje: 0%-->
+<!-- TODO - Vídeo - Retroalimentación de la modificación a la aplicación `getGrading` Total preguntas: 2. Hechas: 0. Faltanes: 2: Porcentaje: 0% -->
 
 ###### Preguntas - Vídeo - Retroalimentación  de la modificación a la aplicación `getGrading`
 
