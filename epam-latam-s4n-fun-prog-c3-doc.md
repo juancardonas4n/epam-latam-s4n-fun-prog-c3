@@ -2575,7 +2575,7 @@ En el siguiente cuadro mostraremos como se computan las notas a través de punto
 |    `Nota 2`    |   46   | $\sim$0.2968 | $\sim$0.5226 |  36  | $\sim$3.91 | $\sim$1.16 | $\sim$2.13 | $\sim$4.07 |
 |    `Nota 3`    |   17   | $\sim$0.1097 | $\sim$0.6323 |  12  | $\sim$3.53 | $\sim$0.39 | $\sim$2.52 | $\sim$3.98 |
 |    `Nota 4`    |   18   | $\sim$0.1161 | $\sim$0.7484 |  18  | $\sim$5.00 | $\sim$0.58 | $\sim$3.10 |   ~4.14    |
-|    `Nota 5`    |   39   | $\sim$0.2516 |  $\sim$1.0   |  18  | $\sim$2.31 | $\sim$0.58 | $\sim$3.68 | $\sim$3.68 |
+|    `Nota 5`    |   39   | $\sim$0.2516 | $\sim$1.0000 |  18  | $\sim$2.31 | $\sim$0.58 | $\sim$3.68 | $\sim$3.68 |
 |    `Total`     |  155   |  $\sim$1.0   |              |      |            |   ~3.68    |            |            |
 
 Columnas: **PE** Puntos esperados,  **P**  Porcentaje, **PA** porcentaje acumulado, **PO** Puntos obtenidos, **NT** Nota traducida, **NP** Nota porcentual, **NA** Nota acumulada, **NC** Nota curso.
@@ -2614,13 +2614,13 @@ El curso cuenta con un total de 129 puntos. Ahora miremos la siguiente interacci
 
 
 
-| **Evaluación** | **Puntos** esperados | **Porcentual** | Puntos obtenidos | **Nota traducida** | **Nota porcentual** |
-| :------------: | :------------------: | :------------: | :--------------: | :----------------: | :-----------------: |
-|    `Eval 1`    |          21          |  $\sim$0.1628  |        18        |     $\sim$4.29     |     $\sim$0.70      |
-|    `Eval 2`    |          32          |  $\sim$0.2480  |        16        |     $\sim$2.50     |     $\sim$0,62      |
-|    `Eval 3`    |          36          |  $\sim$0.2791  |        15        |     $\sim$2.08     |     $\sim$0.58      |
-|    `Eval 4`    |          40          |  $\sim$0.3101  |        22        |     $\sim$2.75     |     $\sim$0.85      |
-|    `Total`     |         129          |   $\sim$1.0    |                  |                    |        ~2.75        |
+| **Evaluación** | **PE** |    **P**     |    **PA**    |  PO  |   **NT**   |   **NP**   |   **NA**   |   **NC**   |
+| :------------: | :----: | :----------: | :----------: | :--: | :--------: | :--------: | :--------: | :--------: |
+|    `Eval 1`    |   21   | $\sim$0.1628 | $\sim$0.1628 |  18  | $\sim$4.29 | $\sim$0.70 | $\sim$0.70 | $\sim$4.29 |
+|    `Eval 2`    |   32   | $\sim$0.2480 | $\sim$0.4109 |  16  | $\sim$2.50 | $\sim$0.62 | $\sim$1.32 | $\sim$2.50 |
+|    `Eval 3`    |   36   | $\sim$0.2791 | $\sim$0.6899 |  15  | $\sim$2.08 | $\sim$0.58 | $\sim$1.90 | $\sim$2.75 |
+|    `Eval 4`    |   40   | $\sim$0.3101 | $\sim$1.0000 |  22  | $\sim$2.75 | $\sim$0.85 | $\sim$2.75 | $\sim$2.75 |
+|    `Total`     |  129   |  $\sim$1.0   |              |      |            |   ~2.75    |            |            |
 
 El resultado final es $2.75$ por lo tanto no alcanzó a la cifra esperada de $3.00$, por tanto perdió este curso.
 
