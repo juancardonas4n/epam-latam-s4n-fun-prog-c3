@@ -2516,7 +2516,7 @@ Miremos la estructura y su diseño para comprender más la aplicación.
 
 Observemos en la siguiente imagen la estructura de la aplicación.
 
-
+![]()
 
 ##### Vídeo - Aplicación `getGrading`
 
@@ -2569,16 +2569,36 @@ El curso cuenta con un total de 155 puntos. Cada evaluación reportada lo hará 
 
 En el siguiente cuadro mostraremos como se computan las notas a través de puntos y como se obtiene el resultado final.
 
-| **Evaluación** | **Puntos** esperados | **Porcentual** | Puntos obtenidos | **Nota traducida** | **Nota porcentual** |
-| :------------: | :------------------: | :------------: | :--------------: | :----------------: | :-----------------: |
-|    `Nota 1`    |          35          |  $\sim$0.2258  |        30        |     $\sim$4.29     |     $\sim$0.97      |
-|    `Nota 2`    |          46          |  $\sim$0.2968  |        36        |     $\sim$3.91     |     $\sim$1.16      |
-|    `Nota 3`    |          17          |  $\sim$0.1097  |        12        |     $\sim$3.53     |     $\sim$0.39      |
-|    `Nota 4`    |          18          |  $\sim$0.1161  |        18        |     $\sim$5.00     |     $\sim$0.58      |
-|    `Nota 5`    |          39          |  $\sim$0.2516  |        18        |     $\sim$2.31     |     $\sim$0.58      |
-|    `Total`     |         155          |   $\sim$1.0    |                  |                    |        ~3.68        |
+| **Evaluación** | **PE** |    **P**     |    **PA**    |  PO  |   **NT**   |   **NP**   |     NA     |   **NC**   |
+| :------------: | :----: | :----------: | :----------: | :--: | :--------: | :--------: | :--------: | :--------: |
+|    `Nota 1`    |   35   | $\sim$0.2258 | $\sim$0.2258 |  30  | $\sim$4.29 | $\sim$0.97 | $\sim$0.97 | $\sim$4.29 |
+|    `Nota 2`    |   46   | $\sim$0.2968 | $\sim$0.5226 |  36  | $\sim$3.91 | $\sim$1.16 | $\sim$2.13 | $\sim$4.07 |
+|    `Nota 3`    |   17   | $\sim$0.1097 | $\sim$0.6323 |  12  | $\sim$3.53 | $\sim$0.39 | $\sim$2.52 | $\sim$3.98 |
+|    `Nota 4`    |   18   | $\sim$0.1161 | $\sim$0.7484 |  18  | $\sim$5.00 | $\sim$0.58 | $\sim$3.10 |   ~4.14    |
+|    `Nota 5`    |   39   | $\sim$0.2516 |  $\sim$1.0   |  18  | $\sim$2.31 | $\sim$0.58 | $\sim$3.68 | $\sim$3.68 |
+|    `Total`     |  155   |  $\sim$1.0   |              |      |            |   ~3.68    |            |            |
 
- El valor de las tercera columna (**Porcentual**) se obtiene dividiendo el valor de los **Puntos esperados** por el total de puntos: $35/188\sim0.2258$ (Observe que el resultado tiene más cifras decimales, por ello el símbolo $\sim$). El valor de quinta columna (**Nota traducida**) se obtiene dividiendo los **Puntos obtenidos** por los **Puntos esperados** y multiplicando por valor de $5.0$: $30/35*5.0\sim4.29$ y el valor de sexta columna (**Notas porcentual**) se obtiene multiplicando **Porcentual** por **Nota traducida**: $0.2258*4.29\sim3.68$. Por lo tanto, se puede observar que con los puntos obtenidos se ha pasado el curso.
+Columnas: **PE** Puntos esperados,  **P**  Porcentaje, **PA** porcentaje acumulado, **PO** Puntos obtenidos, **NT** Nota traducida, **NP** Nota porcentual, **NA** Nota acumulada, **NC** Nota curso.
+
+El valor de la columna **P** se calcula así, $PE_i / total\_PE$. Para $i=1$, se tiene $35/188\sim0.2258$.
+
+El valor de la columna **PA** se calcula así  $\sum_i P_i$. Para $i=3$, se tiene $0.2258_1 + 0.2968_2 + 0.1097_3 \sim 0.6323$.
+
+El valor de la columna **PO** es digitado por el usuario.
+
+El valor de la columna **NT** se computa así: $PO_i / P_i * 5.0$. Para $i=5$, se tiene $18/0.2516*5.0 \sim 2.31$ 
+
+El valor de la columna **NP** se computa así: $NT_i * P_i$. Para $i=4$, se tiene $5.00 * 0.2516 \sim 0.58$
+
+El valor de la columna **NA**  se calcula así $\sum_i NP_i$. Para $i=2$ se tiene $0.97_1 + 1.16_2 \sim 2.13$
+
+Miremos ahora como se registran las notas de la anterior tabla
+
+```shell
+getGrading> 
+```
+
+
 
 En el siguiente ejemplo, vamos a ver un escenario donde la persona no pasó el curso. Por ejemplo, tenemos un `Curso` que tiene 4 evaluaciones distintas cada una de ellas discriminadas así: 
 
@@ -2607,7 +2627,7 @@ El resultado final es $2.75$ por lo tanto no alcanzó a la cifra esperada de $3.
 Vamos a implementar la evaluación por notas por puntos. En este caso vamos hacer los siguiente cambios en la estructura de la aplicación. La idea es modificar únicamente el fichero de código fuente `Grade.scala`, con una pequeña modificación en `CommandParser.scala`que nos permite recibir un curso con puntos y sus correspondientes notas.
 
 1. Añadir el `case class` `PointedGrade`que debe tener los siguientes campos: `name:String`, `grade:Option[Double]`, `subGrades:Map[String,Grade]`, `maxPoints:Double`, `pointsGraded:Option[Double]`. Estos dos últimos campos determina el máximo número de puntos y los puntos obtenidos respectivamente.
-2. Módificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener. Esto para futuros ejercicios.
+2. Modificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener. Esto para futuros ejercicios.
 3. Modifique las siguiente lista de métodos.
    1. En el fichero `CommandParser.scala` quitar los comentarios en la funciones: `course` y `grade`. Esto para habilitar la lectura desde la línea de comandos del registro de nuevos cursos que reciban notas por puntos y sus notas.
 
