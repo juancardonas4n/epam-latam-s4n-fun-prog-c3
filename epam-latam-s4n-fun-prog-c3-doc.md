@@ -2405,6 +2405,8 @@ El objetivo con este y otros cursos de programación funcional, es incorporar y 
 
 Para lograr una aplicación completamente funcional, además de utilizar las mónadas como un contexto de ejecución, haremos un acercamiento a un diseño basado de DDD (Domain-Driven Design), donde a través de los tipos de datos algebraicos construiremos nuestro dominio y a través de los métodos (funciones) suministrados por los respectivos objetos de compañía se ofrecerán los respectivos servicios que un DDD requiere.
 
+<!-- TODO Traer la modificación del objetivo hecho por Daniel -->
+
 ##### Guía del curso
 
 ![](./images/Map_Beta_Scala_03_U0.gif)
@@ -2646,6 +2648,8 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 #### Evaluación 
 
+<!-- No subir -->
+
 1.
 
 > > Es la mónada un tipo de dato<<
@@ -2712,21 +2716,21 @@ Ambas representan un computación que puede fallar o no.
 
 [explanation]
 
-<!-- TODO - Completar preguntas: 4/7 Completo: 57.14% Falta: 42.86% -->
-
 #### Cierre
 
 Otro aspecto de esta unidad fue el énfasis de observar como aplicar TDA y objetos de compañía para implementar un solución de un proyecto `getGrading` que tiene mucha funcionalidad de los proyectos reales. 
 
 La unidad también ha sembrado una semilla en temas que ampliaremos en cursos siguientes cómo: Monoides, Aplicativos y Mónadas. Fundamentales para desarrollar proyecto realmente funcionales.
 
- 
-
 ##### ¿Quieres saber más?
 
 * [Demystifying the monad in scala](https://medium.com/free-code-camp/demystifying-the-monad-in-scala-cc716bb6f534)
 
 <!-- TODO - ¿Quieres saber más? Buscar más preguntas -->
+
+##### Puntos claves
+
+<!-- TODO - Puntos claves -->
 
 ##### EPAM - Insights
 
