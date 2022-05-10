@@ -1,4 +1,5 @@
 ---
+
 title: "Programación funcional Curso 3"
 subtitle: "Scala_03"
 author: "Juan Francisco Cardona McCormick"
@@ -2279,11 +2280,8 @@ Esta separación nos permitirá definir los servicios que se ofrecen para los TD
 >> Cuál es el nombre del método que representa dentro de un objeto de compañía un método de fabrica (*Factory method*).<<
 
 ( ) A. `object`.
-
 (X) B. `apply`.
-
 ( ) C. `case object`
-
 ( ) D. `case class`.
 
 [explanation]
@@ -2295,11 +2293,8 @@ El método de llama `apply`cuando este método se encuentra dentro de un objeto 
 > > Cuál es la principal diferencia entre la definición de una `case class` y `case object`<<
 
 ( ) A. El primero es una clase de compañía, mientras el segundo es un objeto de compañía.
-
 ( ) B. Ambos representan tipos de datos algebraicos, el primero es representado por la operación unión ($\cup$), mientras que el segundo es representado por la operación producto cartesiano ($\times$).
-
 ( ) C. El primero representa una clase para el lenguaje Scala, el segundo es una forma avanzada del constructor `new`.
-
 (X) D. Tipos de datos algebraicos, el primer con un conjunto de valores dependiendo de los tipos definidos, mientras que el segundo representa un único valor.
 
 [explanation]
@@ -2311,17 +2306,12 @@ Ambos son formas de representar tipos de datos algebraicos, que son inmutables. 
 > > Un patrón de diseño que implementan los objetos de compañía además del método de fabrica (*factory method*) es<<
 
 (X) A. Único (*Singleton*)
-
 ( ) B. Visitante (*Visitor*) 
-
 ( ) C. Estrategía (*Strategy*)
-
 ( ) D. Fabrica de clases (*Class Factory*)
 
 [explanation] 
-
 Los objetos de compañía facilitan la construcción y el uso de dos patrones de diseño: *factory method* y *singleton*.
-
 [explanation]
 
 4.
@@ -2329,17 +2319,12 @@ Los objetos de compañía facilitan la construcción y el uso de dos patrones de
 > > Cuándo un *objeto de compañía* se utiliza como un módulo su objetivo principal es<<
 
 ( ) A. Servir como fabrica para instancias de los TDA
-
 ( ) B. Crear instancias únicas de los TDA
-
 ( ) C. Definir los datos que compone un TDA creado a través de producto cartesiano.
-
 (X) D. Para implementar el servicio que ofrece TDA  a través de funciones puras.
 
 [explanation] 
-
 Otra de las funciones de los objetos de compañía es servir cómo módulo donde se guardan las funciones que "manipulan" los TDA y así ofrecer el servicio que implementa un TDA específico.
-
 [explanation]
 
 5.
@@ -2347,17 +2332,12 @@ Otra de las funciones de los objetos de compañía es servir cómo módulo donde
 > > Cómo maneja el compilador la creación de los objetos de compañía<<
 
 (X) A. Se crean dos ficheros (archivos) de tipo ` .class` diferentes para el objecto y su objeto de compañía.
-
 ( ) B. Se crea un fichero (archivo) que contiene el objecto y su objeto de compañía.
-
 ( ) C. Se crean dos ficheros (archivos) fuentes (`.scala`), el primero para el objecto y el otro para el objeto de compañía.
-
 ( ) D. El compilador crea un fichero (archivo) de tipo `.class` donde se almacenan el objecto y el objeto de compañía.
 
 [explanation] 
-
 El compilador toma el archivo fuente (`.scala`) y genera dos ficheros de tipo `.class` uno que contiene el objeto y el otro que contiene el objeto de compañía.
-
 [explanation]
 
 6.
@@ -2365,17 +2345,12 @@ El compilador toma el archivo fuente (`.scala`) y genera dos ficheros de tipo `.
 > > Cúal es el objetivo del patrón singlenton<<
 
 ( ) A. Garantizar la instanciación simple de objetos complejos.
-
 ( ) B. Garantizar el manejo de múltiples comportamientos por parte de cada una de las instancias.
-
 (X) C. Garantizar que solo se crea un instancia de un tipo específico.
-
 ( ) D. Garantizar que solo que reciben parámetros de un tipo específico para la instanciación de un objeto.
 
 [explanation] 
-
 El objetivo del patrón *singlenton* es la garantizar al instanciación única de un elemento de un tipo específico.
-
 [explanation]
 
 #### Cierre
@@ -2542,7 +2517,6 @@ En la anterior figura se observa que vamos a utilizar el alias `Error` para enca
 
  Un detalle que nos queda señalar sobre las mónadas transformers es como se interactua con ellas. En primer lugar, una mónada transformers es también una mónada, por lo tanto seguiremos utilizando las operaciones de que nos suministra el `for` (*for comprehension*), para interactuar con ellas. En segundo lugar, que pasa con los valores mónadicos anidados, entonces para ello existe una operación en cada una de las mónadas transformers, que se conoce genéricamente como `Lift`(Levantar, subir). En el siguiente segmento de código observamos la función `liftResult[A]`, esta función nos permite elevar una computación de entrada y salida a dos niveles distintos, en el más interno a través de la función `EitherT.liftF` sube una operació de entrada y salida a nivel de `EitherT`  (`ErrorOrIO`) y luego la función `StateT.liftF` la lleva al nivel más alto `StateT` (`StateEitherIO`).
 
-
 ```scala
   def liftResult[A](result:A):StateEitherIO[A] =
     StateT.liftF[ErrorOrIO,
@@ -2555,22 +2529,17 @@ Siempre se debe observar el nivel donde queremos llevar a cabo la operación.
 `getGrading` se comporta como interpretador de  comandos, para ello requiere de una gramática que represente los comandos y esta gramática independiente de contexto se presenta aquí y se explicará de forma práctica en el siguiente vídeo:
 
 ```.bnf
-parser ::= course | grade | list | exit
-course ::= "add" String Int (weightedGradings |
-                             noweightedGradings |
-                             pointedGradings)
-grade  ::= "grade" String (Double | Int)
-list   ::= "list"  String
-exit   ::= "exit"
-weightedGradings ::=
-   "[" weightedelem ("," weightedelem)* "]"
-weightedElem  ::= String ":" (Double | weightedGradings)
-noweightedGradings ::=
-   "{" noweightedelem ("," noweightedelem)* "}"
-noweightedElem ::= String (":" weightedGradings)?
-pointedGradings ::=
-   "(" pointedElem ("," pointedElem)* "]"
-pointedElem ::= String ":" (Int | pointedGradings)
+command            ::= course | grade | list | exit
+course             ::= "add" String Int (weightedGradings | noweightedGradings | pointedGradings)
+grade              ::= "grade" String (Double | Int)
+list               ::= "list"  String
+exit               ::= "exit"
+weightedGradings   ::= "[" weightedelem ("," weightedelem)* "]"
+weightedElem       ::= String ":" (Double | weightedGradings)
+noweightedGradings ::= "{" noweightedelem ("," noweightedelem)* "}"
+noweightedElem     ::= String (":" weightedGradings)?
+pointedGradings    ::= "(" pointedElem ("," pointedElem)* ")"
+pointedElem        ::= String ":" (Int | pointedGradings)
 ```
 
 ##### Vídeo - Aplicación `getGrading`
@@ -2611,11 +2580,11 @@ Los objetos de compañía crean una única instancia por lo tanto implementan el
 
 **En esta Captura la Bandera esperamos que completes la aplicación `getGrading` para que está aplicación registre notas basadas en puntos obtenidos.**
 
-Para lograrlo, vamos a dar un contexto de cómo funciona la aplicación y luego tendrás que resolver 4 problemas específicos.
+Para lograrlo, vamos a dar un contexto de cómo funciona la aplicación y luego tendrás que resolver 3 problemas específicos.
 
 ##### Contexto
 
-Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de notas: la notas con peso (`WeightedGrade`) y notas sin peso (`NoWeightedGrade`). Vamos ampliar a  `getGrading` introduciendo el tipo de nota basada en puntos. Por ejemplo, tenemos un `Curso` que tiene 5 evaluaciones distintas cada una de ellas discriminadas así: 
+Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de notas: la notas con peso (`WeightedGrade`) y notas sin peso (`NoWeightedGrade`). Vamos ampliar a  `getGrading` introduciendo el tipo de nota basada en puntos. Por ejemplo, tenemos un `Curso A` que tiene 5 evaluaciones distintas cada una de ellas discriminadas así: 
 
 | **Evaluación** | **Puntos** esperados |
 | :------------: | :------------------: |
@@ -2628,40 +2597,39 @@ Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de not
 
 El curso cuenta con un total de 155 puntos. Cada evaluación reportada lo hará desde 0 puntos hasta los puntos máximos por evaluación, por ejemplo para reportar la `Nota 1` se hará entre 0 y 35 puntos, supongamos que el estudiante obtiene 29 puntos por la `Nota 1`. Pero al final como se determina que un estudiante ha pasado el curso, para ello se tomará en cuenta los puntos totales y los puntos de cada evaluación para obtener una nota en el rango de 0.0 a 5.0 como se han obtenido con las evaluaciones anteriores (`WeightedGrade`  y `NoWeightedGrade`).
 
-En el siguiente cuadro mostraremos como se computan las notas a través de puntos y como se obtiene el resultado final.
+En el siguiente cuadro mostraremos como se computan las notas relativas a los puntos, el resto de valores necesarios para obtener la nota parcial y la definitiva, ya está computadas por el sistema.
 
-| **Evaluación** | **PE** |    **P**     |    **PA**    |  PO  |   **NT**   |   **NP**   |     NA     |   **NC**   |
-| :------------: | :----: | :----------: | :----------: | :--: | :--------: | :--------: | :--------: | :--------: |
-|    `Nota 1`    |   35   | $\sim$0.2258 | $\sim$0.2258 |  30  | $\sim$4.29 | $\sim$0.97 | $\sim$0.97 | $\sim$4.29 |
-|    `Nota 2`    |   46   | $\sim$0.2968 | $\sim$0.5226 |  36  | $\sim$3.91 | $\sim$1.16 | $\sim$2.13 | $\sim$4.07 |
-|    `Nota 3`    |   17   | $\sim$0.1097 | $\sim$0.6323 |  12  | $\sim$3.53 | $\sim$0.39 | $\sim$2.52 | $\sim$3.98 |
-|    `Nota 4`    |   18   | $\sim$0.1161 | $\sim$0.7484 |  18  | $\sim$5.00 | $\sim$0.58 | $\sim$3.10 |   ~4.14    |
-|    `Nota 5`    |   39   | $\sim$0.2516 | $\sim$1.0000 |  18  | $\sim$2.31 | $\sim$0.58 | $\sim$3.68 | $\sim$3.68 |
-|    `Total`     |  155   |  $\sim$1.0   |              |      |            |   ~3.68    |            |            |
+| **Evaluación** | **Puntos esperados** | Puntos obtenidos | **Nota traducida** |
+| :------------: | :------------------: | :--------------: | :----------------: |
+|    `Nota 1`    |          35          |        30        |     $\sim$4.29     |
+|    `Nota 2`    |          46          |        36        |     $\sim$3.91     |
+|    `Nota 3`    |          17          |        12        |     $\sim$3.53     |
+|    `Nota 4`    |          18          |        18        |     $\sim$5.00     |
+|    `Nota 5`    |          39          |        18        |     $\sim$2.31     |
+|    `Total`     |         155          |                  |                    |
 
-Columnas: **PE** Puntos esperados,  **P**  Porcentaje, **PA** porcentaje acumulado, **PO** Puntos obtenidos, **NT** Nota traducida, **NP** Nota porcentual, **NA** Nota acumulada, **NC** Nota curso.
+El valor de la columna **Puntos obtenidos** es digitado por el usuario.
 
-El valor de la columna **P** se calcula así, $PE_i / total\_PE$. Para $i=1$, se tiene $35/188\sim0.2258$.
-
-El valor de la columna **PA** se calcula así  $\sum_i P_i$. Para $i=3$, se tiene $0.2258_1 + 0.2968_2 + 0.1097_3 \sim 0.6323$.
-
-El valor de la columna **PO** es digitado por el usuario.
-
-El valor de la columna **NT** se computa así: $PO_i / P_i * 5.0$. Para $i=5$, se tiene $18/0.2516*5.0 \sim 2.31$ 
-
-El valor de la columna **NP** se computa así: $NT_i * P_i$. Para $i=4$, se tiene $5.00 * 0.2516 \sim 0.58$
-
-El valor de la columna **NA**  se calcula así $\sum_i NP_i$. Para $i=2$ se tiene $0.97_1 + 1.16_2 \sim 2.13$
+El valor de la columna **Nota traducida** se computa así: $PO_i / PE_i * 5.0$. Donde $PO_i$ son los **Puntos obtenidos** y $PE_i$ **Puntos obtenidos** , ambos para la columna $i$. Por ejemplo, para $i=5$, se tiene $18/39*5.0 \sim 2.31$ 
 
 Miremos ahora como se registran las notas de la anterior tabla
 
 ```shell
-getGrading> 
+getGrading> add "Curso A" 10 ("Nota 1" : 35, "Nota 2" : 46, "Nota 3" : 17, "Nota 4" : 18, "Nota 5" : 39)
+course Curso A register
+getGrading> grade "Curso A:Nota 1" 30
+%23 Accumulated Grade: 0,97	Current Course Grade: 4,29 Expected remain points to obtain:  63
+getGrading> grade "Curso A:Nota 2" 32
+%52 Accumulated Grade: 2,00	Current Course Grade: 3,83 Expected remain points to obtain:  31
+getGrading> grade "Curso A:Nota 3" 12
+%63 Accumulated Grade: 2,39	Current Course Grade: 3,78 Expected remain points to obtain:  19
+getGrading> grade "Curso A:Nota 4" 18
+%75 Accumulated Grade: 2,97	Current Course Grade: 3,97 Expected remain points to obtain:  00
+getGrading> grade "Curso A:Nota 5" 18
+%100 Accumulated Grade: 3,55 Current Course Grade: 3,55 Expected remain points to obtain:  00
 ```
 
-
-
-En el siguiente ejemplo, vamos a ver un escenario donde la persona no pasó el curso. Por ejemplo, tenemos un `Curso` que tiene 4 evaluaciones distintas cada una de ellas discriminadas así: 
+En el siguiente ejemplo, vamos a ver un escenario donde la persona no pasó el curso. Por ejemplo, tenemos un `Curso B`  que tiene 4 evaluaciones distintas cada una de ellas discriminadas así: 
 
 | **Evaluación** | **Puntos** esperados |
 | :------------: | :------------------: |
@@ -2673,27 +2641,70 @@ En el siguiente ejemplo, vamos a ver un escenario donde la persona no pasó el c
 
 El curso cuenta con un total de 129 puntos. Ahora miremos la siguiente interacción del supuesto alumno.
 
+| **Evaluación** | **Puntos esperados** | Puntos obtenidos | **Nota traducida** |
+| :------------: | :------------------: | :--------------: | :----------------: |
+|    `Eval 1`    |          21          |        18        |     $\sim$4.29     |
+|    `Eval 2`    |          32          |        16        |     $\sim$2.50     |
+|    `Eval 3`    |          36          |        15        |     $\sim$2.08     |
+|    `Eval 4`    |          40          |        17        |     $\sim$2.13     |
+|    `Total`     |         129          |                  |                    |
+
+Registrando el `curso B` se obtiene lo siguiente:
+
+```shell
+getGrading> add "Curso B" 20 ("Eval 1" : 21, "Eval 2" : 32, "Eval 3" : 36, "Eval 4" : 40)
+course Curso B register
+getGrading> grade "Curso B:Nota 1" 18
+%16 Accumulated Grade: 0,70	Current Course Grade: 4,29 Expected remain points to obtain:  59
+getGrading> grade "Curso B:Nota 2" 16
+%41 Accumulated Grade: 1,32	Current Course Grade: 3,21 Expected remain points to obtain:  43
+getGrading> grade "Curso B:Nota 3" 15
+%69 Accumulated Grade: 1,90	Current Course Grade: 2,75 Expected remain points to obtain:  28
+getGrading> grade "Curso B:Nota 4" 17
+%100 Accumulated Grade: 2,56 Current Course Grade: 2,56 Expected remain points to obtain:  00
+```
+
+El resultado final es $2.56$ por lo tanto no alcanzó a la cifra esperada de $3.00$.
 
 
-| **Evaluación** | **PE** |    **P**     |    **PA**    |  PO  |   **NT**   |   **NP**   |   **NA**   |   **NC**   |
-| :------------: | :----: | :----------: | :----------: | :--: | :--------: | :--------: | :--------: | :--------: |
-|    `Eval 1`    |   21   | $\sim$0.1628 | $\sim$0.1628 |  18  | $\sim$4.29 | $\sim$0.70 | $\sim$0.70 | $\sim$4.29 |
-|    `Eval 2`    |   32   | $\sim$0.2480 | $\sim$0.4109 |  16  | $\sim$2.50 | $\sim$0.62 | $\sim$1.32 | $\sim$2.50 |
-|    `Eval 3`    |   36   | $\sim$0.2791 | $\sim$0.6899 |  15  | $\sim$2.08 | $\sim$0.58 | $\sim$1.90 | $\sim$2.75 |
-|    `Eval 4`    |   40   | $\sim$0.3101 | $\sim$1.0000 |  22  | $\sim$2.75 | $\sim$0.85 | $\sim$2.75 | $\sim$2.75 |
-|    `Total`     |  129   |  $\sim$1.0   |              |      |            |   ~2.75    |            |            |
 
-El resultado final es $2.75$ por lo tanto no alcanzó a la cifra esperada de $3.00$, por tanto perdió este curso.
+¿QUÉ ESPERAMOS QUE RESUELVAS EN ESTE EJERCICIO?
 
-Vamos a implementar la evaluación por notas por puntos. En este caso vamos hacer los siguiente cambios en la estructura de la aplicación. La idea es modificar únicamente el fichero de código fuente `Grade.scala`, con una pequeña modificación en `CommandParser.scala`que nos permite recibir un curso con puntos y sus correspondientes notas.
 
-1. Añadir el `case class` `PointedGrade`que debe tener los siguientes campos: `name:String`, `grade:Option[Double]`, `subGrades:Map[String,Grade]`, `maxPoints:Double`, `pointsGraded:Option[Double]`. Estos dos últimos campos determina el máximo número de puntos y los puntos obtenidos respectivamente.
-2. Modificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener. Esto para futuros ejercicios.
-3. Modifique las siguiente lista de métodos.
-   1. En el fichero `CommandParser.scala` quitar los comentarios en la funciones: `course` y `grade`. Esto para habilitar la lectura desde la línea de comandos del registro de nuevos cursos que reciban notas por puntos y sus notas.
 
-4. Descargue el siguiente fichero.
-5. Una vez obtenido realice la instalación de la biblioteca y ejercute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
+**Esperamos que implementes la evaluación por notas por puntos, trabajando sobre el código parcialmente construido.**
+
+Todos los cambios se deben hacer en el fichero (*archivo*) `Grade.scala`
+
+##### Preliminares
+
+1. Descarge el [archivo]()
+2. Abra su terminal
+3. Descomprimalo con el siguiente comando
+4. Vaya a la carpeta
+5. La siguiente es la estructura de directorios
+
+##### Problema 1. Añadir clase `PointedGrade` y ajustar sus métodos heredados
+
+Añadir el `case class` `PointedGrade`que debe tener los siguientes campos: `name:String`, `grade:Option[Double]`, `subGrades:Map[String,Grade]`, `maxPoints:Double`, `pointsGraded:Option[Double]` y es un tipo de dato algebraico (TDA) de `Grade`.  Estos dos últimos campos determina el máximo número de puntos y los puntos obtenidos respectivamente. Se deben sobre-escribir (*override*) los métodos `updateWithGradeValue`, `getGrade`, `getWeight`, `grade2Doc`  e implementar un método nuevo privado (se sugiere el nombre `testGradePoints`)
+
+El método `updateWithGradeValue`  método debe verificar que las notas no haya sido ya asignada, debe verificar que la nota se encuentra en el rango de puntos de la evaluación especifica y crear un nueva instancia del `Grade` a partir de la original estableciendo `pointGrade` con los puntos asignados, y `grade` con el valor correspondiente de la nota traducida.
+
+El método `getGrade` recibe el número de puntos totales y debe computar el peso relativo de la nota actual. Donde $w$ es $maxPoints / total$ y retorna la nota correspondiente a dicho valor que es $grade \times w$. 
+
+El método `getWeight` en este caso es un alias para `maxPoints`.
+
+El método `get2Doc` se encarga de retorna un `Doc.`
+
+El método privado `testGradePoints` recibe un entero y verifica que este se encuentre entre `0` y `maxPoints` en caso contrario señala el error. Tenga en cuenta que el tipo que retorna es un `Either`.
+
+##### Problema 2. Modificar la clase de compañía
+
+Modificar la clase de compañía de  `Grade` para añadir dos constructores: el primero que reciba el nombre del grado en cuestión (por ejemplo `Nota 1` o `Eval 4`) con su respectivo máximo conjunto de puntos, (de tipo `Int`, debe ser convertido a `Double` dentro del código). El segundo, con los mismo datos del anterior, pero recibiendo un tercer parámetro con un mapa de tipo `Map[String,Grade]` que reciba los posible subgrados que una nota puede tener.
+
+##### Problema 3. Ejecutar el programa y obtener la captura de bandera
+
+Una vez obtenido realice la instalación de la biblioteca y ejecute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
 
 <!-- TODO - Captura de bandera - Programa de verificación - Modificación de la aplicación `getGrading` -->
 
@@ -2711,10 +2722,9 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 1.
 
-> > Es la mónada un tipo de dato<<
+>> Es la mónada un tipo de dato<<
 
 ( ) Verdadero.
-
 (X) Falso.
 
 [explanation] 
@@ -2723,56 +2733,41 @@ La mónada es un abstracción que representa un comportamiento y un contexto don
 
 2.
 
-> > Un ejemplo de contexto dentro de Mónada<<
+>> Un ejemplo de contexto dentro de Mónada<<
 
 [X] A. Contador de un programa
-
 [X] B. Una división de dos enteros 
-
 [X] C. Una consulta en una base de datos 
-
 [ ] D. Operación de suma de enteros
 
 [explanation] 
-
 Opción A es válida, en esta opción se encuentra un contador, es decir un valor que incrementa a través de tiempo, algo que no se puede hacer dentro de la programación funcional directamente, pero a través de la mónada de Estado se puede hacer este tipo de operación. Opción B es válida, es una operación que puede falla en el caso que el denominador de una división sea cero por lo tanto esto también esta representa una computación que puede fallar, este es otro contexto de las mónadas. Opción C es válida, una consulta a una base de datos puede traer cero o más resultados, por lo tanto es similar a la computación de una lista es un contexto de mónada. La opción D no es válida, porque esta es cómputo que no falla, esta definida dentro de los enteros y siempre tendrá éxito por lo tanto no es un contexto de mónada.
-
 [explanation]
 
 3.
 
-> > En qué son comunes las mónadas `Either` y `Option`<<
+>> En qué son comunes las mónadas `Either` y `Option`<<
 
 ( ) A. Representa un computación que genera cero o más resultados
-
 ( ) B. Representa el estado de un computación
-
 ( ) C. Representa operaciones de entrada y salida
-
 (X) D. Representa una computación que pude fallar
 
 [explanation] 
-
 Ambas representan un computación que puede fallar o no.
-
 [explanation]
 
 4.
 
-> > En qué difieren las mónadas `Either` y `Option`<<
+>> En qué difieren las mónadas `Either` y `Option`<<
 
 ( ) A. `Option`es especifica para los tipos de datos primitivos en Scala mientras que `Either`funciona para cualquier tipo
-
 ( ) B. `Option` cuando no falla solo permite un solo resultado, mientras que `Either`permite por lo menos dos resultados.
-
 ( ) C. `Either` es la versión de transformadores de mónadas de `Option`
-
 (X) D. Ambos `Option` y `Either`representan una computación que puede fallar, pero `Either` puede llevar información sobre el error de falla.
 
 [explanation] 
-
 `Option` representa una computación que indica que puede o no fallar, como lo es también `Either`, la diferencia radica que `Either` puede guardar la información de porqué fallo cuando una falla sucede.
-
 [explanation]
 
 #### Cierre
