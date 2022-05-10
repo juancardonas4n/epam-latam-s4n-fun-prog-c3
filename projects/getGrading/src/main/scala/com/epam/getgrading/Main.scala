@@ -14,9 +14,9 @@ import cats.effect.implicits._
 object Main extends IOApp {
 
   def prompt(str:String) = IO {
-        print(str)
-        Console.flush()
-      }
+    Console.print(str)
+    Console.flush()
+  }
 
   def printError(msg:String) = IO {
     println(msg)
