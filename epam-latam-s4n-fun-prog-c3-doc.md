@@ -2516,9 +2516,62 @@ Miremos la estructura y su diseño para comprender más la aplicación.
 
 ##### Infografía - Estructura de la aplicación `getGrading`
 
-Observemos en la siguiente imagen la estructura de la aplicación.
+Observemos en la siguiente imagen la estructura de la aplicación, la estructura esta descrita de forma *ad-doc*, este no es un [diagrama de clases](https://es.wikipedia.org/wiki/Diagrama_de_clases), está más relacionado con un diagrama de [entidad-relación](https://es.wikipedia.org/wiki/Modelo_entidad-relaci%C3%B3n), pero no existe un diagrama estándar para definir nuestro modelo basado en un diseño guiado por dominio.
 
-![]()
+![](./images/C3_M2_U5_V01_App_getGrading_01.png)
+
+Este es el dominio que representa nuestra aplicación, representado por varias *Identidades*. Una identidad[^DDD_Distilled]modela algo individual que tiene una *entidad única* que usted puede distinguir de otras entidades. Las entidades son *mutables*. La entidad raíz de nuestro diseño es la entidad: `Student` que contiene la información actual de cada uno de los cursos (`Course`) que un estudiante toma durante un período. Cada curso (`Course`) uno de ellos identificado de forma única por un nombre (`Name`). Cada curso a su vez tiene la información del número de créditos que un curso consta, más cada una de las evaluaciones que hará parte del mismo. Cada evaluación está representado por su nota (`Grade`) que a su vez están identificados por un nombre único. 
+
+[^DDD_Distilled]:Vaughn, Vernon. Domain-Driven Design Destilled. 1 Edition. Addison-Wesley Professional. 2016. Page 75"
+
+Pero esto no es suficiente para representar nuestra aplicación, puesto que las entidades son *mutables* y las anteriores entidades se representan a través de tipos de datos algebraicos (TDA) que por su naturaleza son inmutables, es necesario de un contexto haga mutable la información del estudiante (`Student`), en conjunto con toda la estructura de la aplicación. Y es aquí donde surgen las mónadas en general y en particular las mónadas transformers. 
+
+Para ello necesitamos, en primer lugar utilizar varias mónadas y el contexto que ellas nos suministran. Utilizaremos las mónadas como: `IO` que representa computaciones que interactúan con el sistema de entrada y salida, para poder obtener las ordenes de registrar cursos, notas y observar el estado de los mismos e informa al estudiante lo concerniente a su curso. También, utilizaremos la mónada `Either`que representa computaciones que puede fallar, esta es necesaria para controlar detalles del registro de curso, verificar notas de cursos correctas.  Por último, utilizaremos la mónada  `State`, que nos permite guardar la información de curso y las diferentes formas, pero teniendo en cuenta que nuestros TDA son inmutables.
+
+Aunque, las tres mónadas anteriormente identificadas son muy útiles para nuestro proyecto, es necesario combinar las tres mónadas para tener un contexto que combine los tres mencionados, es por ello que vamos a utilizar dos mónadas transformes que nos permitan combinar. En este caso *no ahondaremos* en como se llegó a este anidamiento, que hablaremos en un curso específico para dicho tema.
+
+Nuestro anidamiento estará representado en la siguiente imagen:
+
+![](./images/C3_M2_U5_V01_App_getGrading_02.png)
+
+Pondremos de forma más interna la mónada de `IO` , sobre ella pondremos la mónada transformer `EitherT` que representará la mónada transforme que maneja un error y dentro de ella tiene otro contexto, en este caso la mónada `IO`. Y finalmente, la mónada transforme más externa, será `StateT` que maneja un estado que cambia. Entonces, necesitamos darle una nuevo vistazo para obtener una imagen más exacta de los alias y los los tipos de datos que vamos a utilizar con sus respectivos alias.
+
+![](./images/C3_M2_U5_V01_App_getGrading_03.png)
+
+En la anterior figura se observa que vamos a utilizar el alias `Error` para encapsular el tipo de error, y vamos a definir el alias parámetrizado `ErrorOrIO[A]` para darle un nuevo nombre a la nómada transformer `EitherT` y así manejar todos los posibles errores en el proyecto más las operaciones de entrada y salida. El alias `StateEitherIO` nos va a representar la mónada transformer `StateT` esta tendrá como estado la información acerca del estudiante (`Student`), pero también se encargará de anidar el tipo `ErrorOrIO`, esta mónada se encarga de manejar los cambios en el estado del estudiante, como añadir un nuevo curso, registrar una nota.
+
+ Un detalle que nos queda señalar sobre las mónadas transformers es como se interactua con ellas. En primer lugar, una mónada transformers es también una mónada, por lo tanto seguiremos utilizando las operaciones de que nos suministra el `for` (*for comprehension*), para interactuar con ellas. En segundo lugar, que pasa con los valores mónadicos anidados, entonces para ello existe una operación en cada una de las mónadas transformers, que se conoce genéricamente como `Lift`(Levantar, subir). En el siguiente segmento de código observamos la función `liftResult[A]`, esta función nos permite elevar una computación de entrada y salida a dos niveles distintos, en el más interno a través de la función `EitherT.liftF` sube una operació de entrada y salida a nivel de `EitherT`  (`ErrorOrIO`) y luego la función `StateT.liftF` la lleva al nivel más alto `StateT` (`StateEitherIO`).
+
+
+```scala
+  def liftResult[A](result:A):StateEitherIO[A] =
+    StateT.liftF[ErrorOrIO,
+                 Student,
+                 A](EitherT.liftF(IO { result } ))
+```
+
+Siempre se debe observar el nivel donde queremos llevar a cabo la operación.
+
+`getGrading` se comporta como interpretador de  comandos, para ello requiere de una gramática que represente los comandos y esta gramática independiente de contexto se presenta aquí y se explicará de forma práctica en el siguiente vídeo:
+
+```.bnf
+parser ::= course | grade | list | exit
+course ::= "add" String Int (weightedGradings |
+                             noweightedGradings |
+                             pointedGradings)
+grade  ::= "grade" String (Double | Int)
+list   ::= "list"  String
+exit   ::= "exit"
+weightedGradings ::=
+   "[" weightedelem ("," weightedelem)* "]"
+weightedElem  ::= String ":" (Double | weightedGradings)
+noweightedGradings ::=
+   "{" noweightedelem ("," noweightedelem)* "}"
+noweightedElem ::= String (":" weightedGradings)?
+pointedGradings ::=
+   "(" pointedElem ("," pointedElem)* "]"
+pointedElem ::= String ":" (Int | pointedGradings)
+```
 
 ##### Vídeo - Aplicación `getGrading`
 
@@ -2555,6 +2608,12 @@ Los objetos de compañía crean una única instancia por lo tanto implementan el
 <!-- TODO - Revisar las preguntas -->																									
 
 #### Captura de bandera - Modificación de la aplicación `getGrading`
+
+**En esta Captura la Bandera esperamos que completes la aplicación `getGrading` para que está aplicación registre notas basadas en puntos obtenidos.**
+
+Para lograrlo, vamos a dar un contexto de cómo funciona la aplicación y luego tendrás que resolver 4 problemas específicos.
+
+##### Contexto
 
 Hemos visto que en nuestro proyecto llamado `getGrading` maneja dos tipos de notas: la notas con peso (`WeightedGrade`) y notas sin peso (`NoWeightedGrade`). Vamos ampliar a  `getGrading` introduciendo el tipo de nota basada en puntos. Por ejemplo, tenemos un `Curso` que tiene 5 evaluaciones distintas cada una de ellas discriminadas así: 
 
@@ -2648,7 +2707,7 @@ Vamos a implementar la evaluación por notas por puntos. En este caso vamos hace
 
 #### Evaluación 
 
-<!-- No subir -->
+<!-- No subir. No es necesario. En reunión 9 de mayo se decidió no subirlo. -->
 
 1.
 
