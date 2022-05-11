@@ -15,8 +15,8 @@ trait Grade {
   }
   def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade]
   def getGrade(total:Double):(Option[Double],Double)
-  def grade2Doc:Doc
   def getWeight:Double
+  def grade2Doc:Doc
 }
 
 import com.epam.getgrading.Grade._
@@ -38,6 +38,9 @@ final case class WeightedGrade(name:String,
       case Some(gp) => (Some(gp*w), w)
     }
   }
+
+  def getWeight = weight
+
   def grade2Doc:Doc = {
     val prefix = Doc.spaces(10)
     val inner  = Doc.spaces(2)
@@ -47,7 +50,6 @@ final case class WeightedGrade(name:String,
       case Some(grade)  => Doc.text(f"${grade}%1.2f")
     })
   }
-  def getWeight = weight
 }
 
 final case class NoWeightedGrade(name:String,
@@ -65,6 +67,9 @@ final case class NoWeightedGrade(name:String,
       case Some(gp) => (Some(gp*w),w)
     }
   }
+
+  def getWeight = 1.0
+
   def grade2Doc:Doc = {
     val prefix = Doc.spaces(10)
     val inner  = Doc.spaces(2)
@@ -74,7 +79,6 @@ final case class NoWeightedGrade(name:String,
       case Some(grade)  => Doc.text(f"${grade}%1.2f")
     })
   }
-  def getWeight = 1.0
 }
 
 object Grade {

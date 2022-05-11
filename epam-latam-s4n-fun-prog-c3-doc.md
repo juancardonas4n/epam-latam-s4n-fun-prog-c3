@@ -2670,8 +2670,6 @@ El resultado final es $2.56$ por lo tanto no alcanzó a la cifra esperada de $3.
 
 ¿QUÉ ESPERAMOS QUE RESUELVAS EN ESTE EJERCICIO?
 
-
-
 **Esperamos que implementes la evaluación por notas por puntos, trabajando sobre el código parcialmente construido.**
 
 Todos los cambios se deben hacer en el fichero (*archivo*) `Grade.scala`
@@ -2680,9 +2678,10 @@ Todos los cambios se deben hacer en el fichero (*archivo*) `Grade.scala`
 
 1. Descarge el [archivo]()
 2. Abra su terminal
-3. Descomprimalo con el siguiente comando
-4. Vaya a la carpeta
+3. Descomprima el archivo
+4. Vaya a la carpeta `getGrading`
 5. La siguiente es la estructura de directorios
+6. Implemente cada uno de los siguientes problemas en secuencia y el último le dará la pista
 
 ##### Problema 1. Añadir clase `PointedGrade` y ajustar sus métodos heredados
 
