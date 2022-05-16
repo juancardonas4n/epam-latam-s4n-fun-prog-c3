@@ -19,7 +19,7 @@ object Main extends IOApp {
   }
 
   def printError(msg:String) = IO {
-    println(msg)
+    Console.println(msg)
   }
 
   val readLine:IO[String] =
@@ -44,7 +44,7 @@ object Main extends IOApp {
 
   override def run(args: List[String]):IO[ExitCode] =
     for {
-      _ <- IO { println("Get greading starting...") }
+      _ <- IO { Console.println("Get greading starting...") }
       _ <- program(Student())
     } yield ExitCode.Success
 }

@@ -25,6 +25,7 @@ final case class WeightedGrade(name:String,
                                grade:Option[Double],
                                subGrades:Map[String,Grade],
                                weight:Double) extends Grade {
+
   def updateWithGradeValue(newGradeValue:Double):ErrorOr[Grade] = for {
     _ <- testGrade
     _ <- testGradeRange(newGradeValue)
@@ -60,6 +61,7 @@ final case class NoWeightedGrade(name:String,
     _ <- testGradeRange(newGradeValue)
     ng = this.copy(grade = Some(newGradeValue))
   } yield ng
+
   def getGrade(total:Double):(Option[Double],Double) = {
     val w = 1.0 / total
     this.grade match {

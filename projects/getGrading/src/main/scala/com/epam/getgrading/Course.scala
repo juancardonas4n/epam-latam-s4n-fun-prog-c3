@@ -48,21 +48,20 @@ object Course {
   def grading(course:Course,
               strGrade:String,
               grade:Double):ErrorOrIO[Course] = for {
-    _ <- EitherT.cond[IO] (
-      grade >= 0.0 && grade <= 5.0,
-      (),
-      s"""Incorrect grade value $grade
-      |Grade must be a value between 0.0 and 5.0
-      |""".stripMargin.replaceAll(eol, " ")
-    )
+    // _ <- EitherT.cond[IO] (
+    //   grade >= 0.0 && grade <= 5.0,
+    //   (),
+    //   s"""Incorrect grade value $grade
+    //   |Grade must be a value between 0.0 and 5.0
+    //   |""".stripMargin.replaceAll(eol, " ")
+    // )
     ngrades <- EitherT.cond[IO] (
       course.grades.contains(strGrade),
       course.grades.updatedWith(strGrade)(g => for {
         gp <- g
         ngp <- gp.updateWithGradeValue(grade).toOption
       } yield ngp),
-      s"""Course: $course
-      |Grade: $strGrade doesn't exists at Course
+      s"""Grade: $strGrade doesn't exists at Course
       | ${course.name}
       |""".stripMargin.replaceAll(eol, " "))
     ncourse <- EitherT.cond[IO] (
@@ -70,8 +69,7 @@ object Course {
       course match {
           case c @ CCourse(_,_,_,_) => c.copy(grades = ngrades)
       },
-      s"""Course: $course
-      |Grade: $strGrade doesn't exists at Course
+      s"""Grade: $strGrade doesn't exists at Course
       | ${course.name}
       |""".stripMargin.replaceAll(eol, " "))
   } yield ncourse
@@ -80,7 +78,7 @@ object Course {
     val initEval =
       if (isWeightedGrade(course.grades))
         Eval()
-      else Eval(sumWeights(course.grades).toInt) // Eval(sumMapElems(course.grades))
+      else Eval(sumWeights(course.grades).toInt)
     val ef = course.grades.foldLeft(initEval)((r,e) => fromGradeGetEval(r,e._2))
     EitherT.liftF( IO { completeEvalExpectedValues(ef) } )
   }

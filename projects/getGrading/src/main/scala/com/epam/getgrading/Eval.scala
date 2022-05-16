@@ -67,10 +67,12 @@ object Eval {
   Doc.text(f"Accumulated Grade: ${e.evaluatedGrade}%1.2f") +
   Doc.space +
   Doc.text(f"""Current Course Grade:
-              |${e.evaluatedGrade / e.evaluatedPercen}%1.2f""") +
+              |${e.evaluatedGrade / e.evaluatedPercen}%1.2f""".stripMargin.
+         replaceAll(eol, " ")) +
   Doc.space +
   (if (e.total < 11) Doc.text(f"Next expected grade: ${e.expectedGrade}%1.2f")
    else
      Doc.text(f"""Expected remain points to obtain:
-                 | ${computeExpectedPoints(e)}%02d""".stripMargin.replaceAll(eol, " ")))
+                 | ${computeExpectedPoints(e)}%02d""".stripMargin.
+              replaceAll(eol, " ")))
 }
