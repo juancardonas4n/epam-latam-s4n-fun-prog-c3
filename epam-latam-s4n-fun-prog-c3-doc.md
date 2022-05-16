@@ -2676,8 +2676,8 @@ Todos los cambios se deben hacer en el fichero (*archivo*) `Grade.scala`
 
 ##### Preliminares
 
-1. Descarge el [archivo]()
-2. Abra su terminal
+1. Descarge el [archivo]() que contiene el proyecto
+2. Abra su terminal 
 3. Descomprima el archivo
 4. Vaya a la carpeta `getGrading`
 5. La siguiente es la estructura de directorios
