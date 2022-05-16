@@ -259,5 +259,4 @@ class CourseSuite extends AsyncFreeSpec with AsyncIOSpec with Matchers {
                    testRegisterRepitedNameCourse).asserting(_.isLeft shouldBe true)
     }
   }
-
 }
