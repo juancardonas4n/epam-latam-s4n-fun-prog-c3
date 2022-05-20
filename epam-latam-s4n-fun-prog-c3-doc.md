@@ -2674,14 +2674,27 @@ El resultado final es $2.56$ por lo tanto no alcanzó a la cifra esperada de $3.
 
 Todos los cambios se deben hacer en el fichero (*archivo*) `Grade.scala`
 
+##### Requisitos
+
+* Scala $\ge$ 2.12
+* sbt $\ge$ 1.5.8
+
 ##### Preliminares
 
-1. Descarge el [archivo]() que contiene el proyecto
-2. Abra su terminal 
-3. Descomprima el archivo
+1. Descarge el [` getGrading.zip`]() que contiene el proyecto
+2. Abra su terminal y descomprima el archivo
+```.shell
+$ unzip getGrading.zip
+```
 4. Vaya a la carpeta `getGrading`
-5. La siguiente es la estructura de directorios
-6. Implemente cada uno de los siguientes problemas en secuencia y el último le dará la pista
+```.shell
+$ cd getGrading
+```
+5. Modifique el proyecto en particular el fichero `Grade.scala`. Sin modificar el `build.sbt` Siguiendo cada uno de los problemas que aparecen a continuación.
+6. Una vez modificados en la misma carpeta (folder), ejecute el comando:
+```
+$ ./captureFlag
+```
 
 ##### Problema 1. Añadir clase `PointedGrade` y ajustar sus métodos heredados
 
@@ -2705,11 +2718,11 @@ Modificar la clase de compañía de  `Grade` para añadir dos constructores: el 
 
 Una vez obtenido realice la instalación de la biblioteca y ejecute los comandos. Al final obtendrá un mensaje que debe entrar en la carpeta y ejecutar el comando.
 
-<!-- TODO - Captura de bandera - Programa de verificación - Modificación de la aplicación `getGrading` -->
+<!-- TODO - Programa de verificación - Modificación de la aplicación `getGrading` -->
 
 ##### Vídeo - Retroalimentación de la modificación a la aplicación `getGrading`
 
-<!-- TODO - Vídeo - Retroalimentación de la modificación a la aplicación `getGrading` Total preguntas: 2. Hechas: 0. Faltanes: 2: Porcentaje: 0% -->
+[Video en edicion]()
 
 ###### Preguntas - Vídeo - Retroalimentación  de la modificación a la aplicación `getGrading`
 
@@ -2778,12 +2791,18 @@ La unidad también ha sembrado una semilla en temas que ampliaremos en cursos si
 ##### ¿Quieres saber más?
 
 * [Demystifying the monad in scala](https://medium.com/free-code-camp/demystifying-the-monad-in-scala-cc716bb6f534)
-
-<!-- TODO - ¿Quieres saber más? Buscar más preguntas -->
+* [Monad - A Technical Description](https://typelevel.org/cats/typeclasses/monad.html)
+* [Functional Programming with Effects - Rob Norris](https://www.youtube.com/watch?v=30q6BkBv5MY)
+* [Domain-Driven Design with FP in Scala](https://bszwej.medium.com/domain-driven-design-with-fp-in-scala-21b557f94aa5)
+* [Programación funcional + Diseño dirigido por dominio](https://code-examples.net/es/q/e208e8)
+* [Bounded Framework](https://index.scala-lang.org/cafienne/bounded-framework)
+* [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/)
 
 ##### Puntos claves
 
-<!-- TODO - Puntos claves -->
+Hemos tenido un primer acercamiento a un desarrollo de una aplicación más funcional y aun más profesional. En primer lugar hemos tratado con funciones puras y tipos inmutables; los primeros, las funciones puras,  los hemos tratado a través de la definición del servicio suministrado por los objetos de compañía; los segundos, los tipos de datos inmutables, a través de los tipos de datos algebraicos y también a través de los `trait`s que nos permiten definir tipos que serán extendidos por dichos tipos de datos algebraicos.
+
+Este acercamiento también se ha dado a través del uso de un diseño más orientado al dominio como también en la integración con el mundo exterior a través del uso de diferentes mónadas. Las mónadas nos permite definir un contexto donde nuestras funciones puras y tipos de datos inmutables pueden ser utilizados de forma que permitan una manejo correcto de los efectos colaterales existentes en los lenguajes imperativos.	
 
 ##### EPAM - Insights
 
@@ -2825,4 +2844,96 @@ La unidad también ha sembrado una semilla en temas que ampliaremos en cursos si
 
 ###### Ruta de aprendizaje
 
-#### 
+#### ¿Qué son las listas y porqué son prevalentes dentro la programación funcional?
+
+Comenzaremos esta ~~unidad~~ (curso) introduciendo un concepto que hemos venido mencionando de soslayo en ~~unidades~~ (cursos) anteriores  y son las listas. En este caso en particular, comenzaremos definiendo nuestro tipo `Lista` e iremos lentamente modificando hasta que alcancemos un entendimiento de como funciona y cómo puede ser utilizado.
+
+##### Vídeo - Definición de listas
+
+<!-- DONE - Definir guión del vídeo C3-M2-U5-V01 -->
+
+<!-- TODO - Grabar vídeo C3-M2-U5-V01 -->
+
+<!-- TODO - Editar vídeo C3-M2-U5-V01 -->
+
+##### Notebook - Ejercicios con listas
+
+<!-- TODO - Escribir el notebook els4n-fp-c3-m2-u5-nb-01.ipynb -->
+
+<!-- TODO - Publicar el notebook els4n-fp-c3-m2-u5-nb-01.ipynb -->
+
+#### ¡Elemental mi querido Watson!
+
+##### Vídeo - Un patrón recorre las listas
+
+<!-- TODO - Definir guión del vídeo C3-M2-U5-V02 -->
+
+<!-- TODO - Grabar vídeo C3-M2-U5-V02 -->
+
+<!-- TODO - Editar vídeo C3-M2-U5-V02 -->
+
+##### Notebook - Ejercicios con listas con funciones de alto orden
+
+<!-- TODO - Escribir el notebook els4n-fp-c3-m2-u5-nb-02.ipynb -->
+
+<!-- TODO - Publicar el notebook els4n-fp-c3-m2-u5-nb-02.ipynb -->
+
+##### Infografía - Listas en Scala
+
+<!-- TODO - Escribir y añadir imágenes en esta sección C3_M2_U6_IF01 --> 
+
+#### 2 $\times$ 3 $\times$ $\ldots$ $\times$ n
+
+##### Infografía - ¿Qué son los combinadores?
+
+<!-- TODO - Escribir y añadir imágenes en esta sección C3_M2_U6_IF02 -->
+
+##### Vídeo - Funciones de alto orden el secreto de la programación funcional
+
+<!-- TODO - Definir guión del vídeo C3-M2-U5-V03 -->
+
+<!-- TODO - Grabar vídeo C3-M2-U5-V03 -->
+
+<!-- TODO - Editar vídeo C3-M2-U5-V03 -->
+
+##### Notebook -  Combinadores, funciones de alto orden y otro tipos de datos algebraicos
+
+<!-- TODO - Escribir el notebook els4n-fp-c3-m2-u5-nb-03.ipynb -->
+
+<!-- TODO - Publicar el notebook els4n-fp-c3-m2-u5-nb-03.ipynb -->
+
+##### Vídeo - Parser combinators
+
+<!-- TODO - Definir guión del vídeo C3-M2-U5-V04 -->
+
+<!-- TODO - Grabar vídeo C3-M2-U5-V04 -->
+
+<!-- TODO - Editar vídeo C3-M2-U5-V04 -->
+
+##### Notebook -  Algunos DSL (*Domain Specific Languages*) básicos (configuración, JSON)
+
+<!-- TODO - Escribir el notebook els4n-fp-c3-m2-u5-nb-03.ipynb -->
+
+<!-- TODO - Publicar el notebook els4n-fp-c3-m2-u5-nb-03.ipynb -->
+
+#### Evaluación
+
+#### Cierre
+
+##### ¿Quieres saber más?
+
+* [Variadic Function](https://en.wikipedia.org/wiki/Variadic_function)
+* [Variadic Functions in Scala](https://alvinalexander.com/scala/how-to-define-methods-variable-arguments-varargs-fields/)
+* [Variadic Functions in Scala - Wikipedia](https://en.wikipedia.org/wiki/Variadic_function#In_Scala)
+
+<!-- TODO - Escribir esta sección: ¿Quieres saber más? -->
+
+##### Puntos claves
+
+<!-- TODO - Escribir esta sección: Puntos claves -->
+
+##### EPAM - Insights
+
+<!-- TODO - Escribir esta sección: EPAM - Insights -->
+
+##### 	

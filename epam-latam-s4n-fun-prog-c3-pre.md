@@ -1,4 +1,4 @@
-# EPAM-Latam Programación Funcional Curso 3 (epam-latam-s4n-fun-prog-c3)
+# 	EPAM-Latam Programación Funcional Curso 3 (epam-latam-s4n-fun-prog-c3)
 
 ## M0. Bienvenida
 
@@ -176,7 +176,8 @@
 |                                                              |                         [activacion]                         |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |              Entender la recursión estructural               |                  **Recursión estructural**                   |
-|                                                              | [Infograma] ¿Qué es al recursión estructural? [Texto] Explicación corta. |
+|                                                              |        [Infograma] ¿Qué es al recursión estructural?         |
+|                                                              |                  [Texto] Explicación corta                   |
 |                  -------------------------                   | ------------------------------------------------------------------- |
 |                Usar la recursión estructural                 |             **Uso de la recursión estructural**              |
 |                                                              | [Video] La recursión estructural en tipos de datos algebraicos |
@@ -315,14 +316,15 @@
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 |                        *Introducción*                        |                            [text]                            |
 |                                                              |                         [activacion]                         |
-|                  -------------------------                   | ------------------------------------------------------------------- |
+|                  -------------------------                   | -----------------------------------------------------------  |
 |         Definirás y aplicarás el concepto de listas          | **¿Qué son las listas y por qué son prevalentes en la programación funcional?** |
 |                                                              |                 [Vídeo] Definición de listas                 |
 |                                                              |               [Notebook] Ejercicios con listas               |
-|                  -------------------------                   | ------------------------------------------------------------------- |
+|                  -------------------------                   | -----------------------------------------------------------  |
 | A comprender que las estructuras de datos algebraicas tienen comportamientos similares: como recorridos, transformaciones, filtrado, etc. que pueden ser parametrizados como funciones |               **Elemental mi querido Watson**                |
 |                                                              |             [Video] Un patrón recorre las listas             |
 |                                                              | [Notebook] Ejercicios de listas con funciones de alto orden  |
+|                                                              |                 [Infografía] Listas en Scala                 |
 |                  -------------------------                   | ---------------------------------------------------------------- |
 | Entenderás y utilizarás el concepto de combinatorios que permite crear bibliotecas funcionales |                     **2 x 3 x ... x n **                     |
 |                                                              |             [Infografía]  ¿Qué son combinadores?             |
@@ -330,7 +332,7 @@
 |                                                              | [Notebook] Combinadores, funciones de alto orden y otro tipos de datos algebraicos |
 |                                                              |                  [Vídeo] Parser combinators                  |
 |                                                              |     [Notebook] Algunos DSL básicos (configuración, JSON)     |
-|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                  -------------------------                   | -----------------------------------------------------------  |
 |                                                              |                        **Evaluación**                        |
 |                                                              |                          **Cierre**                          |
-|                  -------------------------                   | ------------------------------------------------------------------------------ |
+|                  -------------------------                   | -----------------------------------------------------------  |
